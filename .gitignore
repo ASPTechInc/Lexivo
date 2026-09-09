@@ -1,0 +1,49 @@
+# Mac/Linux/Windows
+.DS_Store
+.directory
+Thumbs.db
+desktop.ini
+
+# Trunk output folder
+dist
+
+# Rust compile target directories
+target/
+target_ra/
+target_wasm/
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Android-specific
+android/.gradle/
+android/build/
+android/local.properties
+android/app/build/
+android/app/src/main/jniLibs/
+android/app/src/main/assets/
+.artifacts/
+
+# Android files so that entire project can be opened in Android Studio
+settings.gradle
+build.gradle
+local.properties
+
+# Android build artefacts
+*.apk
+*.aab
+*.aar
+
+# Secrets (keystores, etc.)
+*.jks
+*.keystore
+*.p12
+google-services.json
+
+# Tool caches
+.lycheecache
+.bacon
+.direnv/

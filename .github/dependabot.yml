@@ -1,0 +1,68 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  - package-ecosystem: "gradle" # See documentation for possible values
+    directory: "/android" # Location of package manifests
+    schedule:
+      interval: "weekly"
+
+    open-pull-requests-limit: 10
+
+    labels:
+      - "dependencies"
+      - "kotlin"
+      - "android"
+
+    groups:
+      android:
+        patterns:
+          - "com.android.*"
+          - "androidx.*"
+
+      kotlin:
+        patterns:
+          - "org.jetbrains.kotlin*"
+          - "org.jetbrains.kotlinx*"
+
+      testing:
+        patterns:
+          - "*junit*"
+          - "*mockk*"
+          - "*test*"
+          - "*espresso*"
+
+      compose:
+        patterns:
+          - "*compose*"
+          - "androidx.compose.*"
+
+      all-others:
+        patterns:
+          - "*"
+
+  # GitHub Actions updates
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      actions:
+        patterns:
+          - "*" # Groups all GitHub Action updates
+
+    labels:
+      - "dependencies"
+      - "github-actions"
+
+  # Rust dependencies
+  - package-ecosystem: "cargo"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "rust"

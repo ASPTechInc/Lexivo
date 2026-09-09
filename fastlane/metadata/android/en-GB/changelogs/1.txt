@@ -1,0 +1,12 @@
+Initial release of Lexivo FOSS!
+- Cross-platform word puzzle gameplay.
+- Daily challenges and Quick Play modes.
+- Easy, Medium and Hard difficulty levels.
+- Local high score and streak tracking.
+- Privacy-first: no tracking or ads.
+- Full Light and Dark mode support.
+- Customisable text size settings.
+- In-app update system for Android.
+- Haptic and audio feedback for answers.
+- Verified ChromeOS support.
+
