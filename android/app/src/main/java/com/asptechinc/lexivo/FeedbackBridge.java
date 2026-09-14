@@ -50,6 +50,7 @@ public final class FeedbackBridge {
      * Vibrates the device for a specified duration.
      * Uses the {@link VibratorManager} on API 31+ and falls back to {@link Vibrator} on older versions.
      */
+    @SuppressWarnings("deprecation")
     private static void vibrate(Context context, long durationMs) {
         try {
             Vibrator vibrator;

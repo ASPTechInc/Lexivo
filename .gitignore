@@ -25,7 +25,10 @@ android/local.properties
 android/app/build/
 android/app/src/main/jniLibs/
 android/app/src/main/assets/
+android/app/src/keystore.properties
 .artifacts/
+.gradle/
+.gradle
 
 # Android files so that entire project can be opened in Android Studio
 settings.gradle
@@ -39,7 +42,7 @@ local.properties
 
 # Secrets (keystores, etc.)
 *.jks
-*.keystore
+*.keystore.properties
 *.p12
 google-services.json
 

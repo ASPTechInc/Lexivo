@@ -20,6 +20,14 @@ jobs:
           java-version: "17"
           cache: "gradle"
 
+      - name: Set up Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          targets: aarch64-linux-android, armv7-linux-androideabi, x86_64-linux-android, i686-linux-android
+
+      - name: Install cargo-ndk
+        uses: taiki-e/install-action@cargo-ndk
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
         working-directory: android
@@ -47,6 +55,14 @@ jobs:
           distribution: "temurin"
           java-version: "17"
           cache: "gradle"
+
+      - name: Set up Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          targets: aarch64-linux-android, armv7-linux-androideabi, x86_64-linux-android, i686-linux-android
+
+      - name: Install cargo-ndk
+        uses: taiki-e/install-action@cargo-ndk
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew

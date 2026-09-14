@@ -3,7 +3,7 @@ on: [push, pull_request, workflow_dispatch]
 name: CI
 
 env:
-  RUSTFLAGS: -D warnings
+  RUSTFLAGS: -D warnings --cfg getrandom_backend="wasm_js"
   RUSTDOCFLAGS: -D warnings
 
 jobs:
@@ -59,7 +59,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: dtolnay/rust-toolchain@1.95.0
+      - uses: dtolnay/rust-toolchain@stable
         with:
           targets: wasm32-unknown-unknown
       - name: Download and install Trunk binary

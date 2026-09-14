@@ -5,7 +5,7 @@ use crate::types::Difficulty;
 use eframe::egui;
 use rand::rngs::StdRng;
 use rand::seq::SliceRandom;
-use rand::{RngCore, SeedableRng};
+use rand::{Rng, SeedableRng};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 /// Normalises a string by trimming whitespace, converting to uppercase and removing non-alphanumeric characters.

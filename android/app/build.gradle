@@ -1,11 +1,12 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.ktlint)
 }
 
 android {
     namespace = 'com.asptechinc.lexivo'
     compileSdk = libs.versions.compileSdk.get().toInteger()
-    ndkVersion = "30.0.15729638"
+    ndkVersion = "30.0.16248370"
 
     androidResources {
         noCompress += ["mp3"]

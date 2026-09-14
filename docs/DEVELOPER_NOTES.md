@@ -6,6 +6,8 @@
 - [Android build optimisation](#android-build-optimisation)
 - [JNI feedback bridge](#jni-feedback-bridge)
 - [Useful commands for developers](#useful-commands-for-developers)
+- [Updating app version notes](#updating-app-version-notes)
+- [Releasing the application notes](#releasing-the-application-notes)
 - [Resizing app logo for Android compatibility](#resizing-app-logo-for-android-compatibility)
   - [Creating the adaptive icon structure](#create-adaptive-icon-structure)
   - [Using GIMP to resize the logo](#using-gimp-to-resize-the-logo)
@@ -132,6 +134,93 @@ Because Lexivo is a `NativeActivity` app, the main entry point is Rust. However,
 - **Check for common mistakes**: `cargo clippy`
 - **Run all tests**: `cargo test`
 - **Build for Android**: `cd android && ./gradlew assembleDebug`
+
+---
+
+---
+
+## Updating app version notes
+
+To update the app to a higher version:
+
+1. Insert a new entry in the [CHANGELOG.md](/CHANGELOG.md) for the new app version.
+2. In [app's build.gradle](/android/app/build.gradle) file, increment `versionCode` to the next number
+   and update `versionName` with the new version of the app.
+3. Add a text file to the `changelogs` directory for the Fastlane metadata in
+   [fastlane/metadata/android/en-GB/changelogs](/fastlane/metadata/android/en-GB/changelogs). The
+   name of the text file should be a number higher than the current number of the existing text
+   file.
+
+---
+
+## Releasing the application notes
+
+A keystore is used to store the signing key required for Android app releases.
+
+### Create a keystore file
+
+> Replace `keystore.jks` and `key-alias` with your desired values.
+
+```bash
+keytool -genkeypair \
+  -v \
+  -keystore keystore.jks \
+  -alias key-alias \
+  -keyalg RSA \
+  -keysize 2048 \
+  -validity 10000
+```
+
+### Encode the keystore file
+
+The decoding of the file occurs in the GitHub repository workflow.
+
+> Replace `keystore.jks` and `keystore.base64` with your file names.
+
+```bash
+base64 -i keystore.jks | tr -d '\n' > keystore.base64
+```
+
+### Update the example keystore file in the project
+
+Rename the example keystore file [keystore.properties.example](/android/app/src/keystore.properties.example)
+to `keystore.properties`. Then, update the values of the variables - `storeFile`, `storePassword`,
+`keyAlias` and `keyPassword` with the values used above.
+
+### Create environment secrets in GitHub repository
+
+The following secrets should be created. Their values should match the values used above.
+
+```txt
+KEY_ALIAS
+KEY_PASSWORD
+KEYSTORE_CONTENT
+KEYSTORE_FILE_NAME
+KEYSTORE_PASSWORD
+```
+
+### Create app release
+
+Push a tag matching the pattern `v*` to the `main` branch. The
+[release.yml](/.github/workflows/release.yml) GitHub workflow will then automatically build the
+release APK and bundle, sign them using the provided keystore and upload the artefacts.
+
+Example tag for a release:
+
+```bash
+git checkout main
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+#### Rebuild an existing tag
+
+> Replace v1.0 with the actual tag version. Ensure that all commits has been pushed to GitHub
+> before running the command below so that the tag would include the latest changes
+
+```bash
+git tag -f v1.0 && git push origin v1.0 --force
+```
 
 ---
 

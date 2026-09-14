@@ -4,17 +4,9 @@ pub fn trigger_answer_feedback(_correct: bool, _sound_enabled: bool) {}
 #[cfg(target_os = "android")]
 #[allow(unsafe_code)]
 pub fn trigger_answer_feedback(correct: bool, sound_enabled: bool) {
-    use jni::JNIEnv;
-    use jni::JavaVM;
+    use jni::{jni_sig, jni_str, JavaVM};
     use jni::objects::{JClass, JObject, JValue};
-    use jni::sys::{jboolean, jobject};
-
-    fn clear_pending_exception(env: &mut JNIEnv<'_>) {
-        if env.exception_check().unwrap_or(false) {
-            let _ = env.exception_describe();
-            let _ = env.exception_clear();
-        }
-    }
+    use jni::sys::jobject;
 
     let android_context = ndk_context::android_context();
     let vm_ptr = android_context.vm();
@@ -31,104 +23,73 @@ pub fn trigger_answer_feedback(correct: bool, sound_enabled: bool) {
         return;
     }
 
-    // SAFETY: The VM pointer is provided by Android's app runtime and remains valid
-    // for the process lifetime while NativeActivity is running.
-    let Ok(java_vm) = (unsafe { JavaVM::from_raw(vm_ptr.cast()) }) else {
-        log::error!("Failed to attach JavaVM from raw pointer in feedback bridge");
-        return;
-    };
+    let java_vm = unsafe { JavaVM::from_raw(vm_ptr.cast()) };
 
-    let Ok(mut env) = java_vm.attach_current_thread() else {
-        log::error!("Failed to attach current thread to Java VM");
-        return;
-    };
-
-    // SAFETY: The context pointer originates from NativeActivity. We intentionally
-    // prevent Rust from deleting this JNI reference by forgetting it after the call.
-    let context = unsafe { JObject::from_raw(context_ptr as jobject) };
-    let context_local = match env.new_local_ref(&context) {
-        Ok(local) => local,
-        Err(_) => {
+    let _ = java_vm.attach_current_thread(|env| -> jni::errors::Result<()> {
+        // SAFETY: The context pointer originates from NativeActivity.
+        let context = unsafe { JObject::from_raw(env, context_ptr as jobject) };
+        let context_local = env.new_local_ref(&context).map_err(|e| {
             log::error!("Failed to create local JNI ref for Android context");
-            clear_pending_exception(&mut env);
-            std::mem::forget(context);
-            return;
-        }
-    };
-    std::mem::forget(context);
+            e
+        })?;
 
-    let class_loader = match env.call_method(
-        &context_local,
-        "getClassLoader",
-        "()Ljava/lang/ClassLoader;",
-        &[],
-    ) {
-        Ok(value) => match value.l() {
-            Ok(loader) => loader,
-            Err(_) => {
+        let class_loader = env
+            .call_method(
+                &context_local,
+                jni_str!("getClassLoader"),
+                jni_sig!("()Ljava/lang/ClassLoader;"),
+                &[],
+            )?
+            .l()
+            .map_err(|e| {
                 log::error!("Failed to read class loader object from JNI value");
-                clear_pending_exception(&mut env);
-                return;
-            }
-        },
-        Err(_) => {
-            log::error!("Failed to call Context.getClassLoader() from feedback bridge");
-            clear_pending_exception(&mut env);
-            return;
-        }
-    };
+                e
+            })?;
 
-    let class_name = match env.new_string("com.asptechinc.lexivo.FeedbackBridge") {
-        Ok(name) => name,
-        Err(_) => {
-            log::error!("Failed to allocate class name string for FeedbackBridge");
-            clear_pending_exception(&mut env);
-            return;
-        }
-    };
-    let class_name_obj: JObject<'_> = JObject::from(class_name);
-    let class_obj = match env.call_method(
-        &class_loader,
-        "loadClass",
-        "(Ljava/lang/String;)Ljava/lang/Class;",
-        &[JValue::Object(&class_name_obj)],
-    ) {
-        Ok(value) => match value.l() {
-            Ok(class_obj) => class_obj,
-            Err(_) => {
-                log::error!("ClassLoader.loadClass returned non-object for FeedbackBridge");
-                clear_pending_exception(&mut env);
-                return;
-            }
-        },
-        Err(_) => {
-            log::error!("ClassLoader.loadClass failed for FeedbackBridge");
-            clear_pending_exception(&mut env);
-            return;
-        }
-    };
-    let feedback_class: JClass<'_> = JClass::from(class_obj);
+        let class_name = env
+            .new_string("com.asptechinc.lexivo.FeedbackBridge")
+            .map_err(|e| {
+                log::error!("Failed to allocate class name string for FeedbackBridge");
+                e
+            })?;
 
-    let correct_j: jboolean = if correct { 1 } else { 0 };
-    let sound_enabled_j: jboolean = if sound_enabled { 1 } else { 0 };
+        let class_obj = env
+            .call_method(
+                &class_loader,
+                jni_str!("loadClass"),
+                jni_sig!("(Ljava/lang/String;)Ljava/lang/Class;"),
+                &[JValue::from(&class_name)],
+            )?
+            .l()
+            .map_err(|e| {
+                log::error!("ClassLoader.loadClass failed for FeedbackBridge");
+                e
+            })?;
 
-    let call_result = env.call_static_method(
-        feedback_class,
-        "triggerAnswerFeedback",
-        "(Landroid/content/Context;ZZ)V",
-        &[
-            JValue::Object(&context_local),
-            JValue::Bool(correct_j),
-            JValue::Bool(sound_enabled_j),
-        ],
-    );
+        // SAFETY: We just loaded this class via loadClass, so it's a valid Class object.
+        let feedback_class = unsafe { JClass::from_raw(env, class_obj.as_raw()) };
 
-    if call_result.is_err() {
-        log::error!("FeedbackBridge.triggerAnswerFeedback threw a Java exception");
-        clear_pending_exception(&mut env);
-    } else {
-        log::debug!("FeedbackBridge.triggerAnswerFeedback completed");
-    }
+        env.call_static_method(
+            &feedback_class,
+            jni_str!("triggerAnswerFeedback"),
+            jni_sig!("(Landroid/content/Context;ZZ)V"),
+            &[
+                JValue::from(&context_local),
+                JValue::Bool(correct),
+                JValue::Bool(sound_enabled),
+            ],
+        )
+        .map_err(|e| {
+            log::error!("FeedbackBridge.triggerAnswerFeedback threw a Java exception");
+            e
+        })?;
+
+        Ok(())
+    })
+    .map_err(|e| {
+        log::error!("Feedback bridge JNI execution failed: {:?}", e);
+        e
+    });
 }
 
 #[cfg(not(target_os = "android"))]
@@ -147,17 +108,9 @@ pub fn trigger_update_install(_url: &str) {}
 #[cfg(target_os = "android")]
 #[allow(unsafe_code)]
 pub fn trigger_update_install(url: &str) {
-    use jni::JNIEnv;
-    use jni::JavaVM;
-    use jni::objects::{JObject, JValue};
+    use jni::{jni_sig, jni_str, JavaVM};
+    use jni::objects::{JClass, JObject, JValue};
     use jni::sys::jobject;
-
-    fn clear_pending_exception(env: &mut JNIEnv<'_>) {
-        if env.exception_check().unwrap_or(false) {
-            let _ = env.exception_describe();
-            let _ = env.exception_clear();
-        }
-    }
 
     let android_context = ndk_context::android_context();
     let vm_ptr = android_context.vm();
@@ -168,65 +121,46 @@ pub fn trigger_update_install(url: &str) {
         return;
     }
 
-    let Ok(java_vm) = (unsafe { JavaVM::from_raw(vm_ptr.cast()) }) else {
-        log::error!("Failed to attach JavaVM in update bridge");
-        return;
-    };
+    let java_vm = unsafe { JavaVM::from_raw(vm_ptr.cast()) };
 
-    let Ok(mut env) = java_vm.attach_current_thread() else {
-        log::error!("Failed to attach thread in update bridge");
-        return;
-    };
+    let _ = java_vm.attach_current_thread(|env| -> jni::errors::Result<()> {
+        let context = unsafe { JObject::from_raw(env, context_ptr as jobject) };
+        let context_local = env.new_local_ref(&context)?;
 
-    let context = unsafe { JObject::from_raw(context_ptr as jobject) };
-    let context_local = match env.new_local_ref(&context) {
-        Ok(local) => local,
-        Err(_) => {
-            clear_pending_exception(&mut env);
-            std::mem::forget(context);
-            return;
-        }
-    };
-    std::mem::forget(context);
+        let class_loader = env
+            .call_method(
+                &context_local,
+                jni_str!("getClassLoader"),
+                jni_sig!("()Ljava/lang/ClassLoader;"),
+                &[],
+            )?
+            .l()?;
 
-    let class_loader = match env.call_method(
-        &context_local,
-        "getClassLoader",
-        "()Ljava/lang/ClassLoader;",
-        &[],
-    ) {
-        Ok(value) => value.l().unwrap_or_else(|_| JObject::null()),
-        Err(_) => {
-            clear_pending_exception(&mut env);
-            return;
-        }
-    };
+        let class_name = env.new_string("com.asptechinc.lexivo.UpdateBridge")?;
+        let class_obj = env
+            .call_method(
+                &class_loader,
+                jni_str!("loadClass"),
+                jni_sig!("(Ljava/lang/String;)Ljava/lang/Class;"),
+                &[JValue::from(&class_name)],
+            )?
+            .l()?;
 
-    let class_name = env.new_string("com.asptechinc.lexivo.UpdateBridge").unwrap();
-    let class_name_obj: JObject<'_> = JObject::from(class_name);
-    let class_obj = match env.call_method(
-        &class_loader,
-        "loadClass",
-        "(Ljava/lang/String;)Ljava/lang/Class;",
-        &[JValue::Object(&class_name_obj)],
-    ) {
-        Ok(value) => value.l().unwrap_or_else(|_| JObject::null()),
-        Err(_) => {
-            clear_pending_exception(&mut env);
-            return;
-        }
-    };
+        // SAFETY: We just loaded this class via loadClass.
+        let class_ref = unsafe { JClass::from_raw(env, class_obj.as_raw()) };
 
-    let url_j = env.new_string(url).unwrap();
-    let _ = env.call_static_method(
-        jni::objects::JClass::from(class_obj),
-        "downloadAndInstallUpdate",
-        "(Landroid/content/Context;Ljava/lang/String;)V",
-        &[
-            JValue::Object(&context_local),
-            JValue::Object(&url_j),
-        ],
-    );
+        let url_j = env.new_string(url)?;
+        env.call_static_method(
+            &class_ref,
+            jni_str!("downloadAndInstallUpdate"),
+            jni_sig!("(Landroid/content/Context;Ljava/lang/String;)V"),
+            &[JValue::from(&context_local), JValue::from(&url_j)],
+        )?;
 
-    clear_pending_exception(&mut env);
+        Ok(())
+    })
+    .map_err(|e| {
+        log::error!("Update bridge JNI execution failed: {:?}", e);
+        e
+    });
 }

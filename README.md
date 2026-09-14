@@ -61,71 +61,41 @@ Lexivo is a free open source (FOSS) cross-platform word puzzle game built with R
 
 ### Dark mode
 
-|                              **TBC**                              |                              **TBC**                              |                              **TBC**                              |                              **TBC**                              |
-| :---------------------------------------------------------------: | :---------------------------------------------------------------: | :---------------------------------------------------------------: | :---------------------------------------------------------------: |
-| <img src="assets/screenshots/dark-theme/image-placeholder.png" /> | <img src="assets/screenshots/dark-theme/image-placeholder.png" /> | <img src="assets/screenshots/dark-theme/image-placeholder.png" /> | <img src="assets/screenshots/dark-theme/image-placeholder.png" /> |
+| **Start screen** | **Game screen** | **Leaderboard** | **Settings (1)** |
+| :---: | :---: | :---: | :---: |
+| <img src="assets/screenshots/dark-theme/start-screen-dark.png" /> | <img src="assets/screenshots/dark-theme/game-screen-dark.png" /> | <img src="assets/screenshots/dark-theme/leaderboard-screen-dark.png" /> | <img src="assets/screenshots/dark-theme/settings-screen1-dark.png" /> |
 
-|                              **TBC**                              |                              **TBC**                              |                              **TBC**                              |                              **TBC**                              |
-| :---------------------------------------------------------------: | :---------------------------------------------------------------: | :---------------------------------------------------------------: | :---------------------------------------------------------------: |
-| <img src="assets/screenshots/dark-theme/image-placeholder.png" /> | <img src="assets/screenshots/dark-theme/image-placeholder.png" /> | <img src="assets/screenshots/dark-theme/image-placeholder.png" /> | <img src="assets/screenshots/dark-theme/image-placeholder.png" /> |
+| **Settings (2)** | **Settings (3)** | **How to play** | **How to answer** |
+| :---: | :---: | :---: | :---: |
+| <img src="assets/screenshots/dark-theme/settings-screen2-dark.png" /> | <img src="assets/screenshots/dark-theme/settings-screen3-dark.png" /> | <img src="assets/screenshots/dark-theme/how-to-play-guide-dialogue-dark.png" /> | <img src="assets/screenshots/dark-theme/how-to-answer-guide-dialogue-dark.png" /> |
 
-|                              **TBC**                              |                              **TBC**                              |                              **TBC**                              |                              **TBC**                              |                              **TBC**                              |
-| :---------------------------------------------------------------: | :---------------------------------------------------------------: | :---------------------------------------------------------------: | :---------------------------------------------------------------: | :---------------------------------------------------------------: |
-| <img src="assets/screenshots/dark-theme/image-placeholder.png" /> | <img src="assets/screenshots/dark-theme/image-placeholder.png" /> | <img src="assets/screenshots/dark-theme/image-placeholder.png" /> | <img src="assets/screenshots/dark-theme/image-placeholder.png" /> | <img src="assets/screenshots/dark-theme/image-placeholder.png" /> |
+| **Changelog** | **App updater** | **Build info** | **Support** |
+| :---: | :---: | :---: | :---: |
+| <img src="assets/screenshots/dark-theme/changelog-dialogue-dark.png" /> | <img src="assets/screenshots/dark-theme/app-updater-dialogue-dark.png" /> | <img src="assets/screenshots/dark-theme/app-build-info-dialogue-dark.png" /> | <img src="assets/screenshots/dark-theme/app-support-dialogue-dark.png" /> |
 
-|                              **TBC**                              |                              **TBC**                              |                              **TBC**                              |                              **TBC**                              |
-| :---------------------------------------------------------------: | :---------------------------------------------------------------: | :---------------------------------------------------------------: | :---------------------------------------------------------------: |
-| <img src="assets/screenshots/dark-theme/image-placeholder.png" /> | <img src="assets/screenshots/dark-theme/image-placeholder.png" /> | <img src="assets/screenshots/dark-theme/image-placeholder.png" /> | <img src="assets/screenshots/dark-theme/image-placeholder.png" /> |
-
-|                              **TBC**                              |                              **TBC**                              |                              **TBC**                              |                              **TBC**                              |
-| :---------------------------------------------------------------: | :---------------------------------------------------------------: | :---------------------------------------------------------------: | :---------------------------------------------------------------: |
-| <img src="assets/screenshots/dark-theme/image-placeholder.png" /> | <img src="assets/screenshots/dark-theme/image-placeholder.png" /> | <img src="assets/screenshots/dark-theme/image-placeholder.png" /> | <img src="assets/screenshots/dark-theme/image-placeholder.png" /> |
-
-|                              **TBC**                              |                              **TBC**                              |                              **TBC**                              |                              **TBC**                              |
-| :---------------------------------------------------------------: | :---------------------------------------------------------------: | :---------------------------------------------------------------: | :---------------------------------------------------------------: |
-| <img src="assets/screenshots/dark-theme/image-placeholder.png" /> | <img src="assets/screenshots/dark-theme/image-placeholder.png" /> | <img src="assets/screenshots/dark-theme/image-placeholder.png" /> | <img src="assets/screenshots/dark-theme/image-placeholder.png" /> |
-
-|                              **TBC**                              |                              **TBC**                              |                              **TBC**                              |                              **TBC**                              |
-| :---------------------------------------------------------------: | :---------------------------------------------------------------: | :---------------------------------------------------------------: | :---------------------------------------------------------------: |
-| <img src="assets/screenshots/dark-theme/image-placeholder.png" /> | <img src="assets/screenshots/dark-theme/image-placeholder.png" /> | <img src="assets/screenshots/dark-theme/image-placeholder.png" /> | <img src="assets/screenshots/dark-theme/image-placeholder.png" /> |
-
-|                              **TBC**                              |                              **TBC**                              |                              **TBC**                              |     |
-| :---------------------------------------------------------------: | :---------------------------------------------------------------: | :---------------------------------------------------------------: | :-: |
-| <img src="assets/screenshots/dark-theme/image-placeholder.png" /> | <img src="assets/screenshots/dark-theme/image-placeholder.png" /> | <img src="assets/screenshots/dark-theme/image-placeholder.png" /> |     |
+| **Reset progress** |
+| :---: |
+| <img src="assets/screenshots/dark-theme/reset-progress-dialogue-dark.png" /> |
 
 ### Light mode
 
-|                              **TBC**                               |                              **TBC**                               |                              **TBC**                               |                              **TBC**                               |
-| :----------------------------------------------------------------: | :----------------------------------------------------------------: | :----------------------------------------------------------------: | :----------------------------------------------------------------: |
-| <img src="assets/screenshots/light-theme/image-placeholder.png" /> | <img src="assets/screenshots/light-theme/image-placeholder.png" /> | <img src="assets/screenshots/light-theme/image-placeholder.png" /> | <img src="assets/screenshots/light-theme/image-placeholder.png" /> |
+| **Start screen** | **Game screen** | **Leaderboard** | **Settings (1)** |
+| :---: | :---: | :---: | :---: |
+| <img src="assets/screenshots/light-theme/start-screen-light.png" /> | <img src="assets/screenshots/light-theme/game-screen-light.png" /> | <img src="assets/screenshots/light-theme/leaderboard-screen-light.png" /> | <img src="assets/screenshots/light-theme/settings-screen1-light.png" /> |
 
-|                              **TBC**                               |                              **TBC**                               |                              **TBC**                               |                              **TBC**                               |
-| :----------------------------------------------------------------: | :----------------------------------------------------------------: | :----------------------------------------------------------------: | :----------------------------------------------------------------: |
-| <img src="assets/screenshots/light-theme/image-placeholder.png" /> | <img src="assets/screenshots/light-theme/image-placeholder.png" /> | <img src="assets/screenshots/light-theme/image-placeholder.png" /> | <img src="assets/screenshots/light-theme/image-placeholder.png" /> |
+| **Settings (2)** | **Settings (3)** | **How to play** | **How to answer** |
+| :---: | :---: | :---: | :---: |
+| <img src="assets/screenshots/light-theme/settings-screen2-light.png" /> | <img src="assets/screenshots/light-theme/settings-screen3-light.png" /> | <img src="assets/screenshots/light-theme/how-to-play-guide-dialogue-light.png" /> | <img src="assets/screenshots/light-theme/how-to-answer-guide-dialogue-light.png" /> |
 
-|                              **TBC**                               |                              **TBC**                               |                              **TBC**                               |                              **TBC**                               |                              **TBC**                               |
-| :----------------------------------------------------------------: | :----------------------------------------------------------------: | :----------------------------------------------------------------: | :----------------------------------------------------------------: | :----------------------------------------------------------------: |
-| <img src="assets/screenshots/light-theme/image-placeholder.png" /> | <img src="assets/screenshots/light-theme/image-placeholder.png" /> | <img src="assets/screenshots/light-theme/image-placeholder.png" /> | <img src="assets/screenshots/light-theme/image-placeholder.png" /> | <img src="assets/screenshots/light-theme/image-placeholder.png" /> |
+| **Changelog** | **App updater** | **Build info** | **Support** |
+| :---: | :---: | :---: | :---: |
+| <img src="assets/screenshots/light-theme/changelog-dialogue-light.png" /> | <img src="assets/screenshots/light-theme/app-updater-dialogue-light.png" /> | <img src="assets/screenshots/light-theme/app-build-info-dialogue-light.png" /> | <img src="assets/screenshots/light-theme/app-support-dialogue-light.png" /> |
 
-|                              **TBC**                               |                              **TBC**                               |                              **TBC**                               |                              **TBC**                               |
-| :----------------------------------------------------------------: | :----------------------------------------------------------------: | :----------------------------------------------------------------: | :----------------------------------------------------------------: |
-| <img src="assets/screenshots/light-theme/image-placeholder.png" /> | <img src="assets/screenshots/light-theme/image-placeholder.png" /> | <img src="assets/screenshots/light-theme/image-placeholder.png" /> | <img src="assets/screenshots/light-theme/image-placeholder.png" /> |
+| **Reset progress** |
+| :---: |
+| <img src="assets/screenshots/light-theme/reset-progress-dialogue-light.png" /> |
 
-|                              **TBC**                               |                              **TBC**                               |                              **TBC**                               |                              **TBC**                               |
-| :----------------------------------------------------------------: | :----------------------------------------------------------------: | :----------------------------------------------------------------: | :----------------------------------------------------------------: |
-| <img src="assets/screenshots/light-theme/image-placeholder.png" /> | <img src="assets/screenshots/light-theme/image-placeholder.png" /> | <img src="assets/screenshots/light-theme/image-placeholder.png" /> | <img src="assets/screenshots/light-theme/image-placeholder.png" /> |
 
-|                              **TBC**                               |                              **TBC**                               |                              **TBC**                               |                              **TBC**                               |
-| :----------------------------------------------------------------: | :----------------------------------------------------------------: | :----------------------------------------------------------------: | :----------------------------------------------------------------: |
-| <img src="assets/screenshots/light-theme/image-placeholder.png" /> | <img src="assets/screenshots/light-theme/image-placeholder.png" /> | <img src="assets/screenshots/light-theme/image-placeholder.png" /> | <img src="assets/screenshots/light-theme/image-placeholder.png" /> |
-
-|                              **TBC**                               |                              **TBC**                               |                              **TBC**                               |                              **TBC**                               |
-| :----------------------------------------------------------------: | :----------------------------------------------------------------: | :----------------------------------------------------------------: | :----------------------------------------------------------------: |
-| <img src="assets/screenshots/light-theme/image-placeholder.png" /> | <img src="assets/screenshots/light-theme/image-placeholder.png" /> | <img src="assets/screenshots/light-theme/image-placeholder.png" /> | <img src="assets/screenshots/light-theme/image-placeholder.png" /> |
-
-|                              **TBC**                               |                              **TBC**                               |                              **TBC**                               |     |
-| :----------------------------------------------------------------: | :----------------------------------------------------------------: | :----------------------------------------------------------------: | :-: |
-| <img src="assets/screenshots/light-theme/image-placeholder.png" /> | <img src="assets/screenshots/light-theme/image-placeholder.png" /> | <img src="assets/screenshots/light-theme/image-placeholder.png" /> |     |
 
 ---
 

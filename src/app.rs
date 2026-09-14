@@ -893,65 +893,76 @@ impl LexivoApp {
     /// On other platforms, it uses a background thread to fetch the latest release from GitHub.
     pub(crate) fn check_for_updates(&mut self) {
         self.update_status = crate::types::UpdateStatus::Checking;
-// ...
 
-        #[cfg(target_os = "android")]
+        #[cfg(target_arch = "wasm32")]
         {
-            crate::platform_feedback::trigger_update_check();
+            // Update checking not supported on web yet.
+            self.update_status = crate::types::UpdateStatus::UpToDate;
+            return;
         }
 
-        let (tx, rx) = std::sync::mpsc::channel();
-        self.update_rx = Some(rx);
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            // ...
 
-        // Spawn a background thread to perform the network request without blocking the UI.
-        std::thread::spawn(move || {
-            let client = reqwest::blocking::Client::builder()
-                .user_agent("Lexivo-App")
-                .build();
+            #[cfg(target_os = "android")]
+            {
+                crate::platform_feedback::trigger_update_check();
+            }
 
-            let result = match client {
-                Ok(client) => {
-                    match client.get("https://api.github.com/repos/ASPTechInc/Lexivo/releases/latest").send() {
-                        Ok(response) => {
-                            match response.json::<serde_json::Value>() {
-                                Ok(json) => {
-                                    let tag = json["tag_name"].as_str().unwrap_or("").trim_start_matches('v');
-                                    let current = AppConfig::APP_VERSION;
+            let (tx, rx) = std::sync::mpsc::channel();
+            self.update_rx = Some(rx);
 
-                                    if !tag.is_empty() && tag != current {
-                                        // Find the APK asset if it exists
-                                        let mut download_url = json["html_url"].as_str().unwrap_or("").to_string();
-                                        if let Some(assets) = json["assets"].as_array() {
-                                            for asset in assets {
-                                                let name = asset["name"].as_str().unwrap_or("");
-                                                if name.ends_with(".apk") {
-                                                    if let Some(url) = asset["browser_download_url"].as_str() {
-                                                        download_url = url.to_string();
-                                                        break;
+            // Spawn a background thread to perform the network request without blocking the UI.
+            std::thread::spawn(move || {
+                let client = reqwest::blocking::Client::builder()
+                    .user_agent(format!("{}-App", AppConfig::APP_NAME))
+                    .build();
+
+                let result = match client {
+                    Ok(client) => {
+                        match client.get(AppConfig::GITHUB_RELEASES).send() {
+                            Ok(response) => {
+                                match response.json::<serde_json::Value>() {
+                                    Ok(json) => {
+                                        let tag = json["tag_name"].as_str().unwrap_or("").trim_start_matches('v');
+                                        let current = AppConfig::APP_VERSION;
+
+                                        if !tag.is_empty() && tag != current {
+                                            // Find the APK asset if it exists
+                                            let mut download_url = json["html_url"].as_str().unwrap_or("").to_string();
+                                            if let Some(assets) = json["assets"].as_array() {
+                                                for asset in assets {
+                                                    let name = asset["name"].as_str().unwrap_or("");
+                                                    if name.ends_with(".apk") {
+                                                        if let Some(url) = asset["browser_download_url"].as_str() {
+                                                            download_url = url.to_string();
+                                                            break;
+                                                        }
                                                     }
                                                 }
                                             }
-                                        }
 
-                                        crate::types::UpdateStatus::Available {
-                                            version: tag.to_string(),
-                                            url: download_url,
+                                            crate::types::UpdateStatus::Available {
+                                                version: tag.to_string(),
+                                                url: download_url,
+                                            }
+                                        } else {
+                                            crate::types::UpdateStatus::UpToDate
                                         }
-                                    } else {
-                                        crate::types::UpdateStatus::UpToDate
                                     }
+                                    Err(e) => crate::types::UpdateStatus::Error(format!("Parse error: {}", e)),
                                 }
-                                Err(e) => crate::types::UpdateStatus::Error(format!("Parse error: {}", e)),
                             }
+                            Err(e) => crate::types::UpdateStatus::Error(format!("Network error: {}", e)),
                         }
-                        Err(e) => crate::types::UpdateStatus::Error(format!("Network error: {}", e)),
                     }
-                }
-                Err(e) => crate::types::UpdateStatus::Error(format!("Client error: {}", e)),
-            };
+                    Err(e) => crate::types::UpdateStatus::Error(format!("Client error: {}", e)),
+                };
 
-            let _ = tx.send(result);
-        });
+                let _ = tx.send(result);
+            });
+        }
     }
 
     pub(crate) fn install_update(&mut self, url: &str) {
