@@ -1,8 +1,8 @@
 // Leaderboard Screen
 // Displays the user's top scores and personal best for the current session.
 
-use eframe::egui;
 use crate::app::LexivoApp;
+use eframe::egui;
 
 pub fn render_leaderboard_screen(app: &mut LexivoApp, ui: &mut egui::Ui) {
     let palette = crate::theme::palette_for_ctx(ui.ctx());

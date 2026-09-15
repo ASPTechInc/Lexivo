@@ -1,6 +1,5 @@
 /// Lexivo Utility Functions
 /// General-purpose helpers for word scrambling, scoring and UI drawing.
-
 use crate::types::Difficulty;
 use eframe::egui;
 use rand::rngs::StdRng;
@@ -22,10 +21,14 @@ pub fn primary_action_button(ui: &mut egui::Ui, label: &str, size: egui::Vec2) -
     let theme = crate::theme::theme_for_ctx(ui.ctx());
 
     ui.add(
-        egui::Button::new(egui::RichText::new(label).strong().color(theme.palette.tile_text))
-            .min_size(size)
-            .fill(theme.palette.button_selected)
-            .stroke(theme.palette.button_stroke(theme.metrics)),
+        egui::Button::new(
+            egui::RichText::new(label)
+                .strong()
+                .color(theme.palette.tile_text),
+        )
+        .min_size(size)
+        .fill(theme.palette.button_selected)
+        .stroke(theme.palette.button_stroke(theme.metrics)),
     )
 }
 

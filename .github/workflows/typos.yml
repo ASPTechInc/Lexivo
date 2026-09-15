@@ -11,6 +11,7 @@ jobs:
   run:
     name: Spell Check
     runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]' # Skip the entire workflow for Dependabot pull requests
     steps:
       - name: Checkout Actions Repository
         uses: actions/checkout@v7

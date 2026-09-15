@@ -1,7 +1,10 @@
-# This workflow creates a Lexivo release
-# when a tag matching 'v*' is pushed to the 'main' branch
-# e.g. git tag v1.0
-#      git push origin v1.0
+# This workflow manages production build and deployment to GitHub Releases
+#  when a version tag (e.g. v1.0.0) is pushed to the main. It is triggered by the 'push' event
+#  for tags matching 'v*' to the 'main' GitHub branch.
+#
+# e.g. git tag v1.0.0
+#      git push origin v1.0.0
+#
 name: Create Lexivo release
 
 on:
@@ -12,12 +15,26 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ANDROID_HOME: ${{ vars.ANDROID_HOME || '/usr/local/lib/android/sdk' }}
+      GRADLE_USER_HOME: ${{ github.workspace }}/.gradle_home
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
+
+      - name: Verify Android SDK
+        run: |
+          echo "Using ANDROID_HOME: $ANDROID_HOME"
+          if [ -d "$ANDROID_HOME" ]; then
+            echo "SDK directory exists."
+            ls -ld "$ANDROID_HOME"
+          else
+            echo "Error: SDK directory not found at $ANDROID_HOME"
+            exit 1
+          fi
 
       - name: Verify tag is on main branch
         run: |
@@ -41,7 +58,14 @@ jobs:
           targets: aarch64-linux-android, armv7-linux-androideabi, x86_64-linux-android, i686-linux-android
 
       - name: Install cargo-ndk
-        uses: taiki-e/install-action@cargo-ndk
+        uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-ndk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create local.properties
+        run: echo "sdk.dir=$ANDROID_HOME" > android/local.properties
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
@@ -68,7 +92,7 @@ jobs:
 
       - name: Build release APK and bundle
         run: |
-          ./gradlew :app:assembleRelease :app:bundleRelease -PsingleAbiDev=false
+          ./gradlew :app:assembleRelease :app:bundleRelease -PsingleAbiDev=false --no-daemon
           # Rename outputs to match what the upload steps expect
           cp app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/Lexivo.apk || cp app/build/outputs/apk/release/app-release-unsigned.apk app/build/outputs/apk/release/Lexivo.apk
           cp app/build/outputs/bundle/release/app-release.aab app/build/outputs/bundle/release/Lexivo.aab || cp app/build/outputs/bundle/release/app-release-unsigned.aab app/build/outputs/bundle/release/Lexivo.aab

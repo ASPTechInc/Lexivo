@@ -1,120 +1,124 @@
 package com.asptechinc.lexivo;
 
-import android.content.res.AssetFileDescriptor;
 import android.content.Context;
-import android.media.MediaPlayer;
+import android.content.res.AssetFileDescriptor;
+import android.media.AudioAttributes;
+import android.media.SoundPool;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.os.VibratorManager;
 import android.util.Log;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * A utility bridge that allows the Rust game engine to trigger Android-specific hardware and media feedback.
- * This class is invoked via JNI from {@code platform_feedback.rs}.
+ * This class is optimized using SoundPool for low-latency audio and cached system services.
  */
 public final class FeedbackBridge {
     private static final String TAG = "LexivoFeedback";
+
+    private static SoundPool soundPool;
+    private static final Map<String, Integer> soundMap = new HashMap<>();
+    private static Vibrator cachedVibrator;
+    private static boolean initialized = false;
 
     private FeedbackBridge() {
     }
 
     /**
-     * Triggers both haptic (vibration) and audio feedback based on whether an answer was correct.
-     *
-     * @param context      The Android application context.
-     * @param correct      True if the user's answer was correct, false otherwise.
-     * @param soundEnabled Whether sound effects are currently enabled in the app settings.
+     * Initializes the feedback bridge by pre-loading sound assets and caching system services.
+     * Should be called once during application startup.
      */
-    public static void triggerAnswerFeedback(Context context, boolean correct, boolean soundEnabled) {
-        Log.d(TAG, "triggerAnswerFeedback called: correct=" + correct + ", soundEnabled=" + soundEnabled);
-        if (context == null) {
-            Log.e(TAG, "Context is null in triggerAnswerFeedback");
+    public static synchronized void init(Context context) {
+        if (initialized || context == null) {
             return;
         }
 
+        Log.d(TAG, "Initializing FeedbackBridge...");
+
+        // Initialize SoundPool
+        AudioAttributes attrs = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build();
+
+        soundPool = new SoundPool.Builder()
+                .setMaxStreams(3)
+                .setAudioAttributes(attrs)
+                .build();
+
+        // Pre-load sound effects
+        loadSound(context, "correct-buzzer-sound-effect.mp3");
+        loadSound(context, "wrong-buzzer-sound-effect.mp3");
+
+        // Cache Vibrator
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            VibratorManager manager = (VibratorManager) context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE);
+            if (manager != null) {
+                cachedVibrator = manager.getDefaultVibrator();
+            }
+        } else {
+            //noinspection deprecation
+            cachedVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        }
+
+        initialized = true;
+        Log.d(TAG, "FeedbackBridge initialized successfully");
+    }
+
+    private static void loadSound(Context context, String fileName) {
+        String path = "sound-effects/" + fileName;
+        try (AssetFileDescriptor afd = context.getAssets().openFd(path)) {
+            int soundId = soundPool.load(afd, 1);
+            soundMap.put(fileName, soundId);
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to pre-load sound: " + path, e);
+        }
+    }
+
+    /**
+     * Triggers both haptic (vibration) and audio feedback.
+     */
+    public static void triggerAnswerFeedback(Context context, boolean correct, boolean soundEnabled) {
+        if (!initialized) {
+            init(context);
+        }
+
         try {
-            vibrate(context, correct ? 35L : 75L);
+            vibrate(correct ? 35L : 75L);
 
             if (soundEnabled) {
-                playBuzzer(context, correct);
-            } else {
-                Log.d(TAG, "Sound disabled; skipping buzzer playback");
+                String soundName = correct ? "correct-buzzer-sound-effect.mp3" : "wrong-buzzer-sound-effect.mp3";
+                playSound(soundName);
             }
         } catch (Throwable error) {
-            Log.e(TAG, "Unhandled error in triggerAnswerFeedback", error);
+            Log.e(TAG, "Error in triggerAnswerFeedback", error);
         }
     }
 
-    /**
-     * Vibrates the device for a specified duration.
-     * Uses the {@link VibratorManager} on API 31+ and falls back to {@link Vibrator} on older versions.
-     */
-    @SuppressWarnings("deprecation")
-    private static void vibrate(Context context, long durationMs) {
-        try {
-            Vibrator vibrator;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                VibratorManager manager = (VibratorManager) context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE);
-                vibrator = manager != null ? manager.getDefaultVibrator() : null;
-            } else {
-                vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-            }
+    private static void vibrate(long durationMs) {
+        if (cachedVibrator == null || !cachedVibrator.hasVibrator()) {
+            return;
+        }
 
-            if (vibrator == null || !vibrator.hasVibrator()) {
-                Log.d(TAG, "No vibrator available on this device");
-                return;
-            }
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                vibrator.vibrate(VibrationEffect.createOneShot(durationMs, VibrationEffect.DEFAULT_AMPLITUDE));
-            } else {
-                vibrator.vibrate(durationMs);
-            }
-        } catch (Exception error) {
-            Log.w(TAG, "Vibration failed", error);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            cachedVibrator.vibrate(VibrationEffect.createOneShot(durationMs, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            // Deprecated in API 26, but we check SDK_INT above
+            //noinspection deprecation
+            cachedVibrator.vibrate(durationMs);
         }
     }
 
-    /**
-     * Attempts to play a buzzer sound effect from the application assets.
-     */
-    private static void playBuzzer(Context context, boolean correct) {
-        String[] candidates = correct
-                ? new String[] { "sound-effects/correct-buzzer.mp3", "sound-effects/correct-buzzer-sound-effect.mp3" }
-                : new String[] { "sound-effects/incorrect-buzzer.mp3", "sound-effects/wrong-buzzer-sound-effect.mp3" };
-
-        for (String path : candidates) {
-            if (playAssetFile(context, path)) {
-                Log.d(TAG, "Played buzzer asset: " + path);
-                return;
-            }
-        }
-
-        Log.w(TAG, "No buzzer asset could be played for correct=" + correct);
-    }
-
-    /**
-     * Plays a media file directly from the APK assets using {@link AssetFileDescriptor}.
-     * This avoids the need to extract the file to temporary storage.
-     */
-    private static boolean playAssetFile(Context context, String assetPath) {
-        MediaPlayer player = new MediaPlayer();
-        try (AssetFileDescriptor afd = context.getAssets().openFd(assetPath)) {
-            player.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
-            player.setOnCompletionListener(MediaPlayer::release);
-            player.setOnErrorListener((mp, what, extra) -> {
-                Log.e(TAG, "MediaPlayer error for " + assetPath + " what=" + what + " extra=" + extra);
-                mp.release();
-                return true;
-            });
-            player.prepare();
-            player.start();
-            return true;
-        } catch (Exception error) {
-            Log.w(TAG, "Failed to play asset: " + assetPath, error);
-            player.release();
-            return false;
+    private static void playSound(String soundName) {
+        Integer soundId = soundMap.get(soundName);
+        if (soundId != null && soundPool != null) {
+            soundPool.play(soundId, 1.0f, 1.0f, 1, 0, 1.0f);
+        } else {
+            Log.w(TAG, "Sound not loaded: " + soundName);
         }
     }
 }

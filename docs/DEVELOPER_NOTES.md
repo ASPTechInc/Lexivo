@@ -11,12 +11,15 @@
 - [Resizing app logo for Android compatibility](#resizing-app-logo-for-android-compatibility)
   - [Creating the adaptive icon structure](#create-adaptive-icon-structure)
   - [Using GIMP to resize the logo](#using-gimp-to-resize-the-logo)
+- [Test GitHub workflows locally](#testing-github-workflows-locally)
+- [Stop tracking files in Git](#stop-tracking-files-in-git)
 
 ---
 
 ## Overview
 
-This document provides an overview of the Rust concepts and project-specific patterns used in Lexivo to help new developers get up to speed quickly.
+This document provides an overview of the Rust concepts and project-specific patterns used in 
+Lexivo to help new developers get up to speed quickly.
 
 It
 complements what is documented in the [README](/README.md).
@@ -29,11 +32,14 @@ The [RUST_PROGRAMMING_TUTORIAL.md](/docs/RUST_PROGRAMMING_TUTORIAL.md) outlines 
 
 #### `struct` (Structure)
 
-A `struct` is a custom data type that lets you group together related values. In Lexivo, the most important struct is `LexivoApp` (found in `src/app.rs`), which holds the entire state of the game (scores, current puzzle, settings, etc.).
+A `struct` is a custom data type that lets you group together related values. In Lexivo, the most 
+important struct is `LexivoApp` (found in `src/app.rs`), which holds the entire state of the game 
+(scores, current puzzle, settings, etc.).
 
 #### `enum` (Enumeration)
 
-Enums allow you to define a type by enumerating its possible variants. We use them for states that are mutually exclusive:
+Enums allow you to define a type by enumerating its possible variants. We use them for states 
+that are mutually exclusive:
 
 - `Difficulty`: Easy, Medium, or Hard.
 - `Screen`: Which view is currently active (Start, Game, Settings).
@@ -44,20 +50,23 @@ Enums allow you to define a type by enumerating its possible variants. We use th
 `impl` blocks are where you define the functions (methods) associated with a `struct` or `enum`.
 
 - `impl LexivoApp`: Contains the logic for checking answers, starting games and updating the state.
-- `impl eframe::App for LexivoApp`: Implements the required interface for the UI framework to draw the app and save its state.
+- `impl eframe::App for LexivoApp`: Implements the required interface for the UI framework to 
+  draw the app and save its state.
 
 #### `mod` (Module)
 
 Modules help organise code into different files.
 
-- `pub mod app;` in `lib.rs` tells Rust to look for a file named `app.rs` and make its contents available.
+- `pub mod app;` in `lib.rs` tells Rust to look for a file named `app.rs` and make its contents 
+  available.
 - `#[cfg(test)] mod app_tests;` defines a module that only exists when running tests.
 
 #### `use crate::...`
 
 The `crate` keyword refers to the root of the current project.
 
-- `use crate::types::Difficulty;` means "go to the project root, find the `types` module and import the `Difficulty` enum."
+- `use crate::types::Difficulty;` means "go to the project root, find the `types` module and 
+  import the `Difficulty` enum."
 
 ---
 
@@ -69,13 +78,17 @@ To keep the code manageable, we've split the main application file:
 
 - **`src/app.rs`**: Contains the "Business Logic" — state definitions, data loading and game rules.
 
-- **`src/app_ui.rs`**: Contains the "View" — how the buttons, labels and tiles are actually drawn on the screen.
+- **`src/app_ui.rs`**: Contains the "View" — how the buttons, labels and tiles are actually drawn 
+  on the screen.
 
-- We use `include!("app_ui.rs");` at the bottom of `app.rs` to merge them during compilation, allowing the UI code to access private fields of the app state without complex boilerplate.
+- We use `include!("app_ui.rs");` at the bottom of `app.rs` to merge them during compilation, 
+  allowing the UI code to access private fields of the app state without complex boilerplate.
 
 ### Data persistence (`serde`)
 
-The `#[derive(Deserialize, Serialize)]` attribute on our structs allows them to be automatically converted to and from JSON. This is how Lexivo saves your high scores and settings to your device between sessions.
+The `#[derive(Deserialize, Serialize)]` attribute on our structs allows them to be automatically 
+converted to and from JSON. This is how Lexivo saves your high scores and settings to your device 
+between sessions.
 
 ### The "Daily seed" system
 
@@ -84,20 +97,24 @@ Daily challenges need to be the same for everyone on a given day. We achieve thi
 1. Taking the current Unix timestamp.
 2. Calculating how many days have passed since 1970.
 3. Using that number as a "Seed" for our Random Number Generator (RNG).
-   This ensures that `shuffle_slice` always produces the same puzzle order for every player until the next day starts.
+   This ensures that `shuffle_slice` always produces the same puzzle order for every player 
+   until the next day starts.
 
 ### Cross-platform bridging
 
 Lexivo is a "Native" app on Android but written in Rust.
 
 - **`src/lib.rs`**: Contains the `android_main` entry point.
-- **`src/platform_feedback.rs`**: Uses the `jni` (Java Native Interface) crate to talk to the Java-based `FeedbackBridge.java` for things like haptic feedback (vibration) which Rust cannot easily do directly on Android.
+- **`src/platform_feedback.rs`**: Uses the `jni` (Java Native Interface) crate to talk to the 
+  Java-based `FeedbackBridge.java` for things like haptic feedback (vibration) which Rust cannot 
+  easily do directly on Android.
 
 ---
 
 ## Android build optimisation
 
-Building Rust for all four Android ABIs (`arm64-v8a`, `armeabi-v7a`, `x86_64`, `x86`) on every Gradle sync or build can be very slow. We've implemented several optimizations:
+Building Rust for all four Android ABIs (`arm64-v8a`, `armeabi-v7a`, `x86_64`, `x86`) on every 
+Gradle sync or build can be very slow. We've implemented several optimisations:
 
 ### Single ABI development builds
 
@@ -107,7 +124,8 @@ In `gradle.properties`, we've enabled `singleAbiDev=true`. This tells Gradle to:
 2. **Filter** the build to only compile Rust for that specific architecture.
 3. **Strip** other ABIs from the final APK to keep it small during development.
 
-If auto-detection fails, you can override it in `gradle.properties` (e.g., `devAbi=x86_64`) or via the command line:
+If auto-detection fails, you can override it in `gradle.properties` (e.g., `devAbi=x86_64`) or 
+via the command line:
 
 ```bash
 ./gradlew assembleDebug -PsingleAbiDev=true -PdevAbi=x86_64
@@ -115,16 +133,22 @@ If auto-detection fails, you can override it in `gradle.properties` (e.g., `devA
 
 ### Build lifecycle hooking
 
-We don't manually run `cargo-ndk`. Instead, the `app/build.gradle` defines custom `Exec` tasks that are hooked into the standard Android lifecycle (`preDebugBuild` and `preReleaseBuild`). This ensures that the Rust shared libraries are always up-to-date before the APK is packaged.
+We don't manually run `cargo-ndk`. Instead, the `app/build.gradle` defines custom `Exec` tasks 
+that are hooked into the standard Android lifecycle (`preDebugBuild` and `preReleaseBuild`). This 
+ensures that the Rust shared libraries are always up-to-date before the APK is packaged.
 
 ---
 
 ## JNI feedback bridge
 
-Because Lexivo is a `NativeActivity` app, the main entry point is Rust. However, certain Android APIs (like `Vibrator` or `MediaPlayer`) are easier to use from Java.
+Because Lexivo is a `NativeActivity` app, the main entry point is Rust. However, certain Android 
+APIs (like `Vibrator` or `MediaPlayer`) are easier to use from Java.
 
-1. **Rust side (`src/platform_feedback.rs`)**: Uses the JNI crate to find the `FeedbackBridge` class, attach to the JVM and call static methods.
-2. **Java side (`FeedbackBridge.java`)**: A pure Java class that handles the heavy lifting of talking to Android System Services. It uses `AssetFileDescriptor` to play sounds directly from the APK assets without extraction.
+1. **Rust side (`src/platform_feedback.rs`)**: Uses the JNI crate to find the `FeedbackBridge` 
+   class, attach to the JVM and call static methods.
+2. **Java side (`FeedbackBridge.java`)**: A pure Java class that handles the heavy lifting of 
+   talking to Android System Services. It uses `AssetFileDescriptor` to play sounds directly from 
+   the APK assets without extraction.
 
 ---
 
@@ -228,7 +252,8 @@ git tag -f v1.0 && git push origin v1.0 --force
 
 ### Create adaptive icon structure
 
-The **`ic_launcher.xml` and `ic_launcher_round.xml` are the adaptive-icon definitions**, while the actual white background and padded logo live separately in your project.
+The **`ic_launcher.xml` and `ic_launcher_round.xml` are the adaptive-icon definitions**, while 
+the actual white background and padded logo live separately in your project.
 
 A typical structure is:
 
@@ -290,7 +315,8 @@ Put the **same thing** inside it as the previous step:
 </adaptive-icon>
 ```
 
-The distinction is that Android may use `ic_launcher` for the normal icon and `ic_launcher_round` where a launcher specifically requests the round variant.
+The distinction is that Android may use `ic_launcher` for the normal icon and `ic_launcher_round` 
+where a launcher specifically requests the round variant.
 
 ---
 
@@ -419,7 +445,8 @@ mipmap-anydpi-v26
 
 For older Android versions, the PNGs are used.
 
-So if you want your application to look correct on **older Android versions too**, you should update the legacy PNGs as well.
+So if you want your application to look correct on **older Android versions too**, you should 
+update the legacy PNGs as well.
 
 But you don't necessarily need to manually create five different logos.
 
@@ -466,13 +493,16 @@ The launcher can apply different masks:
 
 The launcher controls the final mask.
 
-Therefore, your logo needs sufficient padding so that it remains visually comfortable under different masks.
+Therefore, your logo needs sufficient padding so that it remains visually comfortable under 
+different masks.
 
 ---
 
 ### Using GIMP to resize the logo
 
-A 512×512 size logo or of any other size can be resized with GIMP while keeping the canvas at 512×512 while making the actual logo smaller by adding transparent padding around it. It can be done using GIMP.
+A 512×512 size logo or of any other size can be resized with GIMP while keeping the canvas at 
+512×512 while making the actual logo smaller by adding transparent padding around it. It can be 
+done using GIMP.
 
 #### Expected result
 
@@ -575,7 +605,7 @@ Select the logo layer and use:
 
 **Layer → Scale Layer**
 
-You'll get a dialog.
+You'll get a dialogue.
 
 If your current logo layer is 512×512, you can change it to something smaller.
 350 px x 350 px is the recommended resize option.
@@ -609,7 +639,7 @@ Then use:
 
 **Alignment Tool**
 
-or manually position the logo in the center.
+or manually position the logo in the centre.
 
 An easier method in recent GIMP versions is:
 
@@ -618,8 +648,8 @@ An easier method in recent GIMP versions is:
 Select the logo layer and align it:
 
 ```text
-Horizontal: Center
-Vertical: Center
+Horizontal: Centre
+Vertical: Centre
 ```
 
 You want:
@@ -666,7 +696,8 @@ and experiment with:
 
 until the visual size looks right.
 
-Remember: **the actual logo doesn't necessarily need to be a particular pixel size**. What matters is how large it appears once Android applies its launcher mask.
+Remember: **the actual logo doesn't necessarily need to be a particular pixel size**. What matters 
+is how large it appears once Android applies its launcher mask.
 
 ---
 
@@ -777,7 +808,7 @@ Canvas: 512 × 512
 
 ### Using Android Studio's image asset studio
 
-1. Right-click on the res folder.
+1. Right-click on the `res` folder.
 
 2. Select New > Image Asset.
 
@@ -792,3 +823,146 @@ Canvas: 512 × 512
 
 ---
 
+## Testing GitHub workflows locally
+
+[**`act`**](https://github.com/nektos/act) is used to test workflows locally without pushing to 
+GitHub or using any actions runner credits. It reads your `.github/workflows/` files and runs them 
+locally inside Docker containers. It provides a full emulation of GitHub Actions runner 
+environments right on your computer.
+
+### Installation
+- **macOS (Homebrew)**
+  ```bash
+  brew install act
+  ```
+- **Linux**
+  ```bash
+  curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash
+  ```
+- **Windows (Chocolatey / Scoop)**
+  ```bash
+  choco install act
+  # or
+  scoop install act
+  ```
+### Add to path
+  ```bash
+  echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
+  source ~/.bashrc
+  ```
+
+### Create hidden files
+
+Create these files in the project root directory.
+
+.env
+```bash
+# Contents of .env
+ANDROID_HOME=/<path-to-directory>/Android/Sdk
+```
+
+.secrets
+```bash
+# Contents of .secrets
+GITHUB_TOKEN=<github-personal-access-token>
+```
+
+.vars
+```bash
+# Contents of .vars
+ANDROID_HOME=/<path-to-directory>/Android/Sdk
+```
+
+### Add your user to the docker group
+
+  ```bash
+  # Add your user to the docker group
+  sudo usermod -aG docker $USER
+  
+  # Install 'newgrp' command
+  sudo apt install util-linux-extra
+  
+  # Apply the group changes
+  newgrp docker
+  
+  # Verify the fix
+  docker ps
+  ````
+
+> If changes do not take effect, log out and log back in
+
+### Common commands
+
+>Alternatively, the `act` command can be executed as `~/bin/act`
+
+1. **List all available actions/jobs in your workspace:**
+   ```bash
+   act -l
+   ```
+2. **Run the entire workflow (simulating a `push` event):**
+   ```bash
+   act
+   ```
+   
+3. **Run a specific job only (e.g., the `check` job from your `rust.yml`):**
+
+   ```bash
+   # Run 'check' job from 'rust.yml' workflow
+   act -j check -W .github/workflows/rust.yml
+   
+   # Run 'build' job from 'ci.yml' workflow
+   act -j build -W .github/workflows/ci.yml
+   # OR (Recommended for Android builds)
+   # Map your host SDK to a neutral internal path to avoid permission/path issues
+   act --env-file .env --container-options "-v /home/sherida101/Android/Sdk:/opt/android-sdk" --env ANDROID_HOME=/opt/android-sdk -j build -W .github/workflows/ci.yml
+   
+   # Run 'test' job from 'ci.yml' workflow
+   act -j test -W .github/workflows/ci.yml
+   # OR
+   act -s GITHUB_TOKEN=your_token_here -j test -W .github/workflows/ci.yml
+   # OR (Recommended for Android tests)
+   act --env-file .env --container-options "-v /home/sherida101/Android/Sdk:/opt/android-sdk" --env ANDROID_HOME=/opt/android-sdk -j test -W .github/workflows/ci.yml
+   
+   # Run 'fmt' job from 'ci.yml' workflow
+   act -j fmt -W .github/workflows/rust.yml
+   
+   # Run 'lint' job from 'ci.yml' workflow
+   act -j trunk -W .github/workflows/rust.yml --rm
+   
+   # NOTE: If you get "DNS error" or "Name resolution failure", you may need to 
+   # configure your Docker daemon's DNS or use a different network mode.
+   # act -j trunk -W .github/workflows/rust.yml --rm --network host
+   
+   # Run 'release' job from 'release.yml' workflow
+   act -j build -W .github/workflows/release.yml
+   ```
+   
+4. **Dry run (to see what steps would run without executing them):**
+   ```bash
+   act -n
+   ```
+
+> [!NOTE]
+> Given that `act` uses Docker containers to run workflows, you will need to have **Docker** 
+> (or an alternative like Podman) installed and running on your machine.
+
+---
+
+## Stop tracking files in Git
+
+The command, `git rm -r --cached <name-of-file-or-directory>` will remove the specified file or 
+folder from Git's index (the staging area) without deleting the actual files from your computer.
+
+>The commands must be executed in the project root directory
+
+```bash
+# e.g. This command will stop tracking the build/ folder 
+# since it is already being tracked
+
+git rm -r --cached build/
+# OR, if there are other build/ folders (like app/build/) that are also being tracked, run:
+# git rm -r --cached **/build/
+
+# Commit the change
+git commit -m "Stop tracking build/ directory"
+```

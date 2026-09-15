@@ -18,7 +18,7 @@ pub struct ChangelogEntry {
 
 // Parses a single line of text into styled segments (bold, italic, code).
 pub fn parse_line_formatting(text: &str) -> Vec<TextSegment> {
-// ...
+    // ...
     let mut segments = Vec::new();
     let mut current = String::new();
     let chars: Vec<char> = text.chars().collect();
@@ -116,19 +116,22 @@ pub fn parse_changelog(content: &str) -> Vec<ChangelogEntry> {
                     version = version[start + 1..end].to_string();
                 }
             } else if version.contains(' ') {
-                 // Try to split by space if no brackets
-                 let temp = version.clone();
-                 let parts: Vec<&str> = temp.split_whitespace().collect();
-                 if !parts.is_empty() {
-                     version = parts[0].to_string();
-                 }
+                // Try to split by space if no brackets
+                let temp = version.clone();
+                let parts: Vec<&str> = temp.split_whitespace().collect();
+                if !parts.is_empty() {
+                    version = parts[0].to_string();
+                }
             }
 
             if let Some(end) = line.rfind(')') {
                 if let Some(start) = line.rfind('(') {
                     let potential_date = &line[start + 1..end];
                     // Very basic check to avoid catching the link URL as a date
-                    if potential_date.contains('-') || potential_date.contains('/') || potential_date.chars().any(|c| c.is_numeric()) {
+                    if potential_date.contains('-')
+                        || potential_date.contains('/')
+                        || potential_date.chars().any(|c| c.is_numeric())
+                    {
                         date = Some(potential_date.to_string());
                     }
                 }
@@ -141,7 +144,8 @@ pub fn parse_changelog(content: &str) -> Vec<ChangelogEntry> {
             });
         } else if line.starts_with("- ") || line.starts_with("* ") || line.starts_with("• ") {
             if let Some(entry) = &mut current_entry {
-                let change_text = line.trim_start_matches(|c: char| c == '-' || c == '*' || c == '•')
+                let change_text = line
+                    .trim_start_matches(|c: char| c == '-' || c == '*' || c == '•')
                     .trim()
                     .to_string();
                 if !change_text.is_empty() {
@@ -167,13 +171,34 @@ mod tests {
         let segments = parse_line_formatting("Plain **Bold** *Italic* `Code` Mix");
         assert_eq!(segments.len(), 7);
 
-        match &segments[0] { TextSegment::Plain(s) => assert_eq!(s, "Plain "), _ => panic!() }
-        match &segments[1] { TextSegment::Bold(s) => assert_eq!(s, "Bold"), _ => panic!() }
-        match &segments[2] { TextSegment::Plain(s) => assert_eq!(s, " "), _ => panic!() }
-        match &segments[3] { TextSegment::Italic(s) => assert_eq!(s, "Italic"), _ => panic!() }
-        match &segments[4] { TextSegment::Plain(s) => assert_eq!(s, " "), _ => panic!() }
-        match &segments[5] { TextSegment::Italic(s) => assert_eq!(s, "Code"), _ => panic!() }
-        match &segments[6] { TextSegment::Plain(s) => assert_eq!(s, " Mix"), _ => panic!() }
+        match &segments[0] {
+            TextSegment::Plain(s) => assert_eq!(s, "Plain "),
+            _ => panic!(),
+        }
+        match &segments[1] {
+            TextSegment::Bold(s) => assert_eq!(s, "Bold"),
+            _ => panic!(),
+        }
+        match &segments[2] {
+            TextSegment::Plain(s) => assert_eq!(s, " "),
+            _ => panic!(),
+        }
+        match &segments[3] {
+            TextSegment::Italic(s) => assert_eq!(s, "Italic"),
+            _ => panic!(),
+        }
+        match &segments[4] {
+            TextSegment::Plain(s) => assert_eq!(s, " "),
+            _ => panic!(),
+        }
+        match &segments[5] {
+            TextSegment::Italic(s) => assert_eq!(s, "Code"),
+            _ => panic!(),
+        }
+        match &segments[6] {
+            TextSegment::Plain(s) => assert_eq!(s, " Mix"),
+            _ => panic!(),
+        }
     }
 
     #[test]

@@ -6,7 +6,7 @@
 // This file handles the platform-specific initialization for Desktop and Web builds.
 
 #[cfg(not(target_arch = "wasm32"))]
-use lexivo::config::AppConfig;
+use lexivo_lib::config::AppConfig;
 
 // When compiling natively (Linux, Windows, macOS):
 #[cfg(not(target_arch = "wasm32"))]
@@ -17,7 +17,7 @@ fn main() -> eframe::Result {
     eframe::run_native(
         AppConfig::APP_NAME,
         native_options,
-        Box::new(|cc| Ok(Box::new(lexivo::LexivoApp::new(cc)))),
+        Box::new(|cc| Ok(Box::new(lexivo_lib::LexivoApp::new(cc)))),
     )
 }
 
@@ -43,7 +43,7 @@ fn main() {
             .start(
                 canvas,
                 web_options,
-                Box::new(|cc| Ok(Box::new(lexivo::LexivoApp::new(cc)))),
+                Box::new(|cc| Ok(Box::new(lexivo_lib::LexivoApp::new(cc)))),
             )
             .await
             .expect("failed to start eframe");

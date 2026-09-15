@@ -25,10 +25,10 @@
             android:exported="true"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             >
-            <!-- This value must match the crate name in Cargo.toml (lib.name) -->
+            <!-- This value must match the lib.name in Cargo.toml -->
             <meta-data
                 android:name="android.app.lib_name"
-                android:value="lexivo" />
+                android:value="lexivo_lib" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

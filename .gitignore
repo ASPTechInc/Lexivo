@@ -29,6 +29,7 @@ android/app/src/keystore.properties
 .artifacts/
 .gradle/
 .gradle
+build/
 
 # Android files so that entire project can be opened in Android Studio
 settings.gradle
@@ -50,3 +51,9 @@ google-services.json
 .lycheecache
 .bacon
 .direnv/
+
+
+# 'act' files (a local GitHub workflow test tool)
+.vars
+.secrets
+.env

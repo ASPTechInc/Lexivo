@@ -1,6 +1,6 @@
 use super::*;
-use crate::utils::daily_seed_for_day;
 use crate::types::UpdateStatus;
+use crate::utils::daily_seed_for_day;
 
 #[test]
 fn score_round_trips_through_json() {
@@ -390,7 +390,6 @@ fn normalise_answer_filters_special_chars() {
     assert_eq!(normalise_answer("  multiple   words  "), "MULTIPLEWORDS");
 }
 
-
 #[test]
 fn remove_char_at_drops_only_selected_slot() {
     assert_eq!(LexivoApp::remove_char_at("WORD", 1), "WRD");
@@ -409,7 +408,7 @@ fn update_status_transitions() {
 
     app.update_status = UpdateStatus::Available {
         version: "1.1.0".to_string(),
-        url: "https://link".to_string()
+        url: "https://link".to_string(),
     };
 
     if let UpdateStatus::Available { version, .. } = &app.update_status {
@@ -480,4 +479,104 @@ fn composed_answer_requires_all_slots_filled() {
 
     app.user_input = "URSE".to_string();
     assert_eq!(app.composed_answer_from_slots(), Some("NURSE".to_string()));
+}
+
+#[test]
+fn hint_reveal_clears_overlapping_manual_input() {
+    let mut app = LexivoApp::default();
+    app.score = 50;
+    app.puzzles = vec![Puzzle {
+        source: "SOURCE".to_string(),
+        hint: "HINT".to_string(),
+        answer: "ABC".to_string(),
+    }];
+    app.current_index = 0;
+    app.user_input = "XY".to_string(); // Manual input for slots 0 and 1
+
+    // Force reveal of index 1
+    while !app.revealed_answer_indices.contains(&1) {
+        app.score = 50;
+        app.reveal_hint_letter();
+    }
+
+    // If index 1 was revealed, user_input should have shrunk
+    assert!(app.user_input.len() < 2);
+}
+
+#[test]
+fn leaderboard_deduplicates_scores() {
+    let mut app = LexivoApp::default();
+    app.score = 100;
+    app.record_score();
+    app.score = 100;
+    app.record_score();
+
+    assert_eq!(app.leaderboard, vec![100]);
+}
+
+#[test]
+fn back_navigation_confirmation_logic() {
+    let mut app = LexivoApp::default();
+
+    // Start screen -> Leaderboard (no confirm)
+    app.screen = Screen::Start;
+    app.go_to_screen(Screen::Leaderboard);
+    app.request_back_navigation();
+    assert_eq!(app.screen, Screen::Start);
+    assert!(!app.show_back_confirm);
+
+    // Game screen (active) -> Back (needs confirm)
+    app.screen = Screen::Game;
+    app.game_over = false;
+    app.request_back_navigation();
+    assert_eq!(app.screen, Screen::Game);
+    assert!(app.show_back_confirm);
+
+    app.confirm_back_navigation();
+    assert_eq!(app.screen, Screen::Start);
+    assert!(!app.show_back_confirm);
+}
+
+#[test]
+fn confirm_reset_progress_clears_state() {
+    let mut app = LexivoApp::default();
+    app.best_score = 500;
+    app.streak = 10;
+    app.best_streak = 15;
+    app.leaderboard = vec![500, 400];
+
+    app.confirm_reset_progress();
+
+    assert_eq!(app.best_score, 0);
+    assert_eq!(app.streak, 0);
+    assert_eq!(app.best_streak, 0);
+    assert!(app.leaderboard.is_empty());
+    assert_eq!(app.message, "Progress reset");
+}
+
+#[test]
+fn message_toast_lifecycle() {
+    let mut app = LexivoApp::default();
+    app.set_message("Hello");
+    assert_eq!(app.message, "Hello");
+    assert!(app.message_timer > 0.0);
+
+    app.update_timer(2.0);
+    assert_eq!(app.message, "Hello");
+
+    app.update_timer(1.1); // Total 3.1s
+    assert_eq!(app.message, "");
+}
+
+#[test]
+fn difficulty_reload_resets_state() {
+    let mut app = LexivoApp::default();
+    app.score = 100;
+    app.current_difficulty = Difficulty::Easy;
+
+    // Load medium
+    let _ = app.load_difficulty(Difficulty::Medium);
+    assert_eq!(app.current_difficulty, Difficulty::Medium);
+    assert_eq!(app.current_index, 0);
+    assert!(app.user_input.is_empty());
 }

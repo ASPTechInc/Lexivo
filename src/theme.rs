@@ -1,6 +1,5 @@
 /// Lexivo Theming Engine
 /// Defines the colour palettes, metrics and visual styles for Light and Dark modes.
-
 use eframe::egui;
 
 #[derive(Clone, Copy, Debug)]
@@ -109,7 +108,7 @@ pub const LIGHT_THEME: AppTheme = AppTheme {
         hint_label: egui::Color32::from_rgb(45, 95, 200),
         input_text: egui::Color32::from_rgb(156, 102, 0),
         revealed_text: egui::Color32::from_rgb(218, 165, 32), // Goldenrod (Vibrant Yellow/Gold)
-        tile_text: egui::Color32::from_rgb(255, 255, 255),
+        tile_text: egui::Color32::from_rgb(0, 0, 0),
         panel_fill: egui::Color32::from_rgb(255, 255, 255), // 246, 247, 251
         group_fill: egui::Color32::from_rgb(235, 237, 243),
         text_primary: egui::Color32::from_rgb(24, 28, 36),

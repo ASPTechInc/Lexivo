@@ -2,7 +2,10 @@
 // This module contains the main application state and core game logic.
 
 use crate::config::AppConfig;
-use crate::types::{Difficulty, GameMode, Puzzle, Screen, ThemeMode, TextSize, default_theme_mode, default_text_size};
+use crate::types::{
+    Difficulty, GameMode, Puzzle, Screen, TextSize, ThemeMode, default_text_size,
+    default_theme_mode,
+};
 use crate::utils::{
     daily_seed_for_difficulty, normalise_answer, scramble_word, seed_from_time, shuffle_slice,
 };
@@ -417,7 +420,6 @@ impl LexivoApp {
         self.user_input.chars().count() < max_len
     }
 
-
     pub(crate) fn remove_char_at(value: &str, index: usize) -> String {
         value
             .chars()
@@ -528,14 +530,21 @@ impl LexivoApp {
             .show(ctx, |ui| {
                 ui.style_mut().text_styles.insert(
                     egui::TextStyle::Body,
-                    egui::FontId::new(metrics.dialogue_content_size, egui::FontFamily::Proportional),
+                    egui::FontId::new(
+                        metrics.dialogue_content_size,
+                        egui::FontFamily::Proportional,
+                    ),
                 );
 
-                ui.label("Unscramble the tiles at the top to match the word described by the hint.");
+                ui.label(
+                    "Unscramble the tiles at the top to match the word described by the hint.",
+                );
                 ui.add_space(8.0);
                 ui.label("• There are four challenge lengths available: 10, 20, 30 and all.");
                 ui.label("• There are three difficulty levels available: Easy, Medium and Hard.");
-                ui.label("• Easy: change 1 letter. Medium: change 2 letters. Hard: change 3 letters.");
+                ui.label(
+                    "• Easy: change 1 letter. Medium: change 2 letters. Hard: change 3 letters.",
+                );
                 ui.label("• Tap a tile to move it into the answer slots.");
                 ui.label("• Tap a filled slot to remove that letter.");
                 ui.label("• Revealed letters cost 5 points and are locked in place.");
@@ -569,7 +578,7 @@ impl LexivoApp {
     pub(crate) fn show_changelog_window(&mut self, ctx: &egui::Context) {
         let mut open = self.show_changelog;
         let mut close_clicked = false;
-// ... (omitting for brevity in this step, but I'll update the whole file if needed)
+        // ... (omitting for brevity in this step, but I'll update the whole file if needed)
 
         let theme = crate::theme::theme_for_ctx(ctx);
         let metrics = theme.metrics;
@@ -583,7 +592,10 @@ impl LexivoApp {
             .show(ctx, |ui| {
                 ui.style_mut().text_styles.insert(
                     egui::TextStyle::Body,
-                    egui::FontId::new(metrics.dialogue_content_size, egui::FontFamily::Proportional),
+                    egui::FontId::new(
+                        metrics.dialogue_content_size,
+                        egui::FontFamily::Proportional,
+                    ),
                 );
 
                 egui::ScrollArea::vertical()
@@ -601,11 +613,18 @@ impl LexivoApp {
                                 ui.set_width(ui.available_width());
                                 ui.vertical(|ui| {
                                     ui.horizontal(|ui| {
-                                        ui.label(egui::RichText::new(&entry.version).strong().size(metrics.changelog_version_size));
+                                        ui.label(
+                                            egui::RichText::new(&entry.version)
+                                                .strong()
+                                                .size(metrics.changelog_version_size),
+                                        );
                                         if let Some(date) = &entry.date {
-                                            ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
-                                                ui.label(egui::RichText::new(date).weak());
-                                            });
+                                            ui.with_layout(
+                                                egui::Layout::right_to_left(egui::Align::Center),
+                                                |ui| {
+                                                    ui.label(egui::RichText::new(date).weak());
+                                                },
+                                            );
                                         }
                                     });
                                     ui.add_space(4.0);
@@ -619,10 +638,14 @@ impl LexivoApp {
                                                         ui.label(text);
                                                     }
                                                     crate::changelog::TextSegment::Bold(text) => {
-                                                        ui.label(egui::RichText::new(text).strong());
+                                                        ui.label(
+                                                            egui::RichText::new(text).strong(),
+                                                        );
                                                     }
                                                     crate::changelog::TextSegment::Italic(text) => {
-                                                        ui.label(egui::RichText::new(text).italics());
+                                                        ui.label(
+                                                            egui::RichText::new(text).italics(),
+                                                        );
                                                     }
                                                 }
                                             }
@@ -730,38 +753,44 @@ impl LexivoApp {
             .show(ctx, |ui| {
                 ui.style_mut().text_styles.insert(
                     egui::TextStyle::Body,
-                    egui::FontId::new(metrics.dialogue_content_size, egui::FontFamily::Proportional),
+                    egui::FontId::new(
+                        metrics.dialogue_content_size,
+                        egui::FontFamily::Proportional,
+                    ),
                 );
 
                 ui.label(format!("App name: {}", crate::config::AppConfig::APP_NAME));
-                ui.label(format!("App version: {}", crate::config::AppConfig::APP_VERSION));
+                ui.label(format!(
+                    "App version: {}",
+                    crate::config::AppConfig::APP_VERSION
+                ));
                 ui.label(format!("Architecture: {}", std::env::consts::ARCH));
                 ui.label(format!("OS: {}", std::env::consts::OS));
                 #[cfg(target_os = "android")]
                 ui.label("Platform: Android (x86_64 supported for ChromeOS)");
                 #[cfg(not(target_os = "android"))]
                 ui.label(format!("Platform: {}", std::env::consts::FAMILY));
-                 ui.add_space(12.0);
-                 ui.vertical_centered(|ui| {
+                ui.add_space(12.0);
+                ui.vertical_centered(|ui| {
                     if ui
-                       .add_sized(egui::vec2(120.0, 40.0), egui::Button::new("Close"))
-                       .clicked()
+                        .add_sized(egui::vec2(120.0, 40.0), egui::Button::new("Close"))
+                        .clicked()
                     {
                         close_clicked = true;
                     }
-                            });
-        });
+                });
+            });
 
         if close_clicked {
-           open = false;
+            open = false;
         }
         self.show_build_info = open;
     }
 
     /// Displays reset progress dialog.
     pub(crate) fn show_reset_progress_window(&mut self, ctx: &egui::Context) {
-         let theme = crate::theme::theme_for_ctx(ctx);
-         let metrics = theme.metrics;
+        let theme = crate::theme::theme_for_ctx(ctx);
+        let metrics = theme.metrics;
 
         egui::Window::new("Reset progress?")
             .anchor(egui::Align2::CENTER_CENTER, egui::vec2(0.0, 0.0))
@@ -770,7 +799,10 @@ impl LexivoApp {
             .show(ctx, |ui| {
                 ui.style_mut().text_styles.insert(
                     egui::TextStyle::Body,
-                    egui::FontId::new(metrics.dialogue_content_size, egui::FontFamily::Proportional),
+                    egui::FontId::new(
+                        metrics.dialogue_content_size,
+                        egui::FontFamily::Proportional,
+                    ),
                 );
 
                 ui.label("This will reset progress data:");
@@ -822,7 +854,10 @@ impl LexivoApp {
             .show(ctx, |ui| {
                 ui.style_mut().text_styles.insert(
                     egui::TextStyle::Body,
-                    egui::FontId::new(metrics.dialogue_content_size, egui::FontFamily::Proportional),
+                    egui::FontId::new(
+                        metrics.dialogue_content_size,
+                        egui::FontFamily::Proportional,
+                    ),
                 );
 
                 ui.vertical(|ui| {
@@ -852,17 +887,26 @@ impl LexivoApp {
                             }
                         }
                         crate::types::UpdateStatus::Available { version, url } => {
-                            ui.label(egui::RichText::new(format!("Update available: {}", version)).color(theme.palette.success));
+                            ui.label(
+                                egui::RichText::new(format!("Update available: {}", version))
+                                    .color(theme.palette.success),
+                            );
                             ui.add_space(8.0);
                             if ui
-                                .add_sized(egui::vec2(ui.available_width(), 40.0), egui::Button::new("Update Now"))
+                                .add_sized(
+                                    egui::vec2(ui.available_width(), 40.0),
+                                    egui::Button::new("Update Now"),
+                                )
                                 .clicked()
                             {
                                 self.install_update(url);
                             }
                         }
                         crate::types::UpdateStatus::Error(err) => {
-                            ui.label(egui::RichText::new(format!("Error: {}", err)).color(theme.palette.error));
+                            ui.label(
+                                egui::RichText::new(format!("Error: {}", err))
+                                    .color(theme.palette.error),
+                            );
                             ui.add_space(4.0);
                             if ui.button("Try again").clicked() {
                                 self.check_for_updates();
@@ -925,17 +969,23 @@ impl LexivoApp {
                             Ok(response) => {
                                 match response.json::<serde_json::Value>() {
                                     Ok(json) => {
-                                        let tag = json["tag_name"].as_str().unwrap_or("").trim_start_matches('v');
+                                        let tag = json["tag_name"]
+                                            .as_str()
+                                            .unwrap_or("")
+                                            .trim_start_matches('v');
                                         let current = AppConfig::APP_VERSION;
 
                                         if !tag.is_empty() && tag != current {
                                             // Find the APK asset if it exists
-                                            let mut download_url = json["html_url"].as_str().unwrap_or("").to_string();
+                                            let mut download_url =
+                                                json["html_url"].as_str().unwrap_or("").to_string();
                                             if let Some(assets) = json["assets"].as_array() {
                                                 for asset in assets {
                                                     let name = asset["name"].as_str().unwrap_or("");
                                                     if name.ends_with(".apk") {
-                                                        if let Some(url) = asset["browser_download_url"].as_str() {
+                                                        if let Some(url) =
+                                                            asset["browser_download_url"].as_str()
+                                                        {
                                                             download_url = url.to_string();
                                                             break;
                                                         }
@@ -951,10 +1001,15 @@ impl LexivoApp {
                                             crate::types::UpdateStatus::UpToDate
                                         }
                                     }
-                                    Err(e) => crate::types::UpdateStatus::Error(format!("Parse error: {}", e)),
+                                    Err(e) => crate::types::UpdateStatus::Error(format!(
+                                        "Parse error: {}",
+                                        e
+                                    )),
                                 }
                             }
-                            Err(e) => crate::types::UpdateStatus::Error(format!("Network error: {}", e)),
+                            Err(e) => {
+                                crate::types::UpdateStatus::Error(format!("Network error: {}", e))
+                            }
                         }
                     }
                     Err(e) => crate::types::UpdateStatus::Error(format!("Client error: {}", e)),
@@ -1146,7 +1201,9 @@ impl LexivoApp {
         self.revealed_answer_indices.push(idx);
         self.revealed_answer_indices.sort_unstable();
         self.revealed_answer_indices.dedup();
-        self.score = self.score.saturating_sub(AppConfig::LETTER_REVEAL_COST_POINTS);
+        self.score = self
+            .score
+            .saturating_sub(AppConfig::LETTER_REVEAL_COST_POINTS);
 
         if self.score == 0 {
             self.game_over = true;

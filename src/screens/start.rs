@@ -1,11 +1,11 @@
 // Start Screen
 // The initial landing page where users select game modes, difficulty and challenge length.
 
-use eframe::egui;
 use crate::app::LexivoApp;
 use crate::config::AppConfig;
 use crate::types::{Difficulty, GameMode};
 use crate::utils::primary_action_button;
+use eframe::egui;
 
 pub fn render_start_screen(app: &mut LexivoApp, ui: &mut egui::Ui) {
     let theme = crate::theme::theme_for_ctx(ui.ctx());
@@ -33,7 +33,10 @@ pub fn render_start_screen(app: &mut LexivoApp, ui: &mut egui::Ui) {
             } else {
                 palette.button_idle
             });
-            if ui.add_sized(metrics.mode_button_size, quick_button).clicked() {
+            if ui
+                .add_sized(metrics.mode_button_size, quick_button)
+                .clicked()
+            {
                 app.set_mode(GameMode::QuickPlay);
             }
 
@@ -44,7 +47,10 @@ pub fn render_start_screen(app: &mut LexivoApp, ui: &mut egui::Ui) {
             } else {
                 palette.button_idle
             });
-            if ui.add_sized(metrics.mode_button_size, daily_button).clicked() {
+            if ui
+                .add_sized(metrics.mode_button_size, daily_button)
+                .clicked()
+            {
                 app.set_mode(GameMode::DailyChallenge);
             }
         });
@@ -53,7 +59,11 @@ pub fn render_start_screen(app: &mut LexivoApp, ui: &mut egui::Ui) {
         ui.label("Difficulty");
         // Difficulty level selection buttons
         ui.horizontal(|ui| {
-            ui.add_space((ui.available_width() - (3.0 * metrics.difficulty_button_size.x + 2.0 * 8.0)).max(0.0) / 2.0);
+            ui.add_space(
+                (ui.available_width() - (3.0 * metrics.difficulty_button_size.x + 2.0 * 8.0))
+                    .max(0.0)
+                    / 2.0,
+            );
 
             for (label, level) in [
                 ("Easy", Difficulty::Easy),
@@ -90,7 +100,8 @@ pub fn render_start_screen(app: &mut LexivoApp, ui: &mut egui::Ui) {
         ui.horizontal(|ui| {
             let button_width = metrics.question_count_button_width;
             let count_buttons = 4;
-            let total_width = (count_buttons as f32 * button_width) + ((count_buttons - 1) as f32 * 8.0);
+            let total_width =
+                (count_buttons as f32 * button_width) + ((count_buttons - 1) as f32 * 8.0);
             ui.add_space((ui.available_width() - total_width).max(0.0) / 2.0);
 
             for count in [10, 20, 30, 0] {
@@ -116,9 +127,7 @@ pub fn render_start_screen(app: &mut LexivoApp, ui: &mut egui::Ui) {
 
         ui.add_space(45.0);
         // Primary action to begin the game
-        if primary_action_button(ui, "Start", metrics.primary_button_size)
-            .clicked()
-        {
+        if primary_action_button(ui, "Start", metrics.primary_button_size).clicked() {
             app.start_selected_mode();
         }
     });

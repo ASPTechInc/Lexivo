@@ -101,7 +101,8 @@ pub fn render_game_screen(app: &mut LexivoApp, ui: &mut egui::Ui) {
                 palette.tile_text,
                 metrics,
                 app.animations_enabled,
-            ) && app.can_append_char(c) {
+            ) && app.can_append_char(c)
+            {
                 app.user_input.push(c);
             }
         }
@@ -255,7 +256,10 @@ pub fn render_game_screen(app: &mut LexivoApp, ui: &mut egui::Ui) {
                                 app.user_input.push(c);
                                 app.sync_manual_input();
                                 // Auto-tab to next empty slot
-                                app.focused_slot = app.answer_slots().iter().enumerate()
+                                app.focused_slot = app
+                                    .answer_slots()
+                                    .iter()
+                                    .enumerate()
                                     .find(|(_, s)| s.is_none())
                                     .map(|(i, _)| i);
                                 app.auto_focus = true;
@@ -296,8 +300,7 @@ pub fn render_game_screen(app: &mut LexivoApp, ui: &mut egui::Ui) {
 
     // Action buttons
     ui.horizontal(|ui| {
-        let total_width =
-            3.0 * metrics.game_action_button_size.x + 2.0 * metrics.item_spacing.x;
+        let total_width = 3.0 * metrics.game_action_button_size.x + 2.0 * metrics.item_spacing.x;
         ui.add_space((ui.available_width() - total_width).max(0.0) / 2.0);
 
         if primary_action_button(

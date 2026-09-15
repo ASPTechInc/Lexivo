@@ -25,6 +25,9 @@ fn android_main(app: android_activity::AndroidApp) {
         android_logger::Config::default().with_max_level(log::LevelFilter::Info),
     );
 
+    // Initialize Android bridges (SoundPool, Vibrator, etc.)
+    platform_feedback::init_platform_bridges();
+
     let mut options = eframe::NativeOptions::default();
     // Provide the Android app handle to eframe.
     options.android_app = Some(app);
