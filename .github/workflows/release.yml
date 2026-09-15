@@ -15,6 +15,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]' # Skip the entire workflow for Dependabot pull requests
     env:
       ANDROID_HOME: ${{ vars.ANDROID_HOME || '/usr/local/lib/android/sdk' }}
       GRADLE_USER_HOME: ${{ github.workspace }}/.gradle_home
@@ -101,6 +102,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.APP_GITHUB_TOKEN }}
 
       - name: Upload APK artefact
+        if: ${{ !env.ACT }} # Accounts for 'act' not having a ACTIONS_RUNTIME_TOKEN
         uses: actions/upload-artifact@v7
         with:
           name: Lexivo-apk
@@ -108,6 +110,7 @@ jobs:
           retention-days: 1
 
       - name: Upload bundle artefact
+        if: ${{ !env.ACT }} # Accounts for 'act' not having a ACTIONS_RUNTIME_TOKEN
         uses: actions/upload-artifact@v7
         with:
           name: Lexivo-bundle
@@ -115,6 +118,7 @@ jobs:
           retention-days: 1
 
       - name: Upload version artefact
+        if: ${{ !env.ACT }} # Accounts for 'act' not having a ACTIONS_RUNTIME_TOKEN
         uses: actions/upload-artifact@v7
         with:
           name: version-file
@@ -122,6 +126,7 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]' && !env.ACT # Accounts for 'act' not having a ACTIONS_RUNTIME_TOKEN
     needs: build
     permissions:
       contents: write

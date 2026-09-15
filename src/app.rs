@@ -1224,9 +1224,11 @@ impl LexivoApp {
         ));
     }
 
+    /// Triggers physical answer feedback (both Sound Effects and Haptic Vibrations)
+    /// if the audio & feedback option is enabled in settings.
     fn trigger_answer_feedback(&self, correct: bool) {
         if self.sound_enabled {
-            crate::platform_feedback::trigger_answer_feedback(correct, true);
+            crate::platform_feedback::trigger_answer_feedback(correct, self.sound_enabled);
         }
     }
 

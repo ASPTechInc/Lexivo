@@ -15,8 +15,11 @@ import java.util.Map;
 
 /**
  * A utility bridge that allows the Rust game engine to trigger Android-specific hardware and media feedback.
- * This class is optimized using SoundPool for low-latency audio and cached system services.
+ * This class is optimised using SoundPool for low-latency audio and cached system services.
+ * Android Studio's Java/Kotlin static analysis highlights AndroidFeedbackBridge.java and its
+ * methods as unused so suppress the warning.
  */
+@SuppressWarnings("unused")
 public final class FeedbackBridge {
     private static final String TAG = "LexivoFeedback";
 
@@ -29,7 +32,7 @@ public final class FeedbackBridge {
     }
 
     /**
-     * Initializes the feedback bridge by pre-loading sound assets and caching system services.
+     * Initialises the feedback bridge by preloading sound assets and caching system services.
      * Should be called once during application startup.
      */
     public static synchronized void init(Context context) {
@@ -50,7 +53,7 @@ public final class FeedbackBridge {
                 .setAudioAttributes(attrs)
                 .build();
 
-        // Pre-load sound effects
+        // Preload sound effects
         loadSound(context, "correct-buzzer-sound-effect.mp3");
         loadSound(context, "wrong-buzzer-sound-effect.mp3");
 

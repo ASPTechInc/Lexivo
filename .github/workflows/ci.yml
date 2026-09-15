@@ -62,6 +62,7 @@ jobs:
         working-directory: android
 
       - name: Upload Debug APK
+        if: ${{ !env.ACT }} # Accounts for 'act' not having a ACTIONS_RUNTIME_TOKEN
         uses: actions/upload-artifact@v7
         with:
           name: app-debug
@@ -120,7 +121,7 @@ jobs:
         working-directory: android
 
       - name: Upload Test Report
-        if: failure()
+        if: ${{ failure() && !env.ACT }}
         uses: actions/upload-artifact@v7
         with:
           name: unit-test-report
@@ -183,7 +184,7 @@ jobs:
         working-directory: android
 
       - name: Upload Lint Report
-        if: failure()
+        if: ${{ failure() && !env.ACT }}
         uses: actions/upload-artifact@v7
         with:
           name: lint-report

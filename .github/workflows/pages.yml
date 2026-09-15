@@ -16,6 +16,7 @@ permissions:
 jobs:
   build-github-pages:
     runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]' # Skip the entire workflow for Dependabot pull requests
     steps:
       - uses: actions/checkout@v7 # repo checkout
       - name: Setup Rust

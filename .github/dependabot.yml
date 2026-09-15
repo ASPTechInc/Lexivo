@@ -22,6 +22,7 @@ updates:
         patterns:
           - "com.android.*"
           - "androidx.*"
+          - "com.google.android.*"
 
       kotlin:
         patterns:
@@ -42,7 +43,7 @@ updates:
 
       all-others:
         patterns:
-          - "*"
+          - "*" # Catches everything not matched above into one single bundled PR
 
   # GitHub Actions updates
   - package-ecosystem: "github-actions"

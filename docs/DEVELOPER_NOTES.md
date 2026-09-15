@@ -914,14 +914,14 @@ ANDROID_HOME=/<path-to-directory>/Android/Sdk
    act -j build -W .github/workflows/ci.yml
    # OR (Recommended for Android builds)
    # Map your host SDK to a neutral internal path to avoid permission/path issues
-   act --env-file .env --container-options "-v /home/sherida101/Android/Sdk:/opt/android-sdk" --env ANDROID_HOME=/opt/android-sdk -j build -W .github/workflows/ci.yml
+   act --env-file .env --container-options "-v /<path-to-directory>/Android/Sdk:/opt/android-sdk" --env ANDROID_HOME=/opt/android-sdk -j build -W .github/workflows/ci.yml
    
    # Run 'test' job from 'ci.yml' workflow
    act -j test -W .github/workflows/ci.yml
    # OR
    act -s GITHUB_TOKEN=your_token_here -j test -W .github/workflows/ci.yml
    # OR (Recommended for Android tests)
-   act --env-file .env --container-options "-v /home/sherida101/Android/Sdk:/opt/android-sdk" --env ANDROID_HOME=/opt/android-sdk -j test -W .github/workflows/ci.yml
+   act --env-file .env --container-options "-v /<path-to-directory>/Android/Sdk:/opt/android-sdk" --env ANDROID_HOME=/opt/android-sdk -j test -W .github/workflows/ci.yml
    
    # Run 'fmt' job from 'ci.yml' workflow
    act -j fmt -W .github/workflows/rust.yml
