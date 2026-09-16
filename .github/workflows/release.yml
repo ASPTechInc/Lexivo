@@ -15,6 +15,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: Release
     if: github.actor != 'dependabot[bot]' # Skip the entire workflow for Dependabot pull requests
     env:
       ANDROID_HOME: ${{ vars.ANDROID_HOME || '/usr/local/lib/android/sdk' }}
