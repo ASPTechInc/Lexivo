@@ -89,7 +89,7 @@ jobs:
 
       - name: Decode and write keystore file
         run: |
-          echo "${{ secrets.KEYSTORE_CONTENT }}" | base64 --decode > android/app/keystore.jks
+          echo "${{ secrets.KEYSTORE_CONTENT }}" | base64 --decode > android/app/${{ secrets.KEYSTORE_FILE_NAME }}
 
       - name: Build release APK and bundle
         run: |
