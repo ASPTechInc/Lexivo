@@ -19,7 +19,6 @@ jobs:
     if: github.actor != 'dependabot[bot]' # Skip the entire workflow for Dependabot pull requests
 
     env:
-      ANDROID_HOME: ${{ vars.ANDROID_HOME || '/usr/local/lib/android/sdk' }}
       GRADLE_USER_HOME: ${{ github.workspace }}/.gradle_home
 
     steps:
@@ -29,15 +28,27 @@ jobs:
           fetch-depth: 0
 
       - name: Verify Android SDK
+        shell: bash
         run: |
-          echo "Using ANDROID_HOME: $ANDROID_HOME"
-          if [ -d "$ANDROID_HOME" ]; then
-            echo "SDK directory exists."
-            ls -ld "$ANDROID_HOME"
-          else
-            echo "Error: SDK directory not found at $ANDROID_HOME"
+          set -euo pipefail
+          
+          echo "ANDROID_HOME: ${ANDROID_HOME:-not set}"
+          echo "ANDROID_SDK_ROOT: ${ANDROID_SDK_ROOT:-not set}"
+          
+          SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-}}"
+          
+          if [[ -z "$SDK" ]]; then
+            echo "::error::Android SDK environment variable is not set"
             exit 1
           fi
+          
+          if [[ ! -d "$SDK" ]]; then
+            echo "::error::Android SDK directory does not exist: $SDK"
+            exit 1
+          fi
+          
+          echo "Android SDK found:"
+          ls -ld "$SDK"
 
       - name: Verify tag is on main branch
         run: |
@@ -68,7 +79,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create local.properties
-        run: echo "sdk.dir=$ANDROID_HOME" > android/local.properties
+        run: |
+          printf 'sdk.dir=%s\n' "${ANDROID_HOME:-$ANDROID_SDK_ROOT}" > android/local.properties
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
