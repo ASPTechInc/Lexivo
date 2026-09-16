@@ -217,9 +217,7 @@ fn render_data_about(
                 app.show_build_info_window(ui.ctx());
             }
             ui.add_space(8.0);
-            if primary_action_button(ui, "Reset progress", metrics.primary_button_size)
-                .clicked()
-            {
+            if primary_action_button(ui, "Reset progress", metrics.primary_button_size).clicked() {
                 app.request_reset_progress();
             }
             ui.add_space(2.0);

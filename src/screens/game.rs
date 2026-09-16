@@ -3,7 +3,7 @@
 
 use crate::app::LexivoApp;
 use crate::config::AppConfig;
-use crate::utils::{draw_tile, primary_action_button, TileOptions};
+use crate::utils::{TileOptions, draw_tile, primary_action_button};
 use eframe::egui;
 
 pub fn render_game_screen(app: &mut LexivoApp, ui: &mut egui::Ui) {
@@ -167,7 +167,9 @@ fn render_answer_slots(
 
     ui.horizontal(|ui| {
         let label_text = "Enter answer:";
-        ui.add_space((ui.available_width() - (100.0 + ui.spacing().item_spacing.x + 18.0)).max(0.0) / 2.0);
+        ui.add_space(
+            (ui.available_width() - (100.0 + ui.spacing().item_spacing.x + 18.0)).max(0.0) / 2.0,
+        );
         ui.label(label_text);
         if ui
             .add(
@@ -188,7 +190,8 @@ fn render_answer_slots(
     if show_answer_help {
         render_answer_help(ui.ctx(), metrics, &mut show_answer_help);
     }
-    ui.ctx().data_mut(|data| data.insert_temp(help_id, show_answer_help));
+    ui.ctx()
+        .data_mut(|data| data.insert_temp(help_id, show_answer_help));
     ui.add_space(2.0);
 
     ui.horizontal_wrapped(|ui| {
@@ -213,7 +216,9 @@ fn render_answer_slots(
             }
         }
 
-        if let Some(idx) = remove_index && app.remove_manual_input_for_slot(idx) {
+        if let Some(idx) = remove_index
+            && app.remove_manual_input_for_slot(idx)
+        {
             app.auto_focus = true;
         }
     });
@@ -255,7 +260,11 @@ fn render_filled_slot(
     } else {
         egui::RichText::new(ch.to_string())
     };
-    let fill = if is_locked { palette.group_fill } else { palette.tile_fill };
+    let fill = if is_locked {
+        palette.group_fill
+    } else {
+        palette.tile_fill
+    };
     let stroke = if is_locked {
         egui::Stroke::new(2.0, palette.revealed_text)
     } else {
@@ -295,21 +304,37 @@ fn render_empty_slot(ui: &mut egui::Ui, idx: usize, app: &mut LexivoApp, slot_si
                 if app.can_append_char(c) {
                     app.user_input.push(c);
                     app.sync_manual_input();
-                    app.focused_slot = app.answer_slots().iter().enumerate().find(|(_, s)| s.is_none()).map(|(i, _)| i);
+                    app.focused_slot = app
+                        .answer_slots()
+                        .iter()
+                        .enumerate()
+                        .find(|(_, s)| s.is_none())
+                        .map(|(i, _)| i);
                     app.auto_focus = true;
-                } else { app.focused_slot = None; }
-            } else { app.focused_slot = None; }
+                } else {
+                    app.focused_slot = None;
+                }
+            } else {
+                app.focused_slot = None;
+            }
         }
         if response.lost_focus() && app.focused_slot == Some(idx) {
             app.focused_slot = None;
         }
-    } else if ui.add(egui::Button::new("_").min_size(egui::vec2(slot_size, slot_size))).clicked() {
+    } else if ui
+        .add(egui::Button::new("_").min_size(egui::vec2(slot_size, slot_size)))
+        .clicked()
+    {
         app.focused_slot = Some(idx);
         app.auto_focus = true;
     }
 }
 
-fn render_action_buttons(app: &mut LexivoApp, ui: &mut egui::Ui, metrics: crate::theme::ThemeMetrics) {
+fn render_action_buttons(
+    app: &mut LexivoApp,
+    ui: &mut egui::Ui,
+    metrics: crate::theme::ThemeMetrics,
+) {
     ui.horizontal(|ui| {
         let total_width = 3.0 * metrics.game_action_button_size.x + 2.0 * metrics.item_spacing.x;
         ui.add_space((ui.available_width() - total_width).max(0.0) / 2.0);
@@ -318,21 +343,29 @@ fn render_action_buttons(app: &mut LexivoApp, ui: &mut egui::Ui, metrics: crate:
             ui,
             &format!("{} Check", egui_phosphor::regular::CHECK_CIRCLE),
             metrics.game_action_button_size,
-        ).clicked() {
+        )
+        .clicked()
+        {
             app.check_answer();
         }
 
-        if ui.add_sized(
-            metrics.game_action_button_size,
-            egui::Button::new(format!("{} Reveal", egui_phosphor::regular::LIGHTBULB)),
-        ).clicked() {
+        if ui
+            .add_sized(
+                metrics.game_action_button_size,
+                egui::Button::new(format!("{} Reveal", egui_phosphor::regular::LIGHTBULB)),
+            )
+            .clicked()
+        {
             app.reveal_hint_letter();
         }
 
-        if ui.add_sized(
-            metrics.game_action_button_size,
-            egui::Button::new(format!("{} Next", egui_phosphor::regular::ARROW_RIGHT)),
-        ).clicked() {
+        if ui
+            .add_sized(
+                metrics.game_action_button_size,
+                egui::Button::new(format!("{} Next", egui_phosphor::regular::ARROW_RIGHT)),
+            )
+            .clicked()
+        {
             app.next_puzzle();
         }
     });

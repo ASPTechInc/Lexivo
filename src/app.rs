@@ -987,7 +987,9 @@ impl LexivoApp {
                                                     let name = asset["name"].as_str().unwrap_or("");
                                                     if std::path::Path::new(name)
                                                         .extension()
-                                                        .is_some_and(|ext| ext.eq_ignore_ascii_case("apk"))
+                                                        .is_some_and(|ext| {
+                                                            ext.eq_ignore_ascii_case("apk")
+                                                        })
                                                         && let Some(url) =
                                                             asset["browser_download_url"].as_str()
                                                     {
@@ -1189,7 +1191,8 @@ impl LexivoApp {
         }
 
         // Choose a random unrevealed slot using internal RNG state.
-        let random_offset = usize::try_from(self.rng_state).unwrap_or(usize::MAX) % unrevealed.len();
+        let random_offset =
+            usize::try_from(self.rng_state).unwrap_or(usize::MAX) % unrevealed.len();
         self.rng_state = self
             .rng_state
             .wrapping_mul(6364136223846793005)

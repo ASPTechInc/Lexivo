@@ -54,7 +54,10 @@ pub enum UpdateStatus {
     Idle,
     Checking,
     UpToDate,
-    Available { version: String, url: String },
+    Available {
+        version: String,
+        url: String,
+    },
     Error(String),
 }
 

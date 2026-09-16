@@ -84,8 +84,7 @@ fn render_difficulty_selection(
 ) {
     ui.horizontal(|ui| {
         ui.add_space(
-            (ui.available_width() - (3.0 * metrics.difficulty_button_size.x + 2.0 * 8.0))
-                .max(0.0)
+            (ui.available_width() - (3.0 * metrics.difficulty_button_size.x + 2.0 * 8.0)).max(0.0)
                 / 2.0,
         );
 

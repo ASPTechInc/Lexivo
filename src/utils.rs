@@ -102,7 +102,9 @@ pub fn daily_seed() -> u64 {
 pub fn seed_from_time() -> u64 {
     let nanos = SystemTime::now()
         .duration_since(UNIX_EPOCH)
-        .map_or(0, |duration| u64::try_from(duration.as_nanos()).unwrap_or(u64::MAX));
+        .map_or(0, |duration| {
+            u64::try_from(duration.as_nanos()).unwrap_or(u64::MAX)
+        });
 
     if nanos == 0 {
         0x9E37_79B9_7F4A_7C15

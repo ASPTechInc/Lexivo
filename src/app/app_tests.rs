@@ -617,7 +617,8 @@ fn difficulty_reload_resets_state() {
     };
 
     // Load medium
-    app.load_difficulty(Difficulty::Medium).expect("load difficulty");
+    app.load_difficulty(Difficulty::Medium)
+        .expect("load difficulty");
     assert_eq!(app.current_difficulty, Difficulty::Medium);
     assert_eq!(app.current_index, 0);
     assert!(app.user_input.is_empty());

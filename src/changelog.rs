@@ -26,7 +26,9 @@ pub fn parse_line_formatting(text: &str) -> Vec<TextSegment> {
 
     while i < chars.len() {
         // Check for Bold: **bold**
-        if i + 1 < chars.len() && chars[i] == '*' && chars[i + 1] == '*'
+        if i + 1 < chars.len()
+            && chars[i] == '*'
+            && chars[i + 1] == '*'
             && let Some(end) = find_closing(&chars, i + 2, "**")
         {
             if !current.is_empty() {
@@ -145,10 +147,7 @@ pub fn parse_changelog(content: &str) -> Vec<ChangelogEntry> {
         } else if (line.starts_with("- ") || line.starts_with("* ") || line.starts_with("• "))
             && let Some(entry) = &mut current_entry
         {
-            let change_text = line
-                .trim_start_matches(['-', '*', '•'])
-                .trim()
-                .to_owned();
+            let change_text = line.trim_start_matches(['-', '*', '•']).trim().to_owned();
             if !change_text.is_empty() {
                 entry.changes.push(parse_line_formatting(&change_text));
             }
