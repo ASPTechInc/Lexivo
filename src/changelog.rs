@@ -26,42 +26,42 @@ pub fn parse_line_formatting(text: &str) -> Vec<TextSegment> {
 
     while i < chars.len() {
         // Check for Bold: **bold**
-        if i + 1 < chars.len() && chars[i] == '*' && chars[i + 1] == '*' {
-            if let Some(end) = find_closing(&chars, i + 2, "**") {
-                if !current.is_empty() {
-                    segments.push(TextSegment::Plain(current.clone()));
-                    current.clear();
-                }
-                segments.push(TextSegment::Bold(chars[i + 2..end].iter().collect()));
-                i = end + 2;
-                continue;
+        if i + 1 < chars.len() && chars[i] == '*' && chars[i + 1] == '*'
+            && let Some(end) = find_closing(&chars, i + 2, "**")
+        {
+            if !current.is_empty() {
+                segments.push(TextSegment::Plain(current.clone()));
+                current.clear();
             }
+            segments.push(TextSegment::Bold(chars[i + 2..end].iter().collect()));
+            i = end + 2;
+            continue;
         }
 
         // Check for Italic: *italic*
-        if chars[i] == '*' {
-            if let Some(end) = find_closing(&chars, i + 1, "*") {
-                if !current.is_empty() {
-                    segments.push(TextSegment::Plain(current.clone()));
-                    current.clear();
-                }
-                segments.push(TextSegment::Italic(chars[i + 1..end].iter().collect()));
-                i = end + 1;
-                continue;
+        if chars[i] == '*'
+            && let Some(end) = find_closing(&chars, i + 1, "*")
+        {
+            if !current.is_empty() {
+                segments.push(TextSegment::Plain(current.clone()));
+                current.clear();
             }
+            segments.push(TextSegment::Italic(chars[i + 1..end].iter().collect()));
+            i = end + 1;
+            continue;
         }
 
         // Check for Italic (backtick): `italic`
-        if chars[i] == '`' {
-            if let Some(end) = find_closing(&chars, i + 1, "`") {
-                if !current.is_empty() {
-                    segments.push(TextSegment::Plain(current.clone()));
-                    current.clear();
-                }
-                segments.push(TextSegment::Italic(chars[i + 1..end].iter().collect()));
-                i = end + 1;
-                continue;
+        if chars[i] == '`'
+            && let Some(end) = find_closing(&chars, i + 1, "`")
+        {
+            if !current.is_empty() {
+                segments.push(TextSegment::Plain(current.clone()));
+                current.clear();
             }
+            segments.push(TextSegment::Italic(chars[i + 1..end].iter().collect()));
+            i = end + 1;
+            continue;
         }
 
         current.push(chars[i]);
@@ -84,7 +84,7 @@ fn find_closing(chars: &[char], start: usize, token: &str) -> Option<usize> {
     }
 
     for i in start..=(chars.len() - token_len) {
-        if &chars[i..i + token_len] == &token_chars[..] {
+        if chars[i..i + token_len] == token_chars[..] {
             return Some(i);
         }
     }
@@ -101,39 +101,39 @@ pub fn parse_changelog(content: &str) -> Vec<ChangelogEntry> {
             continue;
         }
 
-        if line.starts_with("# ") {
+        if let Some(stripped) = line.strip_prefix("# ") {
             if let Some(entry) = current_entry.take() {
                 entries.push(entry);
             }
 
             // Parse version and date
             // Format: # [v1.0](link) (2026-09-03) or # v1.0 (2026-09-03)
-            let mut version = line[2..].to_string();
+            let mut version = stripped.to_owned();
             let mut date = None;
 
             if let Some(start) = version.find('[') {
                 if let Some(end) = version.find(']') {
-                    version = version[start + 1..end].to_string();
+                    version = version[start + 1..end].to_owned();
                 }
             } else if version.contains(' ') {
                 // Try to split by space if no brackets
                 let temp = version.clone();
                 let parts: Vec<&str> = temp.split_whitespace().collect();
                 if !parts.is_empty() {
-                    version = parts[0].to_string();
+                    version = parts[0].to_owned();
                 }
             }
 
-            if let Some(end) = line.rfind(')') {
-                if let Some(start) = line.rfind('(') {
-                    let potential_date = &line[start + 1..end];
-                    // Very basic check to avoid catching the link URL as a date
-                    if potential_date.contains('-')
-                        || potential_date.contains('/')
-                        || potential_date.chars().any(|c| c.is_numeric())
-                    {
-                        date = Some(potential_date.to_string());
-                    }
+            if let Some(end) = line.rfind(')')
+                && let Some(start) = line.rfind('(')
+            {
+                let potential_date = &line[start + 1..end];
+                // Very basic check to avoid catching the link URL as a date
+                if potential_date.contains('-')
+                    || potential_date.contains('/')
+                    || potential_date.chars().any(|c| c.is_numeric())
+                {
+                    date = Some(potential_date.to_owned());
                 }
             }
 
@@ -142,15 +142,15 @@ pub fn parse_changelog(content: &str) -> Vec<ChangelogEntry> {
                 date,
                 changes: Vec::new(),
             });
-        } else if line.starts_with("- ") || line.starts_with("* ") || line.starts_with("• ") {
-            if let Some(entry) = &mut current_entry {
-                let change_text = line
-                    .trim_start_matches(|c: char| c == '-' || c == '*' || c == '•')
-                    .trim()
-                    .to_string();
-                if !change_text.is_empty() {
-                    entry.changes.push(parse_line_formatting(&change_text));
-                }
+        } else if (line.starts_with("- ") || line.starts_with("* ") || line.starts_with("• "))
+            && let Some(entry) = &mut current_entry
+        {
+            let change_text = line
+                .trim_start_matches(['-', '*', '•'])
+                .trim()
+                .to_owned();
+            if !change_text.is_empty() {
+                entry.changes.push(parse_line_formatting(&change_text));
             }
         }
     }

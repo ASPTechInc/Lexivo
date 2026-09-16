@@ -3,8 +3,8 @@
 use crate::types::Difficulty;
 use eframe::egui;
 use rand::rngs::StdRng;
-use rand::seq::SliceRandom;
-use rand::{Rng, SeedableRng};
+use rand::seq::SliceRandom as _;
+use rand::{Rng as _, SeedableRng as _};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 /// Normalises a string by trimming whitespace, converting to uppercase and removing non-alphanumeric characters.
@@ -32,39 +32,45 @@ pub fn primary_action_button(ui: &mut egui::Ui, label: &str, size: egui::Vec2) -
     )
 }
 
+#[derive(Clone, Copy)]
+pub struct TileOptions {
+    pub c: char,
+    pub index: usize,
+    pub time: f64,
+    pub fill_colour: egui::Color32,
+    pub text_colour: egui::Color32,
+    pub metrics: crate::theme::ThemeMetrics,
+    pub animations_enabled: bool,
+}
+
 /// Draws a bouncy word tile for the scrambling area.
-pub fn draw_tile(
-    ui: &mut egui::Ui,
-    c: char,
-    index: usize,
-    time: f64,
-    fill_colour: egui::Color32,
-    text_colour: egui::Color32,
-    metrics: crate::theme::ThemeMetrics,
-    animations_enabled: bool,
-) -> bool {
-    let scale = if animations_enabled {
-        1.0 + ((time * 2.5 + index as f64 * 0.8).sin() * 0.16)
+pub fn draw_tile(ui: &mut egui::Ui, options: TileOptions) -> bool {
+    let scale = if options.animations_enabled {
+        1.0 + ((options.time * 2.5 + options.index as f64 * 0.8).sin() * 0.16)
     } else {
         1.0
     };
 
+    #[expect(clippy::cast_possible_truncation)]
     let tile_size = egui::vec2(
-        metrics.tile_size * scale as f32,
-        metrics.tile_size * scale as f32,
+        options.metrics.tile_size * scale as f32,
+        options.metrics.tile_size * scale as f32,
     );
     let (rect, response) = ui.allocate_at_least(tile_size, egui::Sense::click());
-    ui.painter().rect_filled(rect, 7.0, fill_colour);
+    ui.painter().rect_filled(rect, 7.0, options.fill_colour);
 
     let mut buf = [0u8; 4];
-    let s = c.encode_utf8(&mut buf);
+    let s = options.c.encode_utf8(&mut buf);
+
+    #[expect(clippy::cast_possible_truncation)]
+    let font_id = egui::FontId::proportional(options.metrics.tile_font_size * scale as f32);
 
     ui.painter().text(
         rect.center(),
         egui::Align2::CENTER_CENTER,
         s,
-        egui::FontId::proportional(metrics.tile_font_size * scale as f32),
-        text_colour,
+        font_id,
+        options.text_colour,
     );
 
     response.clicked()
@@ -73,7 +79,7 @@ pub fn draw_tile(
 /// Generates a stable seed for the daily challenge based on the current date.
 pub fn daily_seed_for_day(epoch_seconds: u64) -> u64 {
     let days_since_epoch = epoch_seconds / 86_400;
-    days_since_epoch ^ 0xC0FFEE_1234u64
+    days_since_epoch ^ 0x00C0_FFEE_1234_u64
 }
 
 /// Generates a stable, difficulty-specific seed for the daily challenge.
@@ -96,7 +102,7 @@ pub fn daily_seed() -> u64 {
 pub fn seed_from_time() -> u64 {
     let nanos = SystemTime::now()
         .duration_since(UNIX_EPOCH)
-        .map_or(0, |duration| duration.as_nanos() as u64);
+        .map_or(0, |duration| u64::try_from(duration.as_nanos()).unwrap_or(u64::MAX));
 
     if nanos == 0 {
         0x9E37_79B9_7F4A_7C15
@@ -120,7 +126,7 @@ pub fn shuffle_slice<T>(items: &mut [T], state: &mut u64) {
 pub fn scramble_word(word: &str, state: &mut u64) -> String {
     let mut chars: Vec<char> = word.chars().collect();
     if chars.len() < 2 {
-        return word.to_string();
+        return word.to_owned();
     }
 
     let original = chars.clone();

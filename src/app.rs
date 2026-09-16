@@ -9,7 +9,7 @@ use crate::types::{
 use crate::utils::{
     daily_seed_for_difficulty, normalise_answer, scramble_word, seed_from_time, shuffle_slice,
 };
-use anyhow::{Context, Result};
+use anyhow::{Context as _, Result};
 use eframe::egui;
 use serde::{Deserialize, Serialize};
 use std::time::{SystemTime, UNIX_EPOCH};
@@ -73,7 +73,7 @@ pub struct LexivoApp {
     pub(crate) daily_challenge_active: bool,
     /// Number of questions selected for the challenge.
     pub(crate) selected_question_count: usize,
-    /// The selected game mode (QuickPlay or DailyChallenge).
+    /// The selected game mode (`QuickPlay` or `DailyChallenge`).
     pub(crate) selected_mode: GameMode,
     /// The current difficulty setting.
     pub(crate) current_difficulty: Difficulty,
@@ -167,14 +167,14 @@ impl Default for LexivoApp {
             last_applied_text_size: None,
         };
 
-        if let Ok(puzzles) = LexivoApp::load_puzzles_for_difficulty(Difficulty::Easy) {
+        if let Ok(puzzles) = Self::load_puzzles_for_difficulty(Difficulty::Easy) {
             app.puzzles = puzzles;
         } else {
             // Provide a hardcoded fallback puzzle if assets are missing or corrupted.
             app.puzzles = vec![Puzzle {
-                source: "LEXIVO".to_string(),
-                hint: "The name of this app".to_string(),
-                answer: "LEXIVO".to_string(),
+                source: "LEXIVO".to_owned(),
+                hint: "The name of this app".to_owned(),
+                answer: "LEXIVO".to_owned(),
             }];
         }
 
@@ -288,8 +288,7 @@ impl LexivoApp {
             .into_iter()
             .find(|path| path.exists())
             .context(format!(
-                "Could not find asset file '{}' in the project assets/data/ folder",
-                file_name
+                "Could not find asset file '{file_name}' in the project assets/data/ folder"
             ))
     }
 
@@ -312,10 +311,14 @@ impl LexivoApp {
         };
 
         serde_json::from_str(embedded_json)
-            .with_context(|| format!("Failed to parse embedded {}", file_name))
+            .with_context(|| format!("Failed to parse embedded {file_name}"))
     }
 
     /// Updates the application state to use a new difficulty level and reloads puzzles.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the puzzle set for the specified difficulty cannot be loaded or parsed.
     pub fn load_difficulty(&mut self, level: Difficulty) -> Result<()> {
         let puzzles = Self::load_puzzles_for_difficulty(level)?;
         self.puzzles = puzzles;
@@ -340,7 +343,7 @@ impl LexivoApp {
     }
 
     /// Sanitses and normalises user input for comparison against puzzle answers.
-    fn normalise_input(&self, value: &str) -> String {
+    fn normalise_input(value: &str) -> String {
         normalise_answer(value)
     }
 
@@ -574,7 +577,7 @@ impl LexivoApp {
     }
 
     /// Displays the application changelog in a scrollable window.
-    /// The changelog is parsed from CHANGELOG.md at runtime using include_str!.
+    /// The changelog is parsed from CHANGELOG.md at runtime using `include_str`!.
     pub(crate) fn show_changelog_window(&mut self, ctx: &egui::Context) {
         let mut open = self.show_changelog;
         let mut close_clicked = false;
@@ -888,7 +891,7 @@ impl LexivoApp {
                         }
                         crate::types::UpdateStatus::Available { version, url } => {
                             ui.label(
-                                egui::RichText::new(format!("Update available: {}", version))
+                                egui::RichText::new(format!("Update available: {version}"))
                                     .color(theme.palette.success),
                             );
                             ui.add_space(8.0);
@@ -904,7 +907,7 @@ impl LexivoApp {
                         }
                         crate::types::UpdateStatus::Error(err) => {
                             ui.label(
-                                egui::RichText::new(format!("Error: {}", err))
+                                egui::RichText::new(format!("Error: {err}"))
                                     .color(theme.palette.error),
                             );
                             ui.add_space(4.0);
@@ -978,23 +981,24 @@ impl LexivoApp {
                                         if !tag.is_empty() && tag != current {
                                             // Find the APK asset if it exists
                                             let mut download_url =
-                                                json["html_url"].as_str().unwrap_or("").to_string();
+                                                json["html_url"].as_str().unwrap_or("").to_owned();
                                             if let Some(assets) = json["assets"].as_array() {
                                                 for asset in assets {
                                                     let name = asset["name"].as_str().unwrap_or("");
-                                                    if name.ends_with(".apk") {
-                                                        if let Some(url) =
+                                                    if std::path::Path::new(name)
+                                                        .extension()
+                                                        .is_some_and(|ext| ext.eq_ignore_ascii_case("apk"))
+                                                        && let Some(url) =
                                                             asset["browser_download_url"].as_str()
-                                                        {
-                                                            download_url = url.to_string();
-                                                            break;
-                                                        }
+                                                    {
+                                                        download_url = url.to_owned();
+                                                        break;
                                                     }
                                                 }
                                             }
 
                                             crate::types::UpdateStatus::Available {
-                                                version: tag.to_string(),
+                                                version: tag.to_owned(),
                                                 url: download_url,
                                             }
                                         } else {
@@ -1002,20 +1006,19 @@ impl LexivoApp {
                                         }
                                     }
                                     Err(e) => crate::types::UpdateStatus::Error(format!(
-                                        "Parse error: {}",
-                                        e
+                                        "Parse error: {e}"
                                     )),
                                 }
                             }
                             Err(e) => {
-                                crate::types::UpdateStatus::Error(format!("Network error: {}", e))
+                                crate::types::UpdateStatus::Error(format!("Network error: {e}"))
                             }
                         }
                     }
-                    Err(e) => crate::types::UpdateStatus::Error(format!("Client error: {}", e)),
+                    Err(e) => crate::types::UpdateStatus::Error(format!("Client error: {e}")),
                 };
 
-                let _ = tx.send(result);
+                drop(tx.send(result));
             });
         }
     }
@@ -1027,7 +1030,7 @@ impl LexivoApp {
         }
         #[cfg(not(target_os = "android"))]
         {
-            let _ = url;
+            let _: &str = url;
             self.set_message("Update download only supported on Android.");
         }
     }
@@ -1035,7 +1038,7 @@ impl LexivoApp {
     /// Starts the game using the currently selected mode and difficulty.
     pub(crate) fn start_selected_mode(&mut self) {
         if let Err(err) = self.load_difficulty(self.current_difficulty) {
-            log::error!("Failed to load difficulty: {}", err);
+            log::error!("Failed to load difficulty: {err}");
             self.set_message(format!(
                 "Could not reload {} puzzles, starting with current set.",
                 self.current_difficulty.as_mode_key()
@@ -1186,7 +1189,7 @@ impl LexivoApp {
         }
 
         // Choose a random unrevealed slot using internal RNG state.
-        let random_offset = (self.rng_state as usize) % unrevealed.len();
+        let random_offset = usize::try_from(self.rng_state).unwrap_or(usize::MAX) % unrevealed.len();
         self.rng_state = self
             .rng_state
             .wrapping_mul(6364136223846793005)
@@ -1196,7 +1199,7 @@ impl LexivoApp {
         let letter = answer_chars[idx];
 
         // If this slot was previously filled manually, remove that manual character.
-        let _ = self.remove_manual_input_for_slot(idx);
+        self.remove_manual_input_for_slot(idx);
 
         self.revealed_answer_indices.push(idx);
         self.revealed_answer_indices.sort_unstable();
@@ -1280,10 +1283,11 @@ impl LexivoApp {
             return;
         };
 
-        if self.normalise_input(&projected_answer) == self.normalise_input(&puzzle.answer) {
+        if Self::normalise_input(&projected_answer) == Self::normalise_input(&puzzle.answer) {
             // Correct answer logic: increment streak, calculate points and advance to next puzzle.
             self.streak += 1;
             self.best_streak = self.best_streak.max(self.streak);
+            #[expect(clippy::cast_possible_truncation)]
             let bonus = (self.time_left.ceil() as u32).max(1);
             let earned = 10 + bonus;
             self.score += earned;

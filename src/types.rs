@@ -48,19 +48,14 @@ pub enum GameMode {
 }
 
 /// Status of the application update check.
-#[derive(Clone, Debug, PartialEq, Eq, Deserialize, Serialize)]
+#[derive(Clone, Debug, PartialEq, Eq, Deserialize, Serialize, Default)]
 pub enum UpdateStatus {
+    #[default]
     Idle,
     Checking,
     UpToDate,
     Available { version: String, url: String },
     Error(String),
-}
-
-impl Default for UpdateStatus {
-    fn default() -> Self {
-        Self::Idle
-    }
 }
 
 /// Difficulty levels that affect the puzzle pool and transformation logic.

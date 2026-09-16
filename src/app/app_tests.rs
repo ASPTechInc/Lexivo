@@ -5,8 +5,10 @@ use crate::utils::daily_seed_for_day;
 #[test]
 fn score_round_trips_through_json() {
     // Verifies that the app score is correctly preserved during JSON serialization and deserialization.
-    let mut app = LexivoApp::default();
-    app.score = 42;
+    let app = LexivoApp {
+        score: 42,
+        ..LexivoApp::default()
+    };
 
     let json = serde_json::to_string(&app).expect("serialize app");
     let restored: LexivoApp = serde_json::from_str(&json).expect("deserialize app");
@@ -32,11 +34,13 @@ fn answer_validation_handles_empty_input_and_punctuation() {
 
 #[test]
 fn timer_expiration_marks_game_over() {
-    let mut app = LexivoApp::default();
-    app.screen = Screen::Game;
-    app.show_game_instructions = false;
-    app.timer_enabled = true;
-    app.time_left = 0.1;
+    let mut app = LexivoApp {
+        screen: Screen::Game,
+        show_game_instructions: false,
+        timer_enabled: true,
+        time_left: 0.1,
+        ..LexivoApp::default()
+    };
 
     app.update_timer(0.2);
 
@@ -112,7 +116,9 @@ fn challenge_progress_increments_after_correct_answer() {
     app.check_answer();
 
     assert_eq!(app.challenge_progress, 1);
-    assert_eq!(app.score, 10 + (app.time_left.ceil() as u32).max(1));
+    #[expect(clippy::cast_possible_truncation)]
+    let bonus = (app.time_left.ceil() as u32).max(1);
+    assert_eq!(app.score, 10 + bonus);
 }
 
 #[test]
@@ -132,10 +138,12 @@ fn challenge_ends_cleanly_when_configured_count_is_reached() {
 
 #[test]
 fn quick_play_resets_round_state() {
-    let mut app = LexivoApp::default();
-    app.score = 999;
-    app.streak = 4;
-    app.time_left = 1.0;
+    let mut app = LexivoApp {
+        score: 999,
+        streak: 4,
+        time_left: 1.0,
+        ..LexivoApp::default()
+    };
     app.set_mode(GameMode::QuickPlay);
 
     app.start_selected_mode();
@@ -162,11 +170,13 @@ fn daily_challenge_keeps_mode_state_and_count() {
 #[test]
 fn exactly_zero_seconds_marks_game_over() {
     // Verifies that the game ends immediately when the timer hits zero.
-    let mut app = LexivoApp::default();
-    app.screen = Screen::Game;
-    app.show_game_instructions = false;
-    app.timer_enabled = true;
-    app.time_left = 0.0;
+    let mut app = LexivoApp {
+        screen: Screen::Game,
+        show_game_instructions: false,
+        timer_enabled: true,
+        time_left: 0.0,
+        ..LexivoApp::default()
+    };
 
     app.update_timer(0.0);
 
@@ -176,10 +186,12 @@ fn exactly_zero_seconds_marks_game_over() {
 #[test]
 fn game_over_blocks_scoring() {
     // Verifies that no points can be earned once the game is over.
-    let mut app = LexivoApp::default();
-    app.game_over = true;
-    app.user_input = "NURSE".to_string();
-    app.score = 10;
+    let mut app = LexivoApp {
+        game_over: true,
+        user_input: "NURSE".to_owned(),
+        score: 10,
+        ..LexivoApp::default()
+    };
 
     app.check_answer();
 
@@ -189,8 +201,10 @@ fn game_over_blocks_scoring() {
 #[test]
 fn next_puzzle_resets_timer() {
     // Verifies that moving to a new puzzle resets the round timer to the selected limit.
-    let mut app = LexivoApp::default();
-    app.time_left = 1.0;
+    let mut app = LexivoApp {
+        time_left: 1.0,
+        ..LexivoApp::default()
+    };
     app.next_puzzle();
 
     assert_eq!(app.time_left, 60.0);
@@ -224,8 +238,10 @@ fn all_questions_disables_timer() {
 
 #[test]
 fn hint_reaching_zero_points_triggers_game_over() {
-    let mut app = LexivoApp::default();
-    app.score = 5;
+    let mut app = LexivoApp {
+        score: 5,
+        ..LexivoApp::default()
+    };
 
     app.reveal_hint_letter();
 
@@ -237,8 +253,10 @@ fn hint_reaching_zero_points_triggers_game_over() {
 #[test]
 fn leaderboard_includes_high_score_and_sorts_descending() {
     // Verifies that the leaderboard correctly tracks and sorts high scores in descending order.
-    let mut app = LexivoApp::default();
-    app.score = 30;
+    let mut app = LexivoApp {
+        score: 30,
+        ..LexivoApp::default()
+    };
     app.record_score();
     app.score = 50;
     app.record_score();
@@ -264,15 +282,17 @@ fn leaderboard_trims_to_top_five() {
 
 #[test]
 fn reset_progress_clears_stats_without_changing_round_state() {
-    let mut app = LexivoApp::default();
-    app.score = 37;
-    app.best_score = 90;
-    app.streak = 4;
-    app.best_streak = 11;
-    app.leaderboard = vec![90, 70, 50];
-    app.user_input = "ABCD".to_string();
-    app.time_left = 12.5;
-    app.game_over = true;
+    let mut app = LexivoApp {
+        score: 37,
+        best_score: 90,
+        streak: 4,
+        best_streak: 11,
+        leaderboard: vec![90, 70, 50],
+        user_input: "ABCD".to_owned(),
+        time_left: 12.5,
+        game_over: true,
+        ..LexivoApp::default()
+    };
 
     app.reset_progress();
 
@@ -290,8 +310,10 @@ fn reset_progress_clears_stats_without_changing_round_state() {
 #[test]
 fn hint_reveals_one_letter_and_costs_points() {
     // Verifies that using a hint reveals a letter and deducts the appropriate number of points.
-    let mut app = LexivoApp::default();
-    app.score = 20;
+    let mut app = LexivoApp {
+        score: 20,
+        ..LexivoApp::default()
+    };
 
     app.reveal_hint_letter();
 
@@ -301,8 +323,10 @@ fn hint_reveals_one_letter_and_costs_points() {
 
 #[test]
 fn hint_requires_enough_points() {
-    let mut app = LexivoApp::default();
-    app.score = 4;
+    let mut app = LexivoApp {
+        score: 4,
+        ..LexivoApp::default()
+    };
 
     app.reveal_hint_letter();
 
@@ -319,8 +343,10 @@ fn theme_mode_defaults_to_system() {
 
 #[test]
 fn theme_mode_round_trips_through_json() {
-    let mut app = LexivoApp::default();
-    app.theme_mode = ThemeMode::Dark;
+    let app = LexivoApp {
+        theme_mode: ThemeMode::Dark,
+        ..LexivoApp::default()
+    };
 
     let json = serde_json::to_string(&app).expect("serialize app");
     let restored: LexivoApp = serde_json::from_str(&json).expect("deserialize app");
@@ -352,8 +378,8 @@ fn scramble_word_changes_word() {
     // Character set must be the same
     let mut original_chars: Vec<char> = original.chars().collect();
     let mut scrambled_chars: Vec<char> = scrambled.chars().collect();
-    original_chars.sort();
-    scrambled_chars.sort();
+    original_chars.sort_unstable();
+    scrambled_chars.sort_unstable();
     assert_eq!(original_chars, scrambled_chars);
 }
 
@@ -407,8 +433,8 @@ fn update_status_transitions() {
     assert_eq!(app.update_status, UpdateStatus::Checking);
 
     app.update_status = UpdateStatus::Available {
-        version: "1.1.0".to_string(),
-        url: "https://link".to_string(),
+        version: "1.1.0".to_owned(),
+        url: "https://link".to_owned(),
     };
 
     if let UpdateStatus::Available { version, .. } = &app.update_status {
@@ -420,38 +446,42 @@ fn update_status_transitions() {
 
 #[test]
 fn revealed_indices_are_ignored_in_manual_input() {
-    let mut app = LexivoApp::default();
-    app.revealed_answer_indices = vec![1, 3];
+    let mut app = LexivoApp {
+        revealed_answer_indices: vec![1, 3],
+        puzzles: vec![Puzzle {
+            source: "ESRUN".to_owned(),
+            hint: "Medical professional".to_owned(),
+            answer: "NURSE".to_owned(),
+        }],
+        current_index: 0,
+        ..LexivoApp::default()
+    };
     // If answer is "NURSE" (len 5), max manual input should be 3
-    app.puzzles = vec![Puzzle {
-        source: "ESRUN".to_string(),
-        hint: "Medical professional".to_string(),
-        answer: "NURSE".to_string(),
-    }];
-    app.current_index = 0;
 
     assert_eq!(app.max_manual_input_len(), 3);
 
-    app.user_input = "ABC".to_string();
+    app.user_input = "ABC".to_owned();
     app.sync_manual_input();
     assert_eq!(app.user_input, "ABC");
 
-    app.user_input = "ABCD".to_string();
+    app.user_input = "ABCD".to_owned();
     app.sync_manual_input();
     assert_eq!(app.user_input, "ABC");
 }
 
 #[test]
 fn answer_slots_merges_manual_and_revealed() {
-    let mut app = LexivoApp::default();
-    app.puzzles = vec![Puzzle {
-        source: "ESRUN".to_string(),
-        hint: "Medical professional".to_string(),
-        answer: "NURSE".to_string(),
-    }];
-    app.current_index = 0;
-    app.revealed_answer_indices = vec![0, 2]; // 'N' and 'R'
-    app.user_input = "US".to_string();
+    let app = LexivoApp {
+        puzzles: vec![Puzzle {
+            source: "ESRUN".to_owned(),
+            hint: "Medical professional".to_owned(),
+            answer: "NURSE".to_owned(),
+        }],
+        current_index: 0,
+        revealed_answer_indices: vec![0, 2], // 'N' and 'R'
+        user_input: "US".to_owned(),
+        ..LexivoApp::default()
+    };
 
     let slots = app.answer_slots();
     // Expected: [Some('N'), Some('U'), Some('R'), Some('S'), None]
@@ -464,34 +494,38 @@ fn answer_slots_merges_manual_and_revealed() {
 
 #[test]
 fn composed_answer_requires_all_slots_filled() {
-    let mut app = LexivoApp::default();
-    app.puzzles = vec![Puzzle {
-        source: "ESRUN".to_string(),
-        hint: "Medical professional".to_string(),
-        answer: "NURSE".to_string(),
-    }];
-    app.current_index = 0;
-    app.revealed_answer_indices = vec![0]; // 'N'
+    let mut app = LexivoApp {
+        puzzles: vec![Puzzle {
+            source: "ESRUN".to_owned(),
+            hint: "Medical professional".to_owned(),
+            answer: "NURSE".to_owned(),
+        }],
+        current_index: 0,
+        revealed_answer_indices: vec![0], // 'N'
+        ..LexivoApp::default()
+    };
 
     // Only 1 manual char, need 4 more
-    app.user_input = "U".to_string();
+    app.user_input = "U".to_owned();
     assert_eq!(app.composed_answer_from_slots(), None);
 
-    app.user_input = "URSE".to_string();
-    assert_eq!(app.composed_answer_from_slots(), Some("NURSE".to_string()));
+    app.user_input = "URSE".to_owned();
+    assert_eq!(app.composed_answer_from_slots(), Some("NURSE".to_owned()));
 }
 
 #[test]
 fn hint_reveal_clears_overlapping_manual_input() {
-    let mut app = LexivoApp::default();
-    app.score = 50;
-    app.puzzles = vec![Puzzle {
-        source: "SOURCE".to_string(),
-        hint: "HINT".to_string(),
-        answer: "ABC".to_string(),
-    }];
-    app.current_index = 0;
-    app.user_input = "XY".to_string(); // Manual input for slots 0 and 1
+    let mut app = LexivoApp {
+        score: 50,
+        puzzles: vec![Puzzle {
+            source: "SOURCE".to_owned(),
+            hint: "HINT".to_owned(),
+            answer: "ABC".to_owned(),
+        }],
+        current_index: 0,
+        user_input: "XY".to_owned(), // Manual input for slots 0 and 1
+        ..LexivoApp::default()
+    };
 
     // Force reveal of index 1
     while !app.revealed_answer_indices.contains(&1) {
@@ -505,8 +539,10 @@ fn hint_reveal_clears_overlapping_manual_input() {
 
 #[test]
 fn leaderboard_deduplicates_scores() {
-    let mut app = LexivoApp::default();
-    app.score = 100;
+    let mut app = LexivoApp {
+        score: 100,
+        ..LexivoApp::default()
+    };
     app.record_score();
     app.score = 100;
     app.record_score();
@@ -516,10 +552,12 @@ fn leaderboard_deduplicates_scores() {
 
 #[test]
 fn back_navigation_confirmation_logic() {
-    let mut app = LexivoApp::default();
+    let mut app = LexivoApp {
+        screen: Screen::Start,
+        ..LexivoApp::default()
+    };
 
     // Start screen -> Leaderboard (no confirm)
-    app.screen = Screen::Start;
     app.go_to_screen(Screen::Leaderboard);
     app.request_back_navigation();
     assert_eq!(app.screen, Screen::Start);
@@ -539,11 +577,13 @@ fn back_navigation_confirmation_logic() {
 
 #[test]
 fn confirm_reset_progress_clears_state() {
-    let mut app = LexivoApp::default();
-    app.best_score = 500;
-    app.streak = 10;
-    app.best_streak = 15;
-    app.leaderboard = vec![500, 400];
+    let mut app = LexivoApp {
+        best_score: 500,
+        streak: 10,
+        best_streak: 15,
+        leaderboard: vec![500, 400],
+        ..LexivoApp::default()
+    };
 
     app.confirm_reset_progress();
 
@@ -570,12 +610,14 @@ fn message_toast_lifecycle() {
 
 #[test]
 fn difficulty_reload_resets_state() {
-    let mut app = LexivoApp::default();
-    app.score = 100;
-    app.current_difficulty = Difficulty::Easy;
+    let mut app = LexivoApp {
+        score: 100,
+        current_difficulty: Difficulty::Easy,
+        ..LexivoApp::default()
+    };
 
     // Load medium
-    let _ = app.load_difficulty(Difficulty::Medium);
+    app.load_difficulty(Difficulty::Medium).expect("load difficulty");
     assert_eq!(app.current_difficulty, Difficulty::Medium);
     assert_eq!(app.current_index, 0);
     assert!(app.user_input.is_empty());

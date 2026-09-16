@@ -10,16 +10,16 @@ impl eframe::App for LexivoApp {
 
     fn ui(&mut self, ui: &mut egui::Ui, _frame: &mut eframe::Frame) {
         // Handle background updates
-        if let Some(rx) = &self.update_rx {
-            if let Ok(status) = rx.try_recv() {
-                if let crate::types::UpdateStatus::Available { version, .. } = &status {
-                    if self.screen == Screen::Start {
-                        self.set_message(format!("Update available: v{}", version));
-                    }
-                }
-                self.update_status = status;
-                self.update_rx = None;
+        if let Some(rx) = &self.update_rx
+            && let Ok(status) = rx.try_recv()
+        {
+            if let crate::types::UpdateStatus::Available { version, .. } = &status
+                && self.screen == Screen::Start
+            {
+                self.set_message(format!("Update available: v{version}"));
             }
+            self.update_status = status;
+            self.update_rx = None;
         }
 
         // Theme
@@ -64,6 +64,61 @@ impl eframe::App for LexivoApp {
         // Ensure the background is cleared with the correct color for the current theme.
         ui.painter().rect_filled(ui.max_rect(), 0.0, palette.panel_fill);
 
+        self.render_toast(ui, palette, metrics);
+
+        ui.add_space(metrics.top_padding);
+
+        ui.with_layout(egui::Layout::top_down(egui::Align::Center), |ui| {
+            self.render_top_bar(ui, metrics);
+
+            let bottom_nav_height = if self.screen == Screen::Start {
+                0.0
+            } else {
+                metrics.nav_button_height + 20.0
+            };
+            let bottom_nav_inset = if self.screen == Screen::Start {
+                0.0
+            } else {
+                70.0
+            };
+
+            // Keep fixed header/footer regions so only the centre content scrolls.
+            let content_height =
+                (ui.available_height() - bottom_nav_height - bottom_nav_inset).max(0.0);
+
+            // Main content area (Screen switching)
+            ui.allocate_ui(egui::vec2(ui.available_width(), content_height), |ui| {
+                // Ensure only this region scrolls if content exceeds height.
+                egui::ScrollArea::vertical()
+                    .id_salt("screen_content")
+                    .auto_shrink([false, false])
+                    .show(ui, |ui| {
+                        ui.vertical_centered(|ui| match self.screen {
+                            Screen::Start => screens::start::render_start_screen(self, ui),
+                            Screen::Game => screens::game::render_game_screen(self, ui),
+                            Screen::Leaderboard => {
+                                screens::leaderboard::render_leaderboard_screen(self, ui);
+                            }
+                            Screen::Settings => screens::settings::render_settings_screen(self, ui),
+                        });
+                    });
+            });
+
+            self.render_bottom_nav(ui, palette, metrics, bottom_nav_height, bottom_nav_inset);
+        });
+
+        if self.show_back_confirm {
+            self.render_back_confirm_window(ui.ctx(), metrics);
+        }
+
+        if self.screen == Screen::Game && self.show_game_instructions {
+            self.show_game_instructions_guide(ui.ctx());
+        }
+    }
+}
+
+impl LexivoApp {
+    fn render_toast(&self, ui: &egui::Ui, palette: &crate::theme::Palette, metrics: crate::theme::ThemeMetrics) {
         if !self.message.is_empty() {
             // Set toast message
             egui::Area::new(egui::Id::new("toast"))
@@ -82,173 +137,144 @@ impl eframe::App for LexivoApp {
                             );
                         });
                 });
+        }
+    }
+
+    fn render_top_bar(&mut self, ui: &mut egui::Ui, metrics: crate::theme::ThemeMetrics) {
+        let top_bar_height = metrics.nav_button_height + 8.0;
+
+        // Fixed-height top bar region (Back button where applicable).
+        ui.allocate_ui(egui::vec2(ui.available_width(), top_bar_height), |ui| {
+            if self.screen != Screen::Start {
+                ui.horizontal(|ui| {
+                    ui.add_space(18.0);
+                    if ui
+                        .add(
+                            egui::Button::new(
+                                egui::RichText::new(egui_phosphor::regular::ARROW_LEFT)
+                                    .size(metrics.nav_top_icon_size),
+                            )
+                            .frame(false),
+                        )
+                        .clicked()
+                    {
+                        self.request_back_navigation();
+                    }
+                });
             }
+        });
+    }
 
-            ui.add_space(metrics.top_padding);
+    fn render_bottom_nav(
+        &mut self,
+        ui: &mut egui::Ui,
+        palette: &crate::theme::Palette,
+        metrics: crate::theme::ThemeMetrics,
+        bottom_nav_height: f32,
+        bottom_nav_inset: f32,
+    ) {
+        // Fixed-height bottom navigation bar
+        if self.screen != Screen::Start {
+            ui.allocate_ui(egui::vec2(ui.available_width(), bottom_nav_height), |ui| {
+                ui.separator();
+                ui.add_space(4.0);
+                ui.columns(3, |columns| {
+                    let buttons = [
+                        (
+                            egui_phosphor::regular::GAME_CONTROLLER,
+                            "Game",
+                            Screen::Game,
+                        ),
+                        (
+                            egui_phosphor::regular::TROPHY,
+                            "Leaderboard",
+                            Screen::Leaderboard,
+                        ),
+                        (egui_phosphor::regular::GEAR, "Settings", Screen::Settings),
+                    ];
 
-            ui.with_layout(egui::Layout::top_down(egui::Align::Center), |ui| {
-                let top_bar_height = metrics.nav_button_height + 8.0;
+                    for (i, (icon, label, screen)) in buttons.into_iter().enumerate() {
+                        let ui = &mut columns[i];
+                        let selected = self.screen == screen;
 
-                // Fixed-height top bar region (Back button where applicable).
-                ui.allocate_ui(egui::vec2(ui.available_width(), top_bar_height), |ui| {
-                    if self.screen != Screen::Start {
-                        ui.horizontal(|ui| {
-                            ui.add_space(18.0);
-                            if ui
-                                .add(
-                                    egui::Button::new(
-                                        egui::RichText::new(egui_phosphor::regular::ARROW_LEFT)
-                                            .size(metrics.nav_top_icon_size),
-                                    )
-                                    .frame(false),
-                                )
-                                .clicked()
-                            {
-                                self.request_back_navigation();
-                            }
+                        let button_size = egui::vec2(
+                            ui.available_width().min(metrics.nav_button_width),
+                            metrics.nav_button_height,
+                        );
+
+                        let button = egui::Button::new("").fill(if selected {
+                            palette.button_selected
+                        } else {
+                            palette.button_idle
+                        }).stroke(if selected {
+                            egui::Stroke::new(1.0, palette.tile_text)
+                        } else {
+                            egui::Stroke::NONE
+                        });
+
+                        // Wrap the button in vertical_centered to center it within its 1/3rd of the screen
+                        let response = ui.vertical_centered(|ui| {
+                                ui.add_sized(button_size, button)
+                        }).inner;
+
+                        if response.clicked() {
+                            self.go_to_screen(screen);
+                        }
+
+                        // Draw the icon and text manually over the button's rectangle
+                        let rect = response.rect;
+                        let mut child_ui = ui.new_child(egui::UiBuilder::new().max_rect(rect));
+                        child_ui.vertical_centered(|ui| {
+                            ui.add_space(4.0); // Small top padding
+                            ui.label(egui::RichText::new(icon).size(metrics.nav_bottom_icon_size));
+                            ui.label(
+                                egui::RichText::new(label).size(metrics.nav_button_text_size),
+                            );
                         });
                     }
                 });
-
-                let bottom_nav_height = if self.screen != Screen::Start {
-                    metrics.nav_button_height + 20.0
-                } else {
-                    0.0
-                };
-                let bottom_nav_inset = if self.screen != Screen::Start {
-                    70.0
-                } else {
-                    0.0
-                };
-
-                // Keep fixed header/footer regions so only the centre content scrolls.
-                let content_height =
-                    (ui.available_height() - bottom_nav_height - bottom_nav_inset).max(0.0);
-
-                // Main content area (Screen switching)
-                ui.allocate_ui(egui::vec2(ui.available_width(), content_height), |ui| {
-                    // Ensure only this region scrolls if content exceeds height.
-                    egui::ScrollArea::vertical()
-                        .id_salt("screen_content")
-                        .auto_shrink([false, false])
-                        .show(ui, |ui| {
-                            ui.vertical_centered(|ui| match self.screen {
-                                Screen::Start => screens::start::render_start_screen(self, ui),
-                                Screen::Game => screens::game::render_game_screen(self, ui),
-                                Screen::Leaderboard => {
-                                    screens::leaderboard::render_leaderboard_screen(self, ui)
-                                }
-                                Screen::Settings => screens::settings::render_settings_screen(self, ui),
-                            });
-                        });
-                });
-
-                // Fixed-height bottom navigation bar
-                if self.screen != Screen::Start {
-                    ui.allocate_ui(egui::vec2(ui.available_width(), bottom_nav_height), |ui| {
-                        ui.separator();
-                        ui.add_space(4.0);
-                        ui.columns(3, |columns| {
-                            let buttons = [
-                                (
-                                    egui_phosphor::regular::GAME_CONTROLLER,
-                                    "Game",
-                                    Screen::Game,
-                                ),
-                                (
-                                    egui_phosphor::regular::TROPHY,
-                                    "Leaderboard",
-                                    Screen::Leaderboard,
-                                ),
-                                (egui_phosphor::regular::GEAR, "Settings", Screen::Settings),
-                            ];
-
-                            for (i, (icon, label, screen)) in buttons.into_iter().enumerate() {
-                                let ui = &mut columns[i];
-                                let selected = self.screen == screen;
-
-                                let button_size = egui::vec2(
-                                    ui.available_width().min(metrics.nav_button_width),
-                                    metrics.nav_button_height,
-                                );
-
-                                let button = egui::Button::new("").fill(if selected {
-                                    palette.button_selected
-                                } else {
-                                    palette.button_idle
-                                }).stroke(if selected {
-                                    egui::Stroke::new(1.0, palette.tile_text)
-                                } else {
-                                    egui::Stroke::NONE
-                                });
-
-                                // Wrap the button in vertical_centered to center it within its 1/3rd of the screen
-                                let response = ui.vertical_centered(|ui| {
-                                        ui.add_sized(button_size, button)
-                                }).inner;
-
-                                if response.clicked() {
-                                    self.go_to_screen(screen);
-                                }
-
-                                // Draw the icon and text manually over the button's rectangle
-                                let rect = response.rect;
-                                let mut child_ui = ui.new_child(egui::UiBuilder::new().max_rect(rect));
-                                child_ui.vertical_centered(|ui| {
-                                    ui.add_space(4.0); // Small top padding
-                                    ui.label(egui::RichText::new(icon).size(metrics.nav_bottom_icon_size));
-                                    ui.label(
-                                        egui::RichText::new(label).size(metrics.nav_button_text_size),
-                                    );
-                                });
-                            }
-                        });
-                        ui.add_space(8.0);
-                    });
-                    ui.add_space(bottom_nav_inset);
-                }
+                ui.add_space(8.0);
             });
-
-        if self.show_back_confirm {
-            egui::Window::new("Leave game?")
-                .anchor(egui::Align2::CENTER_CENTER, egui::vec2(0.0, 0.0))
-                .collapsible(false)
-                .resizable(false)
-                .show(ui.ctx(), |ui| {
-                    ui.style_mut().text_styles.insert(
-                        egui::TextStyle::Body,
-                        egui::FontId::new(metrics.dialogue_content_size, egui::FontFamily::Proportional),
-                    );
-
-                    ui.label("Your current game is still in progress.");
-                    ui.label("Are you sure you want to go back to the start screen?");
-                    ui.add_space(8.0);
-                    ui.horizontal(|ui| {
-                        if ui
-                            .add_sized(
-                                egui::vec2(96.0, metrics.nav_button_height),
-                                egui::Button::new("Stay"),
-                            )
-                            .clicked()
-                        {
-                            self.cancel_back_navigation();
-                        }
-
-                        if ui
-                            .add_sized(
-                                egui::vec2(120.0, metrics.nav_button_height),
-                                egui::Button::new("Leave game"),
-                            )
-                            .clicked()
-                        {
-                            self.confirm_back_navigation();
-                        }
-                    });
-                });
-        }
-
-        if self.screen == Screen::Game && self.show_game_instructions {
-            self.show_game_instructions_guide(ui.ctx());
+            ui.add_space(bottom_nav_inset);
         }
     }
+
+    fn render_back_confirm_window(&mut self, ctx: &egui::Context, metrics: crate::theme::ThemeMetrics) {
+        egui::Window::new("Leave game?")
+            .anchor(egui::Align2::CENTER_CENTER, egui::vec2(0.0, 0.0))
+            .collapsible(false)
+            .resizable(false)
+            .show(ctx, |ui| {
+                ui.style_mut().text_styles.insert(
+                    egui::TextStyle::Body,
+                    egui::FontId::new(metrics.dialogue_content_size, egui::FontFamily::Proportional),
+                );
+
+                ui.label("Your current game is still in progress.");
+                ui.label("Are you sure you want to go back to the start screen?");
+                ui.add_space(8.0);
+                ui.horizontal(|ui| {
+                    if ui
+                        .add_sized(
+                            egui::vec2(96.0, metrics.nav_button_height),
+                            egui::Button::new("Stay"),
+                        )
+                        .clicked()
+                    {
+                        self.cancel_back_navigation();
+                    }
+
+                    if ui
+                        .add_sized(
+                            egui::vec2(120.0, metrics.nav_button_height),
+                            egui::Button::new("Leave game"),
+                        )
+                        .clicked()
+                    {
+                        self.confirm_back_navigation();
+                    }
+                });
+            });
+    }
 }
+

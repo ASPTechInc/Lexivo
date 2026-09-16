@@ -77,7 +77,7 @@ impl Palette {
         }
     }
 
-    /// Generates an egui::Stroke based on current theme metrics.
+    /// Generates an `egui::Stroke` based on current theme metrics.
     pub fn button_stroke(self, metrics: ThemeMetrics) -> egui::Stroke {
         egui::Stroke::new(metrics.border_width, self.border)
     }
@@ -246,7 +246,6 @@ pub fn apply_to_ctx(ctx: &egui::Context) {
     };
     // Re-apply the specific palette overrides to the context's current visuals
     let palette = current_theme.palette;
-    let _metrics = current_theme.metrics;
 
     visuals.window_fill = palette.panel_fill;
     visuals.panel_fill = palette.panel_fill;

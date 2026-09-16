@@ -936,6 +936,9 @@ ANDROID_HOME=/<path-to-directory>/Android/Sdk
    
    # Run 'build' job from 'release.yml' workflow
    act -j build -W .github/workflows/release.yml
+   
+   # Run 'clippy' job from 'rust.yml' workflow
+   act -j clippy -W .github/workflows/rust.yml
    ```
    
 4. **Dry run (to see what steps would run without executing them):**
