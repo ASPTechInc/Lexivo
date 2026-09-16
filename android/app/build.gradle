@@ -130,7 +130,23 @@ if (singleAbiDevEnabled.getOrElse(false)) {
 
 def cargoBin = providers.systemProperty("user.home").map { "${it}/.cargo/bin/cargo" }
 def cargoPath = cargoBin.get()
-def ndkDir = androidComponents.sdkComponents.ndkDirectory
+
+// Compute NDK path safely to support the Gradle Configuration Cache, even when the NDK is not yet installed on CI.
+def safeNdkPath = System.getenv("ANDROID_NDK_HOME")
+if (!safeNdkPath) {
+    def androidHome = System.getenv("ANDROID_HOME")
+    if (!androidHome) {
+        def localPropsFile = rootProject.file("local.properties")
+        if (localPropsFile.exists()) {
+            def props = new Properties()
+            localPropsFile.withInputStream { props.load(it) }
+            androidHome = props.getProperty("sdk.dir")
+        }
+    }
+    if (androidHome) {
+        safeNdkPath = "${androidHome}/ndk/30.0.16248370"
+    }
+}
 
 // Register tasks to build Rust code for each supported Android ABI and build variant.
 // These tasks use cargo-ndk to compile the shared library (.so) into the appropriate jniLibs folder.
@@ -152,8 +168,8 @@ targetNav.each { rustTarget, androidAbi ->
 
         // Set environment lazily to avoid configuration-time property access
         doFirst {
-            if (ndkDir.isPresent()) {
-                environment "ANDROID_NDK_HOME", ndkDir.get().asFile.absolutePath
+            if (safeNdkPath) {
+                environment "ANDROID_NDK_HOME", safeNdkPath
             }
         }
     }
@@ -175,8 +191,8 @@ targetNav.each { rustTarget, androidAbi ->
 
         // Set environment lazily to avoid configuration-time property access
         doFirst {
-            if (ndkDir.isPresent()) {
-                environment "ANDROID_NDK_HOME", ndkDir.get().asFile.absolutePath
+            if (safeNdkPath) {
+                environment "ANDROID_NDK_HOME", safeNdkPath
             }
         }
     }
