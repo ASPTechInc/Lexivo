@@ -1,0 +1,135 @@
+# CI means Continuous Integration.
+# This workflow Handles all Rust-specific checks, including unit tests,
+# formatting (fmt) and linting (clippy).
+
+name: Rust CI
+
+on: [push, pull_request, workflow_dispatch]
+
+env:
+  RUSTFLAGS: -D warnings
+  RUSTDOCFLAGS: -D warnings
+
+jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]' # Skip the entire workflow for Dependabot pull requests
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo check --all-features
+
+  check_wasm:
+    name: Check wasm32
+    runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]' # Skip the entire workflow for Dependabot pull requests
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - run: cargo check --all-features --lib --target wasm32-unknown-unknown
+        env:
+          RUSTFLAGS: -D warnings --cfg getrandom_backend="wasm_js"
+
+  test:
+    name: Test Suite
+    runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]' # Skip the entire workflow for Dependabot pull requests
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+      - run: sudo apt-get update && sudo apt-get install -y libxcb-render0-dev libxcb-shape0-dev libxcb-xfixes0-dev libxkbcommon-dev libssl-dev
+      - run: cargo test --lib
+
+  fmt:
+    name: Rustfmt
+    runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]' # Skip the entire workflow for Dependabot pull requests
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+      - run: cargo fmt --all -- --check
+
+  clippy:
+    name: Clippy
+    runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]' # Skip the entire workflow for Dependabot pull requests
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+      - run: cargo clippy -- -D warnings
+
+  trunk:
+    name: trunk
+    runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]' # Skip the entire workflow for Dependabot pull requests
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - name: Download and install Trunk binary
+        run: wget -qO- https://github.com/thedodd/trunk/releases/latest/download/trunk-x86_64-unknown-linux-gnu.tar.gz | tar -xzf-
+      - name: Build
+        run: ./trunk build
+        env:
+          RUSTFLAGS: -D warnings --cfg getrandom_backend="wasm_js"
+
+  build:
+    runs-on: ${{ matrix.os }}
+    if: github.actor != 'dependabot[bot]' # Skip the entire workflow for Dependabot pull requests
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+            TARGET: aarch64-apple-darwin
+
+          - os: macos-latest
+            TARGET: x86_64-apple-darwin
+
+          - os: ubuntu-latest
+            TARGET: arm-unknown-linux-musleabihf
+
+          - os: ubuntu-latest
+            TARGET: armv7-unknown-linux-musleabihf
+
+          - os: ubuntu-latest
+            TARGET: x86_64-unknown-linux-musl
+
+          - os: windows-latest
+            TARGET: x86_64-pc-windows-msvc
+            EXTENSION: .exe
+
+    steps:
+      - name: Building ${{ matrix.TARGET }}
+        run: echo "${{ matrix.TARGET }}"
+
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.TARGET }}
+      - name: Ensure target is installed
+        run: rustup target add ${{ matrix.TARGET }}
+
+      - name: Install cross
+        if: runner.os == 'Linux'
+        uses: taiki-e/install-action@v2
+        with:
+          tool: cross
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build with cross (Linux)
+        if: runner.os == 'Linux'
+        run: cross build --verbose --release --target=${{ matrix.TARGET }}
+
+      - name: Build with cargo (non-Linux)
+        if: runner.os != 'Linux'
+        run: cargo build --verbose --release --target=${{ matrix.TARGET }}

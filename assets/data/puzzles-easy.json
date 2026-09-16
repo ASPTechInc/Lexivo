@@ -1,0 +1,2144 @@
+[
+  {
+    "mode": "easy",
+    "source": "SERUM",
+    "hint": "A medical professional",
+    "answer": "NURSE"
+  },
+  {
+    "mode": "easy",
+    "source": "TRAIN",
+    "hint": "A sudden heavy fall of rain",
+    "answer": "DRAIN"
+  },
+  {
+    "mode": "easy",
+    "source": "PLATE",
+    "hint": "A large aircraft",
+    "answer": "PLANE"
+  },
+  {
+    "mode": "easy",
+    "source": "OSERX",
+    "hint": "An animal that you can ride",
+    "answer": "HORSE"
+  },
+  {
+    "mode": "easy",
+    "source": "OXLNM",
+    "hint": "A fruit that is very sour",
+    "answer": "MELON"
+  },
+  {
+    "mode": "easy",
+    "source": "RAKEX",
+    "hint": "A break in something",
+    "answer": "BRAKE"
+  },
+  {
+    "mode": "easy",
+    "source": "STARE",
+    "hint": "Twinkling objects in the night sky",
+    "answer": "STARS"
+  },
+  {
+    "mode": "easy",
+    "source": "ATREX",
+    "hint": "The planet we live on",
+    "answer": "EARTH"
+  },
+  {
+    "mode": "easy",
+    "source": "LISENX",
+    "hint": "No sound at all",
+    "answer": "SILENT"
+  },
+  {
+    "mode": "easy",
+    "source": "IOMXOTRRD",
+    "hint": "Dirty room",
+    "answer": "DIRTYROOM"
+  },
+  {
+    "mode": "easy",
+    "source": "CRTSLEOXOSMH",
+    "hint": "The classroom",
+    "answer": "THECLASSROOM"
+  },
+  {
+    "mode": "easy",
+    "source": "SEXK",
+    "hint": "A flat surface to work on",
+    "answer": "DESK"
+  },
+  {
+    "mode": "easy",
+    "source": "LOROEFXL",
+    "hint": "A person who follows",
+    "answer": "FOLLOWER"
+  },
+  {
+    "mode": "easy",
+    "source": "TGXHR",
+    "hint": "The opposite of left",
+    "answer": "RIGHT"
+  },
+  {
+    "mode": "easy",
+    "source": "MSEXL",
+    "hint": "A sticky substance",
+    "answer": "SLIME"
+  },
+  {
+    "mode": "easy",
+    "source": "RDXEB",
+    "hint": "To have facial hair",
+    "answer": "BEARD"
+  },
+  {
+    "mode": "easy",
+    "source": "PEACH",
+    "hint": "A sandy area by the sea",
+    "answer": "BEACH"
+  },
+  {
+    "mode": "easy",
+    "source": "UCXDL",
+    "hint": "Could have happened",
+    "answer": "COULD"
+  },
+  {
+    "mode": "easy",
+    "source": "THINGS",
+    "hint": "A person who lives in a palace",
+    "answer": "KNIGHT"
+  },
+  {
+    "mode": "easy",
+    "source": "XDEAGR",
+    "hint": "A place for flowers",
+    "answer": "GARDEN"
+  },
+  {
+    "mode": "easy",
+    "source": "SIXFL",
+    "hint": "Generic name for documents",
+    "answer": "FILES"
+  },
+  {
+    "mode": "easy",
+    "source": "DXNENR",
+    "hint": "Something to eat from",
+    "answer": "DINNER"
+  },
+  {
+    "mode": "easy",
+    "source": "MTREXS",
+    "hint": "An expert or high-level person",
+    "answer": "MASTER"
+  },
+  {
+    "mode": "easy",
+    "source": "RCAXIN",
+    "hint": "Something that is very caring",
+    "answer": "CARING"
+  },
+  {
+    "mode": "easy",
+    "source": "XCESUR",
+    "hint": "Something that is safe",
+    "answer": "SECURE"
+  },
+  {
+    "mode": "easy",
+    "source": "TLGHX",
+    "hint": "The opposite of heavy",
+    "answer": "LIGHT"
+  },
+  {
+    "mode": "easy",
+    "source": "BATELX",
+    "hint": "A small battle",
+    "answer": "BATTLE"
+  },
+  {
+    "mode": "easy",
+    "source": "ACEXO",
+    "hint": "The sea or a large body of water",
+    "answer": "OCEAN"
+  },
+  {
+    "mode": "easy",
+    "source": "RYAXD",
+    "hint": "Milk products",
+    "answer": "DAIRY"
+  },
+  {
+    "mode": "easy",
+    "source": "XTSRTA",
+    "hint": "A person who creates art",
+    "answer": "ARTIST"
+  },
+  {
+    "mode": "easy",
+    "source": "XNPLEA",
+    "hint": "A large body of rock",
+    "answer": "PLANET"
+  },
+  {
+    "mode": "easy",
+    "source": "TXSLNE",
+    "hint": "To attend to sound",
+    "answer": "LISTEN"
+  },
+  {
+    "mode": "easy",
+    "source": "XEEPRP",
+    "hint": "A common spice",
+    "answer": "PEPPER"
+  },
+  {
+    "mode": "easy",
+    "source": "TOWER",
+    "hint": "To print or write words",
+    "answer": "WRITE"
+  },
+  {
+    "mode": "easy",
+    "source": "FRIDGE",
+    "hint": "A structure over water",
+    "answer": "BRIDGE"
+  },
+  {
+    "mode": "easy",
+    "source": "GRAPE",
+    "hint": "To satisfy a need",
+    "answer": "AGREE"
+  },
+  {
+    "mode": "easy",
+    "source": "SNOW",
+    "hint": "To have personal knowledge of",
+    "answer": "KNOW"
+  },
+  {
+    "mode": "easy",
+    "source": "MIGHT",
+    "hint": "The time after sunset",
+    "answer": "NIGHT"
+  },
+  {
+    "mode": "easy",
+    "source": "MSOXUA",
+    "hint": "A person who is well known",
+    "answer": "FAMOUS"
+  },
+  {
+    "mode": "easy",
+    "source": "NDXI",
+    "hint": "Air in motion",
+    "answer": "WIND"
+  },
+  {
+    "mode": "easy",
+    "source": "COFFEE",
+    "hint": "A simple government official",
+    "answer": "OFFICE"
+  },
+  {
+    "mode": "easy",
+    "source": "MXBTTO",
+    "hint": "Underneath something",
+    "answer": "BOTTOM"
+  },
+  {
+    "mode": "easy",
+    "source": "ARNXEAR",
+    "hint": "To set in a specific order",
+    "answer": "ARRANGE"
+  },
+  {
+    "mode": "easy",
+    "source": "NDOXWI",
+    "hint": "A small glass opening",
+    "answer": "WINDOW"
+  },
+  {
+    "mode": "easy",
+    "source": "CANDLE",
+    "hint": "To manage or control",
+    "answer": "HANDLE"
+  },
+  {
+    "mode": "easy",
+    "source": "GRTTAX",
+    "hint": "A target or purpose",
+    "answer": "TARGET"
+  },
+  {
+    "mode": "easy",
+    "source": "MMEUSX",
+    "hint": "A season between spring and fall",
+    "answer": "SUMMER"
+  },
+  {
+    "mode": "easy",
+    "source": "HXTKCS",
+    "hint": "A small pointed tool",
+    "answer": "SKETCH"
+  },
+  {
+    "mode": "easy",
+    "source": "COLD",
+    "hint": "A piece of gold jewelry",
+    "answer": "GOLD"
+  },
+  {
+    "mode": "easy",
+    "source": "BEKX",
+    "hint": "To make a cake",
+    "answer": "BAKE"
+  },
+  {
+    "mode": "easy",
+    "source": "TREMAXSS",
+    "hint": "A piece of furniture for sleeping",
+    "answer": "MATTRESS"
+  },
+  {
+    "mode": "easy",
+    "source": "AKX",
+    "hint": "A container used by Noah",
+    "answer": "ARK"
+  },
+  {
+    "mode": "easy",
+    "source": "SING",
+    "hint": "A metal object that can hold water",
+    "answer": "SINK"
+  },
+  {
+    "mode": "easy",
+    "source": "WINE",
+    "hint": "A place where animals are kept",
+    "answer": "VINE"
+  },
+  {
+    "mode": "easy",
+    "source": "FIRE",
+    "hint": "A person who hires someone",
+    "answer": "SIRE"
+  },
+  {
+    "mode": "easy",
+    "source": "OXNT",
+    "hint": "A musical sound",
+    "answer": "TONE"
+  },
+  {
+    "mode": "easy",
+    "source": "TEXAR",
+    "hint": "To look at something fixedly",
+    "answer": "STARE"
+  },
+  {
+    "mode": "easy",
+    "source": "RAX",
+    "hint": "A vehicle with four wheels",
+    "answer": "CAR"
+  },
+  {
+    "mode": "easy",
+    "source": "HOUSE",
+    "hint": "A creature that lives in a shell",
+    "answer": "MOUSE"
+  },
+  {
+    "mode": "easy",
+    "source": "HORSE",
+    "hint": "A place where plants are grown",
+    "answer": "HOUSE"
+  },
+  {
+    "mode": "easy",
+    "source": "PLANE",
+    "hint": "A flat surface",
+    "answer": "PLANK"
+  },
+  {
+    "mode": "easy",
+    "source": "BOZXN",
+    "hint": "A strong metal used in construction",
+    "answer": "BRONZ"
+  },
+  {
+    "mode": "easy",
+    "source": "XEONS",
+    "hint": "A small piece of rock",
+    "answer": "STONE"
+  },
+  {
+    "mode": "easy",
+    "source": "OUDX",
+    "hint": "A loud sound",
+    "answer": "LOUD"
+  },
+  {
+    "mode": "easy",
+    "source": "ASXER",
+    "hint": "Hair on a sheep",
+    "answer": "SHARE"
+  },
+  {
+    "mode": "easy",
+    "source": "ARXHC",
+    "hint": "A piece of furniture for sitting",
+    "answer": "CHAIR"
+  },
+  {
+    "mode": "easy",
+    "source": "BREAD",
+    "hint": "A breed of dog",
+    "answer": "BREED"
+  },
+  {
+    "mode": "easy",
+    "source": "WERRXI",
+    "hint": "A person who writes",
+    "answer": "WRITER"
+  },
+  {
+    "mode": "easy",
+    "source": "PLANT",
+    "hint": "A metal sheet",
+    "answer": "PLATE"
+  },
+  {
+    "mode": "easy",
+    "source": "TAGRIX",
+    "hint": "A musical instrument with strings",
+    "answer": "GUITAR"
+  },
+  {
+    "mode": "easy",
+    "source": "ATXKS",
+    "hint": "A piece of meat",
+    "answer": "STEAK"
+  },
+  {
+    "mode": "easy",
+    "source": "RAHEX",
+    "hint": "A place where art is displayed",
+    "answer": "HEART"
+  },
+  {
+    "mode": "easy",
+    "source": "XRADB",
+    "hint": "A piece of wood used for a boat",
+    "answer": "BOARD"
+  },
+  {
+    "mode": "easy",
+    "source": "XNART",
+    "hint": "A vehicle that travels on tracks",
+    "answer": "TRAIN"
+  },
+  {
+    "mode": "easy",
+    "source": "CROWN",
+    "hint": "A brown colour without the first letter",
+    "answer": "BROWN"
+  },
+  {
+    "mode": "easy",
+    "source": "BROWN",
+    "hint": "The top part of a tree",
+    "answer": "CROWN"
+  },
+  {
+    "mode": "easy",
+    "source": "XILE",
+    "hint": "A small curved body of water",
+    "answer": "MILE"
+  },
+  {
+    "mode": "easy",
+    "source": "FUSXN",
+    "hint": "To make a mistake",
+    "answer": "SNAFU"
+  },
+  {
+    "mode": "easy",
+    "source": "SWEET",
+    "hint": "A type of fabric",
+    "answer": "SWEAT"
+  },
+  {
+    "mode": "easy",
+    "source": "SWEAT",
+    "hint": "Having a pleasant sugary taste",
+    "answer": "SWEET"
+  },
+  {
+    "mode": "easy",
+    "source": "PXEUL",
+    "hint": "A place for a flower",
+    "answer": "PLUME"
+  },
+  {
+    "mode": "easy",
+    "source": "VEAX",
+    "hint": "A wave at the seaside",
+    "answer": "WAVE"
+  },
+  {
+    "mode": "easy",
+    "source": "XVARE",
+    "hint": "Showing courage",
+    "answer": "BRAVE"
+  },
+  {
+    "mode": "easy",
+    "source": "XECV",
+    "hint": "A vehicle that travels on rails",
+    "answer": "CAVE"
+  },
+  {
+    "mode": "easy",
+    "source": "OARPX",
+    "hint": "A place where an opera is performed",
+    "answer": "OPERA"
+  },
+  {
+    "mode": "easy",
+    "source": "ASLIXD",
+    "hint": "A country surrounded by water",
+    "answer": "ISLAND"
+  },
+  {
+    "mode": "easy",
+    "source": "IXW",
+    "hint": "The opposite of lose",
+    "answer": "WIN"
+  },
+  {
+    "mode": "easy",
+    "source": "AXLF",
+    "hint": "The season after summer",
+    "answer": "FALL"
+  },
+  {
+    "mode": "easy",
+    "source": "BOMLX",
+    "hint": "A part of a flower",
+    "answer": "BLOOM"
+  },
+  {
+    "mode": "easy",
+    "source": "CXEN",
+    "hint": "An ice cream dessert",
+    "answer": "CONE"
+  },
+  {
+    "mode": "easy",
+    "source": "XALM",
+    "hint": "A piece of mail",
+    "answer": "MAIL"
+  },
+  {
+    "mode": "easy",
+    "source": "XINLS",
+    "hint": "A slow-moving shelled animal",
+    "answer": "SNAIL"
+  },
+  {
+    "mode": "easy",
+    "source": "CEXNR",
+    "hint": "A large bird with long wings",
+    "answer": "CRANE"
+  },
+  {
+    "mode": "easy",
+    "source": "AINX",
+    "hint": "Rain with one extra letter",
+    "answer": "RAIN"
+  },
+  {
+    "mode": "easy",
+    "source": "RXIAB",
+    "hint": "The organ responsible for thinking",
+    "answer": "BRAIN"
+  },
+  {
+    "mode": "easy",
+    "source": "XANCH",
+    "hint": "A sequence of connected links",
+    "answer": "CHAIN"
+  },
+  {
+    "mode": "easy",
+    "source": "ONXO",
+    "hint": "A bright object in the sky at night",
+    "answer": "MOON"
+  },
+  {
+    "mode": "easy",
+    "source": "PXNOO",
+    "hint": "An eating utensil",
+    "answer": "SPOON"
+  },
+  {
+    "mode": "easy",
+    "source": "ONIFXLGA",
+    "hint": "A bird that can swim",
+    "answer": "FLAMINGO"
+  },
+  {
+    "mode": "easy",
+    "source": "EXBAL",
+    "hint": "A leaf of grass",
+    "answer": "BLADE"
+  },
+  {
+    "mode": "easy",
+    "source": "RAEXG",
+    "hint": "A fruit that can be dried into a raisin",
+    "answer": "GRAPE"
+  },
+  {
+    "mode": "easy",
+    "source": "AXREI",
+    "hint": "To lift something upward",
+    "answer": "RAISE"
+  },
+  {
+    "mode": "easy",
+    "source": "XIECR",
+    "hint": "A prize without the Z",
+    "answer": "PRICE"
+  },
+  {
+    "mode": "easy",
+    "source": "XRDEI",
+    "hint": "A group of lions",
+    "answer": "PRIDE"
+  },
+  {
+    "mode": "easy",
+    "source": "XLSCO",
+    "hint": "Not far away",
+    "answer": "CLOSE"
+  },
+  {
+    "mode": "easy",
+    "source": "XTCOH",
+    "hint": "Something used to clean a surface",
+    "answer": "CLOTH"
+  },
+  {
+    "mode": "easy",
+    "source": "CLXOC",
+    "hint": "Something that tells the time",
+    "answer": "CLOCK"
+  },
+  {
+    "mode": "easy",
+    "source": "OXLBK",
+    "hint": "A solid piece of material",
+    "answer": "BLOCK"
+  },
+  {
+    "mode": "easy",
+    "source": "LXKCB",
+    "hint": "The absence of light",
+    "answer": "BLACK"
+  },
+  {
+    "mode": "easy",
+    "source": "KLXBN",
+    "hint": "Empty or containing nothing",
+    "answer": "BLANK"
+  },
+  {
+    "mode": "easy",
+    "source": "NLXBI",
+    "hint": "To briefly close and open your eyes",
+    "answer": "BLINK"
+  },
+  {
+    "mode": "easy",
+    "source": "BXRNI",
+    "hint": "The edge of a steep place",
+    "answer": "BRINK"
+  },
+  {
+    "mode": "easy",
+    "source": "XNDRK",
+    "hint": "Something you consume when thirsty",
+    "answer": "DRINK"
+  },
+  {
+    "mode": "easy",
+    "source": "XDKAR",
+    "hint": "Past tense of drink",
+    "answer": "DRANK"
+  },
+  {
+    "mode": "easy",
+    "source": "GOLD",
+    "hint": "The opposite of hot",
+    "answer": "COLD"
+  },
+  {
+    "mode": "easy",
+    "source": "DOBX",
+    "hint": "Showing courage and confidence",
+    "answer": "BOLD"
+  },
+  {
+    "mode": "easy",
+    "source": "TXOD",
+    "hint": "Past tense of tell",
+    "answer": "TOLD"
+  },
+  {
+    "mode": "easy",
+    "source": "XTLL",
+    "hint": "Having great height",
+    "answer": "TALL"
+  },
+  {
+    "mode": "easy",
+    "source": "XALL",
+    "hint": "A round object used in many sports",
+    "answer": "BALL"
+  },
+  {
+    "mode": "easy",
+    "source": "XLLE",
+    "hint": "A hollow object that makes a ringing sound",
+    "answer": "BELL"
+  },
+  {
+    "mode": "easy",
+    "source": "LLSX",
+    "hint": "To exchange something for money",
+    "answer": "SELL"
+  },
+  {
+    "mode": "easy",
+    "source": "LXLE",
+    "hint": "In good health",
+    "answer": "WELL"
+  },
+  {
+    "mode": "easy",
+    "source": "AWLX",
+    "hint": "A vertical structure forming part of a building",
+    "answer": "WALL"
+  },
+  {
+    "mode": "easy",
+    "source": "LWAX",
+    "hint": "To move on foot",
+    "answer": "WALK"
+  },
+  {
+    "mode": "easy",
+    "source": "LXKT",
+    "hint": "To speak",
+    "answer": "TALK"
+  },
+  {
+    "mode": "easy",
+    "source": "TKNX",
+    "hint": "A large container for liquid",
+    "answer": "TANK"
+  },
+  {
+    "mode": "easy",
+    "source": "NKXA",
+    "hint": "Went below the surface of water",
+    "answer": "SANK"
+  },
+  {
+    "mode": "easy",
+    "source": "SXND",
+    "hint": "Tiny grains found on beaches",
+    "answer": "SAND"
+  },
+  {
+    "mode": "easy",
+    "source": "BANX",
+    "hint": "A group of musicians",
+    "answer": "BAND"
+  },
+  {
+    "mode": "easy",
+    "source": "BNXD",
+    "hint": "To curve or turn",
+    "answer": "BEND"
+  },
+  {
+    "mode": "easy",
+    "source": "SXDN",
+    "hint": "To cause something to go somewhere",
+    "answer": "SEND"
+  },
+  {
+    "mode": "easy",
+    "source": "TSXN",
+    "hint": "Past tense of send",
+    "answer": "SENT"
+  },
+  {
+    "mode": "easy",
+    "source": "SXGI",
+    "hint": "To produce musical sounds with your voice",
+    "answer": "SING"
+  },
+  {
+    "mode": "easy",
+    "source": "IXKS",
+    "hint": "A smooth fabric produced by silkworms",
+    "answer": "SILK"
+  },
+  {
+    "mode": "easy",
+    "source": "XMLK",
+    "hint": "A white drink produced by mammals",
+    "answer": "MILK"
+  },
+  {
+    "mode": "easy",
+    "source": "LLXM",
+    "hint": "A building where grain is processed",
+    "answer": "MILL"
+  },
+  {
+    "mode": "easy",
+    "source": "XFIE",
+    "hint": "A collection of stored information",
+    "answer": "FILE"
+  },
+  {
+    "mode": "easy",
+    "source": "RFXE",
+    "hint": "Heat and flames produced by burning",
+    "answer": "FIRE"
+  },
+  {
+    "mode": "easy",
+    "source": "RIFX",
+    "hint": "A business or company",
+    "answer": "FIRM"
+  },
+  {
+    "mode": "easy",
+    "source": "XFAM",
+    "hint": "Land used for growing crops or raising animals",
+    "answer": "FARM"
+  },
+  {
+    "mode": "easy",
+    "source": "HRXA",
+    "hint": "Physical or emotional damage",
+    "answer": "HARM"
+  },
+  {
+    "mode": "easy",
+    "source": "XRAH",
+    "hint": "Not soft or easy to bend",
+    "answer": "HARD"
+  },
+  {
+    "mode": "easy",
+    "source": "RCXA",
+    "hint": "A small piece of stiff paper",
+    "answer": "CARD"
+  },
+  {
+    "mode": "easy",
+    "source": "OXRD",
+    "hint": "A long flexible string or wire",
+    "answer": "CORD"
+  },
+  {
+    "mode": "easy",
+    "source": "ROXD",
+    "hint": "A unit of language",
+    "answer": "WORD"
+  },
+  {
+    "mode": "easy",
+    "source": "KRXW",
+    "hint": "Activity done to accomplish something",
+    "answer": "WORK"
+  },
+  {
+    "mode": "easy",
+    "source": "WXMO",
+    "hint": "A long, soft-bodied crawling animal",
+    "answer": "WORM"
+  },
+  {
+    "mode": "easy",
+    "source": "WXAM",
+    "hint": "Moderately hot",
+    "answer": "WARM"
+  },
+  {
+    "mode": "easy",
+    "source": "XNAW",
+    "hint": "To tell someone about a possible danger",
+    "answer": "WARN"
+  },
+  {
+    "mode": "easy",
+    "source": "ATXN",
+    "hint": "To desire something",
+    "answer": "WANT"
+  },
+  {
+    "mode": "easy",
+    "source": "ENTX",
+    "hint": "Past tense of go",
+    "answer": "WENT"
+  },
+  {
+    "mode": "easy",
+    "source": "TNXE",
+    "hint": "A portable shelter made of fabric",
+    "answer": "TENT"
+  },
+  {
+    "mode": "easy",
+    "source": "EXXT",
+    "hint": "Written words",
+    "answer": "TEXT"
+  },
+  {
+    "mode": "easy",
+    "source": "XTES",
+    "hint": "An examination or trial",
+    "answer": "TEST"
+  },
+  {
+    "mode": "easy",
+    "source": "SXTE",
+    "hint": "To relax or stop working",
+    "answer": "REST"
+  },
+  {
+    "mode": "easy",
+    "source": "XETS",
+    "hint": "Better than all others",
+    "answer": "BEST"
+  },
+  {
+    "mode": "easy",
+    "source": "XSVE",
+    "hint": "A sleeveless item of clothing",
+    "answer": "VEST"
+  },
+  {
+    "mode": "easy",
+    "source": "EXTS",
+    "hint": "The direction opposite east",
+    "answer": "WEST"
+  },
+  {
+    "mode": "easy",
+    "source": "XETS",
+    "hint": "A bird's home",
+    "answer": "NEST"
+  },
+  {
+    "mode": "easy",
+    "source": "TEYN",
+    "hint": "Coming immediately afterward",
+    "answer": "NEXT"
+  },
+  {
+    "mode": "easy",
+    "source": "AXET",
+    "hint": "Clean and orderly",
+    "answer": "NEAT"
+  },
+  {
+    "mode": "easy",
+    "source": "MEXA",
+    "hint": "Animal flesh used as food",
+    "answer": "MEAT"
+  },
+  {
+    "mode": "easy",
+    "source": "AXMN",
+    "hint": "Average or intermediate value",
+    "answer": "MEAN"
+  },
+  {
+    "mode": "easy",
+    "source": "LAEX",
+    "hint": "To tilt or rest against something",
+    "answer": "LEAN"
+  },
+  {
+    "mode": "easy",
+    "source": "XFLE",
+    "hint": "A flat green part of a plant",
+    "answer": "LEAF"
+  },
+  {
+    "mode": "easy",
+    "source": "LAXO",
+    "hint": "A shaped quantity of bread",
+    "answer": "LOAF"
+  },
+  {
+    "mode": "easy",
+    "source": "DXOL",
+    "hint": "A quantity being carried",
+    "answer": "LOAD"
+  },
+  {
+    "mode": "easy",
+    "source": "AXRD",
+    "hint": "A route for vehicles",
+    "answer": "ROAD"
+  },
+  {
+    "mode": "easy",
+    "source": "TDOX",
+    "hint": "A small animal similar to a frog",
+    "answer": "TOAD"
+  },
+  {
+    "mode": "easy",
+    "source": "LOXO",
+    "hint": "An object used to perform a task",
+    "answer": "TOOL"
+  },
+  {
+    "mode": "easy",
+    "source": "OFOX",
+    "hint": "A silly person",
+    "answer": "FOOL"
+  },
+  {
+    "mode": "easy",
+    "source": "OFOX",
+    "hint": "A body part used for walking",
+    "answer": "FOOT"
+  },
+  {
+    "mode": "easy",
+    "source": "TOXO",
+    "hint": "A type of footwear covering the ankle",
+    "answer": "BOOT"
+  },
+  {
+    "mode": "easy",
+    "source": "BXKO",
+    "hint": "A written work with pages",
+    "answer": "BOOK"
+  },
+  {
+    "mode": "easy",
+    "source": "LXOO",
+    "hint": "To direct your eyes toward something",
+    "answer": "LOOK"
+  },
+  {
+    "mode": "easy",
+    "source": "LXOK",
+    "hint": "A device used to secure something",
+    "answer": "LOCK"
+  },
+  {
+    "mode": "easy",
+    "source": "KXRO",
+    "hint": "A hard natural substance",
+    "answer": "ROCK"
+  },
+  {
+    "mode": "easy",
+    "source": "AKXR",
+    "hint": "A framework for holding things",
+    "answer": "RACK"
+  },
+  {
+    "mode": "easy",
+    "source": "BKCX",
+    "hint": "The rear part of something",
+    "answer": "BACK"
+  },
+  {
+    "mode": "easy",
+    "source": "AKPX",
+    "hint": "A group or bundle of things",
+    "answer": "PACK"
+  },
+  {
+    "mode": "easy",
+    "source": "XPKI",
+    "hint": "To choose",
+    "answer": "PICK"
+  },
+  {
+    "mode": "easy",
+    "source": "IKXS",
+    "hint": "Not feeling well",
+    "answer": "SICK"
+  },
+  {
+    "mode": "easy",
+    "source": "XIKW",
+    "hint": "To briefly close one eye",
+    "answer": "WINK"
+  },
+  {
+    "mode": "easy",
+    "source": "XNMD",
+    "hint": "The part of you that thinks",
+    "answer": "MIND"
+  },
+  {
+    "mode": "easy",
+    "source": "MXIE",
+    "hint": "Belonging to me",
+    "answer": "MINE"
+  },
+  {
+    "mode": "easy",
+    "source": "XELI",
+    "hint": "A long narrow mark",
+    "answer": "LINE"
+  },
+  {
+    "mode": "easy",
+    "source": "OIXL",
+    "hint": "A large wild cat",
+    "answer": "LION"
+  },
+  {
+    "mode": "easy",
+    "source": "OXAL",
+    "hint": "Money borrowed that must be repaid",
+    "answer": "LOAN"
+  },
+  {
+    "mode": "easy",
+    "source": "MNAX",
+    "hint": "A low sound expressing pain",
+    "answer": "MOAN"
+  },
+  {
+    "mode": "easy",
+    "source": "ONXO",
+    "hint": "Twelve o'clock during the day",
+    "answer": "NOON"
+  },
+  {
+    "mode": "easy",
+    "source": "SOXN",
+    "hint": "In a short time",
+    "answer": "SOON"
+  },
+  {
+    "mode": "easy",
+    "source": "XSNOP",
+    "hint": "To investigate secretly",
+    "answer": "SNOOP"
+  },
+  {
+    "mode": "easy",
+    "source": "EXELS",
+    "hint": "A state of rest",
+    "answer": "SLEEP"
+  },
+  {
+    "mode": "easy",
+    "source": "EXPHS",
+    "hint": "A wool-producing farm animal",
+    "answer": "SHEEP"
+  },
+  {
+    "mode": "easy",
+    "source": "EAXHC",
+    "hint": "Inexpensive",
+    "answer": "CHEAP"
+  },
+  {
+    "mode": "easy",
+    "source": "ECHXR",
+    "hint": "A shout of encouragement",
+    "answer": "CHEER"
+  },
+  {
+    "mode": "easy",
+    "source": "CXSTE",
+    "hint": "The front part of the upper body",
+    "answer": "CHEST"
+  },
+  {
+    "mode": "easy",
+    "source": "TXSEU",
+    "hint": "A long search or adventure",
+    "answer": "QUEST"
+  },
+  {
+    "mode": "easy",
+    "source": "XTEUG",
+    "hint": "A person invited somewhere",
+    "answer": "GUEST"
+  },
+  {
+    "mode": "easy",
+    "source": "SXSGU",
+    "hint": "An answer given without certainty",
+    "answer": "GUESS"
+  },
+  {
+    "mode": "easy",
+    "source": "SMEX",
+    "hint": "A state of disorder",
+    "answer": "MESS"
+  },
+  {
+    "mode": "easy",
+    "source": "LEXS",
+    "hint": "A smaller amount",
+    "answer": "LESS"
+  },
+  {
+    "mode": "easy",
+    "source": "XLOS",
+    "hint": "The opposite of gain",
+    "answer": "LOSS"
+  },
+  {
+    "mode": "easy",
+    "source": "XOSS",
+    "hint": "A person in charge",
+    "answer": "BOSS"
+  },
+  {
+    "mode": "easy",
+    "source": "AXSB",
+    "hint": "A low musical sound",
+    "answer": "BASS"
+  },
+  {
+    "mode": "easy",
+    "source": "AXES",
+    "hint": "The bottom or foundation of something",
+    "answer": "BASE"
+  },
+  {
+    "mode": "easy",
+    "source": "CXSE",
+    "hint": "A container or covering",
+    "answer": "CASE"
+  },
+  {
+    "mode": "easy",
+    "source": "CHXA",
+    "hint": "Money in physical form",
+    "answer": "CASH"
+  },
+  {
+    "mode": "easy",
+    "source": "XSAD",
+    "hint": "To run quickly",
+    "answer": "DASH"
+  },
+  {
+    "mode": "easy",
+    "source": "XDIS",
+    "hint": "A container used for serving food",
+    "answer": "DISH"
+  },
+  {
+    "mode": "easy",
+    "source": "FHXS",
+    "hint": "An aquatic animal with gills",
+    "answer": "FISH"
+  },
+  {
+    "mode": "easy",
+    "source": "IFXT",
+    "hint": "A hand with the fingers tightly closed",
+    "answer": "FIST"
+  },
+  {
+    "mode": "easy",
+    "source": "XSIL",
+    "hint": "A series of items",
+    "answer": "LIST"
+  },
+  {
+    "mode": "easy",
+    "source": "XTAL",
+    "hint": "Coming after all others",
+    "answer": "LAST"
+  },
+  {
+    "mode": "easy",
+    "source": "ASFX",
+    "hint": "Moving quickly",
+    "answer": "FAST"
+  },
+  {
+    "mode": "easy",
+    "source": "CAXT",
+    "hint": "A group of actors",
+    "answer": "CAST"
+  },
+  {
+    "mode": "easy",
+    "source": "SXTO",
+    "hint": "The price of something",
+    "answer": "COST"
+  },
+  {
+    "mode": "easy",
+    "source": "COXT",
+    "hint": "An outer garment",
+    "answer": "COAT"
+  },
+  {
+    "mode": "easy",
+    "source": "OTAX",
+    "hint": "A small vessel for traveling on water",
+    "answer": "BOAT"
+  },
+  {
+    "mode": "easy",
+    "source": "XGTA",
+    "hint": "A horned farm animal",
+    "answer": "GOAT"
+  },
+  {
+    "mode": "easy",
+    "source": "OAXG",
+    "hint": "Something you aim to achieve",
+    "answer": "GOAL"
+  },
+  {
+    "mode": "easy",
+    "source": "OXAC",
+    "hint": "A black combustible rock",
+    "answer": "COAL"
+  },
+  {
+    "mode": "easy",
+    "source": "COXI",
+    "hint": "Something wound into a spiral",
+    "answer": "COIL"
+  },
+  {
+    "mode": "easy",
+    "source": "ICOX",
+    "hint": "A piece of metal money",
+    "answer": "COIN"
+  },
+  {
+    "mode": "easy",
+    "source": "IJXO",
+    "hint": "To become part of a group",
+    "answer": "JOIN"
+  },
+  {
+    "mode": "easy",
+    "source": "NIXP",
+    "hint": "An unpleasant physical sensation",
+    "answer": "PAIN"
+  },
+  {
+    "mode": "easy",
+    "source": "NAMX",
+    "hint": "Most important",
+    "answer": "MAIN"
+  },
+  {
+    "mode": "easy",
+    "source": "XANL",
+    "hint": "A small metal fastener",
+    "answer": "NAIL"
+  },
+  {
+    "mode": "easy",
+    "source": "TXAI",
+    "hint": "A body part extending from an animal's rear",
+    "answer": "TAIL"
+  },
+  {
+    "mode": "easy",
+    "source": "IXFL",
+    "hint": "To make something full",
+    "answer": "FILL"
+  },
+  {
+    "mode": "easy",
+    "source": "LFXE",
+    "hint": "Past tense of fall",
+    "answer": "FELL"
+  },
+  {
+    "mode": "easy",
+    "source": "FEXL",
+    "hint": "To perceive through touch",
+    "answer": "FEEL"
+  },
+  {
+    "mode": "easy",
+    "source": "EHXE",
+    "hint": "The back part of a foot",
+    "answer": "HEEL"
+  },
+  {
+    "mode": "easy",
+    "source": "PXHL",
+    "hint": "To assist someone",
+    "answer": "HELP"
+  },
+  {
+    "mode": "easy",
+    "source": "ELXM",
+    "hint": "A position of leadership or control",
+    "answer": "HELM"
+  },
+  {
+    "mode": "easy",
+    "source": "LXHE",
+    "hint": "Past tense of hold",
+    "answer": "HELD"
+  },
+  {
+    "mode": "easy",
+    "source": "HODX",
+    "hint": "To keep something in your hands",
+    "answer": "HOLD"
+  },
+  {
+    "mode": "easy",
+    "source": "XOER",
+    "hint": "The central part of something",
+    "answer": "CORE"
+  },
+  {
+    "mode": "easy",
+    "source": "UCXE",
+    "hint": "A treatment that eliminates an illness",
+    "answer": "CURE"
+  },
+  {
+    "mode": "easy",
+    "source": "XERU",
+    "hint": "Not mixed with anything else",
+    "answer": "PURE"
+  },
+  {
+    "mode": "easy",
+    "source": "REXS",
+    "hint": "Certain or confident",
+    "answer": "SURE"
+  },
+  {
+    "mode": "easy",
+    "source": "RUXF",
+    "hint": "Waves breaking near the shore",
+    "answer": "SURF"
+  },
+  {
+    "mode": "easy",
+    "source": "RNUX",
+    "hint": "To change direction",
+    "answer": "TURN"
+  },
+  {
+    "mode": "easy",
+    "source": "BNUX",
+    "hint": "To be damaged by fire or heat",
+    "answer": "BURN"
+  },
+  {
+    "mode": "easy",
+    "source": "BNRX",
+    "hint": "A farm building for animals or crops",
+    "answer": "BARN"
+  },
+  {
+    "mode": "easy",
+    "source": "NRWX",
+    "hint": "Used or damaged from use",
+    "answer": "WORN"
+  },
+  {
+    "mode": "easy",
+    "source": "OWXO",
+    "hint": "Material from trees",
+    "answer": "WOOD"
+  },
+  {
+    "mode": "easy",
+    "source": "FXOD",
+    "hint": "Something eaten for nourishment",
+    "answer": "FOOD"
+  },
+  {
+    "mode": "easy",
+    "source": "ORXO",
+    "hint": "The underground part of a plant",
+    "answer": "ROOT"
+  },
+  {
+    "mode": "easy",
+    "source": "ORXO",
+    "hint": "The covering on top of a building",
+    "answer": "ROOF"
+  },
+  {
+    "mode": "easy",
+    "source": "XOOM",
+    "hint": "A space inside a building",
+    "answer": "ROOM"
+  },
+  {
+    "mode": "easy",
+    "source": "BXOO",
+    "hint": "A loud, deep sound",
+    "answer": "BOOM"
+  },
+  {
+    "mode": "easy",
+    "source": "XOBKO",
+    "hint": "A small stream",
+    "answer": "BROOK"
+  },
+  {
+    "mode": "easy",
+    "source": "BRXED",
+    "hint": "A type of grain-based food",
+    "answer": "BREAD"
+  },
+  {
+    "mode": "easy",
+    "source": "XKRAB",
+    "hint": "To separate into pieces",
+    "answer": "BREAK"
+  },
+  {
+    "mode": "easy",
+    "source": "EXPAS",
+    "hint": "To talk",
+    "answer": "SPEAK"
+  },
+  {
+    "mode": "easy",
+    "source": "ASXPE",
+    "hint": "A long weapon with a pointed end",
+    "answer": "SPEAR"
+  },
+  {
+    "mode": "easy",
+    "source": "ASXWE",
+    "hint": "To make a solemn promise",
+    "answer": "SWEAR"
+  },
+  {
+    "mode": "easy",
+    "source": "THXEE",
+    "hint": "A large rectangular piece of fabric",
+    "answer": "SHEET"
+  },
+  {
+    "mode": "easy",
+    "source": "FLXES",
+    "hint": "A flat surface for storing things",
+    "answer": "SHELF"
+  },
+  {
+    "mode": "easy",
+    "source": "LFSX",
+    "hint": "A person's own identity",
+    "answer": "SELF"
+  },
+  {
+    "mode": "easy",
+    "source": "LHSEX",
+    "hint": "A hard outer covering",
+    "answer": "SHELL"
+  },
+  {
+    "mode": "easy",
+    "source": "XMSLE",
+    "hint": "The sense used to detect odors",
+    "answer": "SMELL"
+  },
+  {
+    "mode": "easy",
+    "source": "XLELP",
+    "hint": "To write a word correctly",
+    "answer": "SPELL"
+  },
+  {
+    "mode": "easy",
+    "source": "XLPSI",
+    "hint": "To accidentally pour liquid out",
+    "answer": "SPILL"
+  },
+  {
+    "mode": "easy",
+    "source": "LXTSL",
+    "hint": "Not moving",
+    "answer": "STILL"
+  },
+  {
+    "mode": "easy",
+    "source": "SKXLL",
+    "hint": "An ability gained through practice",
+    "answer": "SKILL"
+  },
+  {
+    "mode": "easy",
+    "source": "ULXLK",
+    "hint": "The bones protecting the brain",
+    "answer": "SKULL"
+  },
+  {
+    "mode": "easy",
+    "source": "LXASH",
+    "hint": "A formal word used to express future action",
+    "answer": "SHALL"
+  },
+  {
+    "mode": "easy",
+    "source": "MXLSL",
+    "hint": "Not large",
+    "answer": "SMALL"
+  },
+  {
+    "mode": "easy",
+    "source": "RLXIA",
+    "hint": "A path through the countryside",
+    "answer": "TRAIL"
+  },
+  {
+    "mode": "easy",
+    "source": "GAIXN",
+    "hint": "A seed of a cereal plant",
+    "answer": "GRAIN"
+  },
+  {
+    "mode": "easy",
+    "source": "HCXIR",
+    "hint": "A group of singers",
+    "answer": "CHOIR"
+  },
+  {
+    "mode": "easy",
+    "source": "DHIXC",
+    "hint": "A young person",
+    "answer": "CHILD"
+  },
+  {
+    "mode": "easy",
+    "source": "RHEXS",
+    "hint": "Land along the edge of water",
+    "answer": "SHORE"
+  },
+  {
+    "mode": "easy",
+    "source": "RFXA",
+    "hint": "The price paid for a journey",
+    "answer": "FARE"
+  },
+  {
+    "mode": "easy",
+    "source": "BXI",
+    "hint": "Large in size",
+    "answer": "BIG"
+  },
+  {
+    "mode": "easy",
+    "source": "BAT",
+    "hint": "To strike lightly",
+    "answer": "TAP"
+  },
+  {
+    "mode": "easy",
+    "source": "RXAE",
+    "hint": "To challenge someone",
+    "answer": "DARE"
+  },
+  {
+    "mode": "easy",
+    "source": "ARXE",
+    "hint": "Uncovered",
+    "answer": "BARE"
+  },
+  {
+    "mode": "easy",
+    "source": "FLIP",
+    "hint": "To slide accidentally",
+    "answer": "SLIP"
+  },
+  {
+    "mode": "easy",
+    "source": "OJX",
+    "hint": "To run slowly",
+    "answer": "JOG"
+  },
+  {
+    "mode": "easy",
+    "source": "PXO",
+    "hint": "To jump lightly",
+    "answer": "HOP"
+  },
+  {
+    "mode": "easy",
+    "source": "IXT",
+    "hint": "Suitable or the right size",
+    "answer": "FIT"
+  },
+  {
+    "mode": "easy",
+    "source": "AXT",
+    "hint": "Headwear",
+    "answer": "HAT"
+  },
+  {
+    "mode": "easy",
+    "source": "KBEX",
+    "hint": "A bicycle",
+    "answer": "BIKE"
+  },
+  {
+    "mode": "easy",
+    "source": "MATE",
+    "hint": "To get or carry something",
+    "answer": "TAKE"
+  },
+  {
+    "mode": "easy",
+    "source": "AEXK",
+    "hint": "To create or produce",
+    "answer": "MAKE"
+  },
+  {
+    "mode": "easy",
+    "source": "EXCA",
+    "hint": "A sweet baked dessert",
+    "answer": "CAKE"
+  },
+  {
+    "mode": "easy",
+    "source": "BAT",
+    "hint": "A small piece",
+    "answer": "BIT"
+  },
+  {
+    "mode": "easy",
+    "source": "MEXS",
+    "hint": "Identical or not different",
+    "answer": "SAME"
+  },
+  {
+    "mode": "easy",
+    "source": "XLO",
+    "hint": "A piece of cut tree trunk",
+    "answer": "LOG"
+  },
+  {
+    "mode": "easy",
+    "source": "WING",
+    "hint": "A circular piece of jewelry",
+    "answer": "RING"
+  },
+  {
+    "mode": "easy",
+    "source": "HOT",
+    "hint": "To strike",
+    "answer": "HIT"
+  },
+  {
+    "mode": "easy",
+    "source": "NXU",
+    "hint": "A play on words",
+    "answer": "PUN"
+  },
+  {
+    "mode": "easy",
+    "source": "XAN",
+    "hint": "A large road vehicle",
+    "answer": "VAN"
+  },
+  {
+    "mode": "easy",
+    "source": "IXP",
+    "hint": "A farm animal raised for meat",
+    "answer": "PIG"
+  },
+  {
+    "mode": "easy",
+    "source": "ASTX",
+    "hint": "To remain in a place",
+    "answer": "STAY"
+  },
+  {
+    "mode": "easy",
+    "source": "XSIA",
+    "hint": "To travel by boat using wind",
+    "answer": "SAIL"
+  },
+  {
+    "mode": "easy",
+    "source": "IHXE",
+    "hint": "A long walk",
+    "answer": "HIKE"
+  },
+  {
+    "mode": "easy",
+    "source": "XDA",
+    "hint": "Not good",
+    "answer": "BAD"
+  },
+  {
+    "mode": "easy",
+    "source": "XTAH",
+    "hint": "To strongly dislike",
+    "answer": "HATE"
+  },
+  {
+    "mode": "easy",
+    "source": "TEAX",
+    "hint": "What is destined to happen",
+    "answer": "FATE"
+  },
+  {
+    "mode": "easy",
+    "source": "XTEA",
+    "hint": "A companion or partner",
+    "answer": "MATE"
+  },
+  {
+    "mode": "easy",
+    "source": "CXN",
+    "hint": "A metal container",
+    "answer": "CAN"
+  },
+  {
+    "mode": "easy",
+    "source": "MXP",
+    "hint": "A cleaning tool",
+    "answer": "MOP"
+  },
+  {
+    "mode": "easy",
+    "source": "PLATE",
+    "hint": "A particular location",
+    "answer": "PLACE"
+  },
+  {
+    "mode": "easy",
+    "source": "EXD",
+    "hint": "A colour resembling blood",
+    "answer": "RED"
+  },
+  {
+    "mode": "easy",
+    "source": "MCXE",
+    "hint": "Past tense of come",
+    "answer": "CAME"
+  },
+  {
+    "mode": "easy",
+    "source": "WXIN",
+    "hint": "A body part used for flying",
+    "answer": "WING"
+  },
+  {
+    "mode": "easy",
+    "source": "MAKE",
+    "hint": "Created or produced",
+    "answer": "MADE"
+  },
+  {
+    "mode": "easy",
+    "source": "XETS",
+    "hint": "A movement made by lifting one foot",
+    "answer": "STEP"
+  },
+  {
+    "mode": "easy",
+    "source": "WXG",
+    "hint": "Artificial hair",
+    "answer": "WIG"
+  },
+  {
+    "mode": "easy",
+    "source": "FEXA",
+    "hint": "Not genuine",
+    "answer": "FAKE"
+  },
+  {
+    "mode": "easy",
+    "source": "PIG",
+    "hint": "To make a hole in the ground",
+    "answer": "DIG"
+  },
+  {
+    "mode": "easy",
+    "source": "LAP",
+    "hint": "A representation of an area",
+    "answer": "MAP"
+  },
+  {
+    "mode": "easy",
+    "source": "LATE",
+    "hint": "A measure or level",
+    "answer": "RATE"
+  },
+  {
+    "mode": "easy",
+    "source": "MADE",
+    "hint": "A particular day",
+    "answer": "DATE"
+  },
+  {
+    "mode": "easy",
+    "source": "ENX",
+    "hint": "A writing instrument",
+    "answer": "PEN"
+  },
+  {
+    "mode": "easy",
+    "source": "BARE",
+    "hint": "To feel concern for",
+    "answer": "CARE"
+  },
+  {
+    "mode": "easy",
+    "source": "GXO",
+    "hint": "A thick cloud near the ground",
+    "answer": "FOG"
+  },
+  {
+    "mode": "easy",
+    "source": "MEXFL",
+    "hint": "The visible part of a fire",
+    "answer": "FLAME"
+  },
+  {
+    "mode": "easy",
+    "source": "TAG",
+    "hint": "A piece of old cloth",
+    "answer": "RAG"
+  },
+  {
+    "mode": "easy",
+    "source": "PUN",
+    "hint": "A shallow cooking vessel",
+    "answer": "PAN"
+  },
+  {
+    "mode": "easy",
+    "source": "LAKE",
+    "hint": "After the expected time",
+    "answer": "LATE"
+  },
+  {
+    "mode": "easy",
+    "source": "XAB",
+    "hint": "A flying mammal",
+    "answer": "BAT"
+  },
+  {
+    "mode": "easy",
+    "source": "QUACK",
+    "hint": "Moving with speed",
+    "answer": "QUICK"
+  },
+  {
+    "mode": "easy",
+    "source": "ALXD",
+    "hint": "Solid ground",
+    "answer": "LAND"
+  },
+  {
+    "mode": "easy",
+    "source": "GKIX",
+    "hint": "A male monarch",
+    "answer": "KING"
+  },
+  {
+    "mode": "easy",
+    "source": "EEGRX",
+    "hint": "A colour between blue and yellow",
+    "answer": "GREEN"
+  },
+  {
+    "mode": "easy",
+    "source": "EMXN",
+    "hint": "A word by which someone is known",
+    "answer": "NAME"
+  },
+  {
+    "mode": "easy",
+    "source": "MXARE",
+    "hint": "A rich dairy product",
+    "answer": "CREAM"
+  },
+  {
+    "mode": "easy",
+    "source": "PIX",
+    "hint": "A small pointed fastener",
+    "answer": "PIN"
+  },
+  {
+    "mode": "easy",
+    "source": "PAX",
+    "hint": "The upper part of the legs when seated",
+    "answer": "LAP"
+  },
+  {
+    "mode": "easy",
+    "source": "HXO",
+    "hint": "Having a high temperature",
+    "answer": "HOT"
+  },
+  {
+    "mode": "easy",
+    "source": "XNF",
+    "hint": "A thin appendage used for swimming",
+    "answer": "FIN"
+  },
+  {
+    "mode": "easy",
+    "source": "MILE",
+    "hint": "To enjoy or approve of",
+    "answer": "LIKE"
+  },
+  {
+    "mode": "easy",
+    "source": "WRITE",
+    "hint": "The lightest colour",
+    "answer": "WHITE"
+  },
+  {
+    "mode": "easy",
+    "source": "XECAR",
+    "hint": "Easy to understand",
+    "answer": "CLEAR"
+  },
+  {
+    "mode": "easy",
+    "source": "FAN",
+    "hint": "An adult male",
+    "answer": "MAN"
+  },
+  {
+    "mode": "easy",
+    "source": "WAG",
+    "hint": "A label attached to something",
+    "answer": "TAG"
+  },
+  {
+    "mode": "easy",
+    "source": "ABX",
+    "hint": "A container for carrying things",
+    "answer": "BAG"
+  },
+  {
+    "mode": "easy",
+    "source": "SHOP",
+    "hint": "To cease moving",
+    "answer": "STOP"
+  },
+  {
+    "mode": "easy",
+    "source": "PRICE",
+    "hint": "An award given for achievement",
+    "answer": "PRIZE"
+  },
+  {
+    "mode": "easy",
+    "source": "SLIP",
+    "hint": "To turn over quickly",
+    "answer": "FLIP"
+  },
+  {
+    "mode": "easy",
+    "source": "AXT",
+    "hint": "A small domesticated feline",
+    "answer": "CAT"
+  },
+  {
+    "mode": "easy",
+    "source": "SHOP",
+    "hint": "A large vessel for traveling on water",
+    "answer": "SHIP"
+  },
+  {
+    "mode": "easy",
+    "source": "WGX",
+    "hint": "To move from side to side",
+    "answer": "WAG"
+  },
+  {
+    "mode": "easy",
+    "source": "CAME",
+    "hint": "An activity played for entertainment",
+    "answer": "GAME"
+  },
+  {
+    "mode": "easy",
+    "source": "CREAM",
+    "hint": "A series of images during sleep",
+    "answer": "DREAM"
+  },
+  {
+    "mode": "easy",
+    "source": "LIKE",
+    "hint": "A large inland body of water",
+    "answer": "LAKE"
+  },
+  {
+    "mode": "easy",
+    "source": "GXEA",
+    "hint": "A movable barrier",
+    "answer": "GATE"
+  },
+  {
+    "mode": "easy",
+    "source": "CAN",
+    "hint": "A device that moves air",
+    "answer": "FAN"
+  },
+  {
+    "mode": "easy",
+    "source": "XCA",
+    "hint": "A type of head covering",
+    "answer": "CAP"
+  },
+  {
+    "mode": "easy",
+    "source": "STAY",
+    "hint": "A luminous object in the night sky",
+    "answer": "STAR"
+  },
+  {
+    "mode": "easy",
+    "source": "PAXL",
+    "hint": "To strike the hands together",
+    "answer": "CLAP"
+  },
+  {
+    "mode": "easy",
+    "source": "PLATE",
+    "hint": "A living organism that grows in soil",
+    "answer": "PLANT"
+  }
+]

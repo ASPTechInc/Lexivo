@@ -1,0 +1,16 @@
+# https://github.com/crate-ci/typos
+# install:  cargo install typos-cli
+# run:      typos
+
+[default.extend-words]
+egui = "egui"  # Example for how to ignore a false positive
+INES = "INES"  # Ignore in puzzles-*.json files
+ines = "ines"  # Ignore in puzzles-*.json files
+
+[default.extend-identifiers]
+PNGs = "PNGs"  # Using identifiers prevents splitting PNGs into PN
+
+[files]
+extend-exclude = [
+    "build/",  # Ignore build folder
+]

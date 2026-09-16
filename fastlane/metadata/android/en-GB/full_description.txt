@@ -1,0 +1,12 @@
+Lexivo is a free and open-source (FOSS) cross-platform word puzzle game built with Rust and egui/eframe. It challenges players to solve linguistic puzzles by transforming words through single-letter changes and anagrams.
+
+Key Features:
+- Cross-platform Word Puzzles: Play seamlessly across Android, Web (PWA) and Desktop.
+- Engaging Gameplay: Transform words via single-letter changes and anagrams.
+- Daily Challenges: Compete in daily puzzle sets with stable global seeds.
+- Quick Play: Endless word fun with randomised puzzles.
+- Difficulty Levels: Choose between Easy, Medium and Hard pools.
+- Privacy-first: All data is stored locally on your device with no tracking or ads.
+- Lightweight & Reactive: A fast interface powered by the egui toolkit.
+
+Lexivo is built with a commitment to FOSS values, providing a clean, ad-free experience for word game enthusiasts.

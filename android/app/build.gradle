@@ -1,0 +1,223 @@
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.ktlint)
+}
+
+android {
+    namespace = 'com.asptechinc.lexivo'
+    compileSdk = libs.versions.compileSdk.get().toInteger()
+    ndkVersion = "30.0.16248370"
+
+    androidResources {
+        noCompress += ["mp3"]
+    }
+
+    defaultConfig {
+        applicationId = "com.asptechinc.lexivo"
+        minSdk = libs.versions.minSdk.get().toInteger()
+        targetSdk = libs.versions.targetSdk.get().toInteger()
+        versionCode = 1
+        versionName = "1.0.0"
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled = false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main {
+            // Where the compiled Rust libraries (.so files) are placed for packaging.
+            jniLibs.srcDirs = ["src/main/jniLibs"]
+            // Package shared project assets so Android can play buzzer effects from assets/sound-effects.
+            assets.srcDirs = ["../../assets"]
+        }
+    }
+}
+
+// Map Rust target triples to Android ABIs.
+// This mapping is used to generate custom build tasks for each platform.
+def targetNav = [
+        "aarch64-linux-android"  : "arm64-v8a",    // Most modern physical Android devices
+        "armv7-linux-androideabi": "armeabi-v7a",  // Older 32-bit ARM devices
+        "x86_64-linux-android"   : "x86_64",       // Required for ChromeOS and x86_64 emulators
+        "i686-linux-android"     : "x86"           // 32-bit x86 emulators
+]
+
+/**
+ * Normalises various ABI string formats into the standard Android ABI names.
+ * This handles cases where a developer might pass "arm64" instead of "arm64-v8a".
+ */
+def normaliseAbi = { abi ->
+    if (!abi) {
+        return null
+    }
+
+    def trimmed = abi.trim()
+    if (targetNav.values().contains(trimmed)) {
+        return trimmed
+    }
+
+    if (trimmed.startsWith("arm64")) return "arm64-v8a"
+    if (trimmed.startsWith("armeabi") || trimmed.startsWith("armv7")) return "armeabi-v7a"
+    if (trimmed.startsWith("x86_64")) return "x86_64"
+    if (trimmed == "x86") return "x86"
+    return null
+}
+
+/**
+ * Detects the ABI of the currently connected Android device via ADB.
+ * Returns a provider that resolves to the ABI string or null.
+ */
+abstract class AdbAbiValueSource implements ValueSource<String, Parameters> {
+    interface Parameters extends ValueSourceParameters {
+        RegularFileProperty getAdbExecutable()
+    }
+
+    @Override
+    String obtain() {
+        try {
+            if (!parameters.adbExecutable.isPresent()) {
+                return null
+            }
+            def adbPath = parameters.adbExecutable.get().asFile.absolutePath
+            def serial = System.getenv("ANDROID_SERIAL")
+            def command = serial ? [adbPath, "-s", serial, "shell", "getprop", "ro.product.cpu.abi"]
+                    : [adbPath, "shell", "getprop", "ro.product.cpu.abi"]
+            def process = new ProcessBuilder(command).start()
+            process.waitFor()
+            if (process.exitValue() == 0) {
+                return process.inputStream.text.trim()
+            }
+        } catch (Exception ignored) {}
+        return null
+    }
+}
+
+
+// Optimisation for local development: Build only the ABI required for the target device.
+// This significantly reduces build times by skipping redundant Rust compilations.
+// Triggered by: ./gradlew assembleDebug -PsingleAbiDev=true
+def singleAbiDevEnabled = providers.gradleProperty("singleAbiDev")
+        .map { it.toBoolean() }
+        .orElse(false)
+
+def requestedDevAbi = providers.gradleProperty("devAbi")
+def adbProvider = androidComponents.sdkComponents.adb
+def connectedAbiProvider = providers.of(AdbAbiValueSource) {
+    parameters.adbExecutable.set(adbProvider)
+}
+
+def selectedDevAbiProvider = requestedDevAbi.orElse(connectedAbiProvider).map { abi ->
+    normaliseAbi(abi)
+}
+
+// Note: ndk.abiFilters still need to be configured in defaultConfig for some scenarios.
+// It is done lazily if possible.
+if (singleAbiDevEnabled.getOrElse(false)) {
+    def abi = selectedDevAbiProvider.getOrNull()
+    if (abi != null) {
+        logger.lifecycle("Lexivo Android dev build: using single ABI '${abi}'")
+        android.defaultConfig.ndk.abiFilters.add(abi)
+    } else {
+        logger.lifecycle("Lexivo Android dev build: singleAbiDev enabled but no ABI detected, building all ABIs")
+    }
+}
+
+def cargoBin = providers.systemProperty("user.home").map { "${it}/.cargo/bin/cargo" }
+def cargoPath = cargoBin.get()
+def ndkDir = androidComponents.sdkComponents.ndkDirectory
+
+// Register tasks to build Rust code for each supported Android ABI and build variant.
+// These tasks use cargo-ndk to compile the shared library (.so) into the appropriate jniLibs folder.
+targetNav.each { rustTarget, androidAbi ->
+    tasks.register("buildRustDebug_${androidAbi}", Exec) {
+        workingDir layout.projectDirectory.dir("../../")
+
+        // Define inputs to enable incremental builds and configuration caching
+        inputs.dir(layout.projectDirectory.dir("../../src"))
+        inputs.file(layout.projectDirectory.file("../../Cargo.toml"))
+        outputs.dir(layout.projectDirectory.dir("src/main/jniLibs/${androidAbi}"))
+
+        // Set executable and arguments
+        executable cargoPath
+        args 'ndk',
+                '-t', rustTarget,
+                '-o', layout.projectDirectory.dir("src/main/jniLibs").asFile.absolutePath,
+                'build'
+
+        // Set environment lazily to avoid configuration-time property access
+        doFirst {
+            if (ndkDir.isPresent()) {
+                environment "ANDROID_NDK_HOME", ndkDir.get().asFile.absolutePath
+            }
+        }
+    }
+
+    tasks.register("buildRustRelease_${androidAbi}", Exec) {
+        workingDir layout.projectDirectory.dir("../../")
+
+        // Define inputs to enable incremental builds and configuration caching
+        inputs.dir(layout.projectDirectory.dir("../../src"))
+        inputs.file(layout.projectDirectory.file("../../Cargo.toml"))
+        outputs.dir(layout.projectDirectory.dir("src/main/jniLibs/${androidAbi}"))
+
+        // Set executable and arguments
+        executable cargoPath
+        args 'ndk',
+                '-t', rustTarget,
+                '-o', layout.projectDirectory.dir("src/main/jniLibs").asFile.absolutePath,
+                'build', '--release'
+
+        // Set environment lazily to avoid configuration-time property access
+        doFirst {
+            if (ndkDir.isPresent()) {
+                environment "ANDROID_NDK_HOME", ndkDir.get().asFile.absolutePath
+            }
+        }
+    }
+}
+
+// Filter the list of ABIs to build based on the singleAbiDev setting.
+def selectedAbi = selectedDevAbiProvider.getOrNull()
+def singleAbiEnabled = singleAbiDevEnabled.getOrElse(false)
+def rustAbiBuildList = (singleAbiEnabled && selectedAbi != null)
+        ? targetNav.findAll { _, abi -> abi == selectedAbi }
+        : targetNav
+
+// Aggregate tasks to build all required Rust ABIs for a given variant.
+def buildRustDebug = tasks.register('buildRustDebug') {
+    rustAbiBuildList.each { _, androidAbi ->
+        dependsOn "buildRustDebug_${androidAbi}"
+    }
+}
+
+def buildRustRelease = tasks.register('buildRustRelease') {
+    rustAbiBuildList.each { _, androidAbi ->
+        dependsOn "buildRustRelease_${androidAbi}"
+    }
+}
+
+// Hook the Rust build tasks into the standard Android Gradle lifecycle.
+// We use configureEach to avoid eager task creation and handle tasks that are added later by AGP.
+tasks.configureEach { task ->
+    if (task.name == "preDebugBuild") {
+        task.dependsOn(buildRustDebug)
+    }
+    if (task.name == "preReleaseBuild") {
+        task.dependsOn(buildRustRelease)
+    }
+    if (task.name == "preBuild") {
+        task.dependsOn(buildRustDebug)
+    }
+}
+
+dependencies {
+    implementation(libs.androidx.appcompat)
+    implementation(libs.google.material)
+    implementation(libs.androidx.constraintlayout)
+}

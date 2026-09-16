@@ -1,0 +1,1202 @@
+[
+    {
+        "mode": "difficult",
+        "source": "ACID",
+        "hint": "Having the ability or skill to do something",
+        "answer": "ABLE"
+    },
+    {
+        "mode": "difficult",
+        "source": "ABLE",
+        "hint": "A substance with a sour taste that can react with metals",
+        "answer": "ACID"
+    },
+    {
+        "mode": "difficult",
+        "source": "XYZE",
+        "hint": "A piece of land used for growing crops",
+        "answer": "ACRE"
+    },
+    {
+        "mode": "difficult",
+        "source": "SZXY",
+        "hint": "Things that someone does or performs",
+        "answer": "ACTS"
+    },
+    {
+        "mode": "difficult",
+        "source": "XZDY",
+        "hint": "Having grown older",
+        "answer": "AGED"
+    },
+    {
+        "mode": "difficult",
+        "source": "ARMY",
+        "hint": "More than one period of time measured in years",
+        "answer": "AGES"
+    },
+    {
+        "mode": "difficult",
+        "source": "XYZO",
+        "hint": "In addition; too",
+        "answer": "ALSO"
+    },
+    {
+        "mode": "difficult",
+        "source": "ARTS",
+        "hint": "A word used to express agreement or affirmation",
+        "answer": "AMEN"
+    },
+    {
+        "mode": "difficult",
+        "source": "AUNT",
+        "hint": "A particular part or region of something",
+        "answer": "AREA"
+    },
+    {
+        "mode": "difficult",
+        "source": "AGES",
+        "hint": "A large organised military force",
+        "answer": "ARMY"
+    },
+    {
+        "mode": "difficult",
+        "source": "AMEN",
+        "hint": "Creative activities such as painting, music and theatre",
+        "answer": "ARTS"
+    },
+    {
+        "mode": "difficult",
+        "source": "AREA",
+        "hint": "The sister of your parent",
+        "answer": "AUNT"
+    },
+    {
+        "mode": "difficult",
+        "source": "AWAY",
+        "hint": "A car or other motor vehicle",
+        "answer": "AUTO"
+    },
+    {
+        "mode": "difficult",
+        "source": "AUTO",
+        "hint": "Not here; at or toward another place",
+        "answer": "AWAY"
+    },
+    {
+        "mode": "difficult",
+        "source": "XYJZ",
+        "hint": "A very young human",
+        "answer": "BABY"
+    },
+    {
+        "mode": "difficult",
+        "source": "ZXKY",
+        "hint": "The rear part of something",
+        "answer": "BACK"
+    },
+    {
+        "mode": "difficult",
+        "source": "ZEYX",
+        "hint": "A sweet baked food, often round and iced",
+        "answer": "BAKE"
+    },
+    {
+        "mode": "difficult",
+        "source": "BEEN",
+        "hint": "Having little or no hair",
+        "answer": "BALD"
+    },
+    {
+        "mode": "difficult",
+        "source": "BEER",
+        "hint": "A round object used in sports or games",
+        "answer": "BALL"
+    },
+    {
+        "mode": "difficult",
+        "source": "BEET",
+        "hint": "A group of people or things arranged together",
+        "answer": "BAND"
+    },
+    {
+        "mode": "difficult",
+        "source": "BELL",
+        "hint": "A loud sudden noise or strike",
+        "answer": "BANG"
+    },
+    {
+        "mode": "difficult",
+        "source": "BELT",
+        "hint": "A financial institution where people keep money",
+        "answer": "BANK"
+    },
+    {
+        "mode": "difficult",
+        "source": "XZEY",
+        "hint": "Without clothing; uncovered",
+        "answer": "BARE"
+    },
+    {
+        "mode": "difficult",
+        "source": "ZNXY",
+        "hint": "A building where animals are kept",
+        "answer": "BARN"
+    },
+    {
+        "mode": "difficult",
+        "source": "BILL",
+        "hint": "The bottom or foundation on which something rests",
+        "answer": "BASE"
+    },
+    {
+        "mode": "difficult",
+        "source": "ZHYX",
+        "hint": "A place where people wash themselves",
+        "answer": "BATH"
+    },
+    {
+        "mode": "difficult",
+        "source": "RYZX",
+        "hint": "A large mammal with thick fur that can hibernate",
+        "answer": "BEAR"
+    },
+    {
+        "mode": "difficult",
+        "source": "YTXZ",
+        "hint": "To defeat or overcome someone in a competition",
+        "answer": "BEAT"
+    },
+    {
+        "mode": "difficult",
+        "source": "XYFZ",
+        "hint": "The meat of cattle used as food",
+        "answer": "BEEF"
+    },
+    {
+        "mode": "difficult",
+        "source": "BALD",
+        "hint": "A form of the verb 'be' used with certain subjects",
+        "answer": "BEEN"
+    },
+    {
+        "mode": "difficult",
+        "source": "BALL",
+        "hint": "An alcoholic drink made from fermented grain",
+        "answer": "BEER"
+    },
+    {
+        "mode": "difficult",
+        "source": "BAND",
+        "hint": "A vegetable with a dark red or purple root",
+        "answer": "BEET"
+    },
+    {
+        "mode": "difficult",
+        "source": "BANG",
+        "hint": "A hollow object that makes a ringing sound",
+        "answer": "BELL"
+    },
+    {
+        "mode": "difficult",
+        "source": "BANK",
+        "hint": "A strip of material worn around the waist",
+        "answer": "BELT"
+    },
+    {
+        "mode": "difficult",
+        "source": "YDZX",
+        "hint": "To curve or change direction",
+        "answer": "BEND"
+    },
+    {
+        "mode": "difficult",
+        "source": "YXTZ",
+        "hint": "Having a tendency or inclination toward something",
+        "answer": "BENT"
+    },
+    {
+        "mode": "difficult",
+        "source": "TYZX",
+        "hint": "Of the highest quality or standard",
+        "answer": "BEST"
+    },
+    {
+        "mode": "difficult",
+        "source": "BOAT",
+        "hint": "A two-wheeled vehicle powered by pedals",
+        "answer": "BIKE"
+    },
+    {
+        "mode": "difficult",
+        "source": "BASE",
+        "hint": "A small piece of paper or other material showing a financial amount owed",
+        "answer": "BILL"
+    },
+    {
+        "mode": "difficult",
+        "source": "BLUE",
+        "hint": "A feathered animal with wings and a beak",
+        "answer": "BIRD"
+    },
+    {
+        "mode": "difficult",
+        "source": "BODY",
+        "hint": "To put food into your mouth and chew it",
+        "answer": "BITE"
+    },
+    {
+        "mode": "difficult",
+        "source": "BOLD",
+        "hint": "Small individual pieces or items",
+        "answer": "BITS"
+    },
+    {
+        "mode": "difficult",
+        "source": "BIRD",
+        "hint": "A colour between green and violet in the spectrum",
+        "answer": "BLUE"
+    },
+    {
+        "mode": "difficult",
+        "source": "BIKE",
+        "hint": "A vessel that travels on water",
+        "answer": "BOAT"
+    },
+    {
+        "mode": "difficult",
+        "source": "BITE",
+        "hint": "The physical structure of a person or animal",
+        "answer": "BODY"
+    },
+    {
+        "mode": "difficult",
+        "source": "BITS",
+        "hint": "Confident and willing to take risks",
+        "answer": "BOLD"
+    },
+    {
+        "mode": "difficult",
+        "source": "BRAG",
+        "hint": "A metal fastening device used to secure something",
+        "answer": "BOLT"
+    },
+    {
+        "mode": "difficult",
+        "source": "BRAS",
+        "hint": "An explosive weapon that can be dropped or thrown",
+        "answer": "BOMB"
+    },
+    {
+        "mode": "difficult",
+        "source": "BREW",
+        "hint": "A legal agreement between people or organizations",
+        "answer": "BOND"
+    },
+    {
+        "mode": "difficult",
+        "source": "BUCK",
+        "hint": "The hard part of a body that forms the skeleton",
+        "answer": "BONE"
+    },
+    {
+        "mode": "difficult",
+        "source": "BULL",
+        "hint": "A set of printed pages bound together",
+        "answer": "BOOK"
+    },
+    {
+        "mode": "difficult",
+        "source": "BULK",
+        "hint": "A deep, loud sound",
+        "answer": "BOOM"
+    },
+    {
+        "mode": "difficult",
+        "source": "BUMP",
+        "hint": "A type of footwear covering the foot",
+        "answer": "BOOT"
+    },
+    {
+        "mode": "difficult",
+        "source": "BUSH",
+        "hint": "Having entered the world; existing from birth",
+        "answer": "BORN"
+    },
+    {
+        "mode": "difficult",
+        "source": "BURN",
+        "hint": "A person who is in charge or leads others",
+        "answer": "BOSS"
+    },
+    {
+        "mode": "difficult",
+        "source": "BUSY",
+        "hint": "The two things or people being compared",
+        "answer": "BOTH"
+    },
+    {
+        "mode": "difficult",
+        "source": "CART",
+        "hint": "A short period or occasion of a particular kind",
+        "answer": "BOUT"
+    },
+    {
+        "mode": "difficult",
+        "source": "CALL",
+        "hint": "A round container used for holding food or liquid",
+        "answer": "BOWL"
+    },
+    {
+        "mode": "difficult",
+        "source": "CANS",
+        "hint": "Young male children",
+        "answer": "BOYS"
+    },
+    {
+        "mode": "difficult",
+        "source": "BOLT",
+        "hint": "To boast about yourself or your achievements",
+        "answer": "BRAG"
+    },
+    {
+        "mode": "difficult",
+        "source": "BOMB",
+        "hint": "Garments worn by women to support the breasts",
+        "answer": "BRAS"
+    },
+    {
+        "mode": "difficult",
+        "source": "BOND",
+        "hint": "To make beer or another drink",
+        "answer": "BREW"
+    },
+    {
+        "mode": "difficult",
+        "source": "BONE",
+        "hint": "A male deer or male animal of certain species",
+        "answer": "BUCK"
+    },
+    {
+        "mode": "difficult",
+        "source": "BOOM",
+        "hint": "The large size or main mass of something",
+        "answer": "BULK"
+    },
+    {
+        "mode": "difficult",
+        "source": "BOOK",
+        "hint": "A male cow",
+        "answer": "BULL"
+    },
+    {
+        "mode": "difficult",
+        "source": "BOOT",
+        "hint": "To strike or hit into something, or a raised swelling",
+        "answer": "BUMP"
+    },
+    {
+        "mode": "difficult",
+        "source": "BOSS",
+        "hint": "To suffer injury from fire or extreme heat",
+        "answer": "BURN"
+    },
+    {
+        "mode": "difficult",
+        "source": "BORN",
+        "hint": "A shrub or low woody plant",
+        "answer": "BUSH"
+    },
+    {
+        "mode": "difficult",
+        "source": "BOTH",
+        "hint": "Occupied or engaged with activity",
+        "answer": "BUSY"
+    },
+    {
+        "mode": "difficult",
+        "source": "XYEZ",
+        "hint": "A small restaurant or place serving coffee and light food",
+        "answer": "CAFE"
+    },
+    {
+        "mode": "difficult",
+        "source": "YXEZ",
+        "hint": "An enclosure used to keep an animal",
+        "answer": "CAGE"
+    },
+    {
+        "mode": "difficult",
+        "source": "EXZY",
+        "hint": "A baked food made from flour, often sweet",
+        "answer": "CAKE"
+    },
+    {
+        "mode": "difficult",
+        "source": "BOWL",
+        "hint": "To contact someone by telephone",
+        "answer": "CALL"
+    },
+    {
+        "mode": "difficult",
+        "source": "CHIN",
+        "hint": "Quiet and peaceful",
+        "answer": "CALM"
+    },
+    {
+        "mode": "difficult",
+        "source": "CHIP",
+        "hint": "Past tense of 'come'",
+        "answer": "CAME"
+    },
+    {
+        "mode": "difficult",
+        "source": "CITY",
+        "hint": "A place where people stay temporarily in tents or vehicles",
+        "answer": "CAMP"
+    },
+    {
+        "mode": "difficult",
+        "source": "CHOP",
+        "hint": "A tall plant with a long stem, often used for food",
+        "answer": "CANE"
+    },
+    {
+        "mode": "difficult",
+        "source": "BOYS",
+        "hint": "Metal containers used for holding food or drinks",
+        "answer": "CANS"
+    },
+    {
+        "mode": "difficult",
+        "source": "ZXDY",
+        "hint": "A small rectangular piece used to identify or pay for something",
+        "answer": "CARD"
+    },
+    {
+        "mode": "difficult",
+        "source": "EZXY",
+        "hint": "Concern or attention given to someone or something",
+        "answer": "CARE"
+    },
+    {
+        "mode": "difficult",
+        "source": "CLUE",
+        "hint": "Plural of 'car'",
+        "answer": "CARS"
+    },
+    {
+        "mode": "difficult",
+        "source": "BOUT",
+        "hint": "A wheeled vehicle used for carrying things",
+        "answer": "CART"
+    },
+    {
+        "mode": "difficult",
+        "source": "XZEY",
+        "hint": "A situation or example of something",
+        "answer": "CASE"
+    },
+    {
+        "mode": "difficult",
+        "source": "XZHY",
+        "hint": "Money in the form of coins or banknotes",
+        "answer": "CASH"
+    },
+    {
+        "mode": "difficult",
+        "source": "CODE",
+        "hint": "To throw something, often a fishing line or a performer onto a stage",
+        "answer": "CAST"
+    },
+    {
+        "mode": "difficult",
+        "source": "COIN",
+        "hint": "Plural of 'cat'",
+        "answer": "CATS"
+    },
+    {
+        "mode": "difficult",
+        "source": "COLD",
+        "hint": "A hollow place or opening in rock or earth",
+        "answer": "CAVE"
+    },
+    {
+        "mode": "difficult",
+        "source": "XLYZ",
+        "hint": "A small room or unit within a larger structure",
+        "answer": "CELL"
+    },
+    {
+        "mode": "difficult",
+        "source": "YTZX",
+        "hint": "To talk informally with someone",
+        "answer": "CHAT"
+    },
+    {
+        "mode": "difficult",
+        "source": "YZFX",
+        "hint": "A professional cook",
+        "answer": "CHEF"
+    },
+    {
+        "mode": "difficult",
+        "source": "CALM",
+        "hint": "The part of the face below the mouth",
+        "answer": "CHIN"
+    },
+    {
+        "mode": "difficult",
+        "source": "CAME",
+        "hint": "A small piece broken or cut from something",
+        "answer": "CHIP"
+    },
+    {
+        "mode": "difficult",
+        "source": "CAMP",
+        "hint": "A large town or urban area",
+        "answer": "CITY"
+    },
+    {
+        "mode": "difficult",
+        "source": "CANE",
+        "hint": "To cut into pieces with a heavy knife",
+        "answer": "CHOP"
+    },
+    {
+        "mode": "difficult",
+        "source": "NXZY",
+        "hint": "A group of people related by family or ancestry",
+        "answer": "CLAN"
+    },
+    {
+        "mode": "difficult",
+        "source": "YZJX",
+        "hint": "A soft natural material made from fine particles used in pottery",
+        "answer": "CLAY"
+    },
+    {
+        "mode": "difficult",
+        "source": "CARS",
+        "hint": "A piece of information that helps solve a problem or mystery",
+        "answer": "CLUE"
+    },
+    {
+        "mode": "difficult",
+        "source": "XLZY",
+        "hint": "A black combustible rock used as fuel",
+        "answer": "COAL"
+    },
+    {
+        "mode": "difficult",
+        "source": "XZYT",
+        "hint": "An outer garment worn over other clothes",
+        "answer": "COAT"
+    },
+    {
+        "mode": "difficult",
+        "source": "CAST",
+        "hint": "A system of symbols or rules used to represent information",
+        "answer": "CODE"
+    },
+    {
+        "mode": "difficult",
+        "source": "COIN",
+        "hint": "Plural of 'cat'",
+        "answer": "CATS"
+    },
+    {
+        "mode": "difficult",
+        "source": "CAVE",
+        "hint": "Having a low temperature",
+        "answer": "COLD"
+    },
+    {
+        "mode": "difficult",
+        "source": "CREW",
+        "hint": "A device used to hold or arrange hair",
+        "answer": "COMB"
+    },
+    {
+        "mode": "difficult",
+        "source": "CRAB",
+        "hint": "To move or travel toward a place",
+        "answer": "COME"
+    },
+    {
+        "mode": "difficult",
+        "source": "CUBE",
+        "hint": "To prepare food using heat",
+        "answer": "COOK"
+    },
+    {
+        "mode": "difficult",
+        "source": "CURE",
+        "hint": "Having a low temperature or lacking warmth",
+        "answer": "COOL"
+    },
+    {
+        "mode": "difficult",
+        "source": "EYZX",
+        "hint": "To deal successfully with something difficult",
+        "answer": "COPE"
+    },
+    {
+        "mode": "difficult",
+        "source": "YZXJ",
+        "hint": "To reproduce words or images from another source",
+        "answer": "COPY"
+    },
+    {
+        "mode": "difficult",
+        "source": "CUTE",
+        "hint": "A thick strong string or wire used for tying",
+        "answer": "CORD"
+    },
+    {
+        "mode": "difficult",
+        "source": "DARK",
+        "hint": "The central or most important part of something",
+        "answer": "CORE"
+    },
+    {
+        "mode": "difficult",
+        "source": "DEBT",
+        "hint": "The price or expense of something",
+        "answer": "COST"
+    },
+    {
+        "mode": "difficult",
+        "source": "DOOR",
+        "hint": "Comfortable, warm and pleasantly snug",
+        "answer": "COZY"
+    },
+    {
+        "mode": "difficult",
+        "source": "COME",
+        "hint": "A crustacean with claws and a hard shell",
+        "answer": "CRAB"
+    },
+    {
+        "mode": "difficult",
+        "source": "COMB",
+        "hint": "A group of people working together",
+        "answer": "CREW"
+    },
+    {
+        "mode": "difficult",
+        "source": "PXYZ",
+        "hint": "A plant grown and harvested for food or other use",
+        "answer": "CROP"
+    },
+    {
+        "mode": "difficult",
+        "source": "ZWYX",
+        "hint": "A large black bird known for its distinctive call",
+        "answer": "CROW"
+    },
+    {
+        "mode": "difficult",
+        "source": "COOK",
+        "hint": "A solid object with six equal square faces",
+        "answer": "CUBE"
+    },
+    {
+        "mode": "difficult",
+        "source": "COOL",
+        "hint": "A treatment that restores health or eliminates an illness",
+        "answer": "CURE"
+    },
+    {
+        "mode": "difficult",
+        "source": "CORD",
+        "hint": "Attractive or endearing in a pleasing way",
+        "answer": "CUTE"
+    },
+    {
+        "mode": "difficult",
+        "source": "CORE",
+        "hint": "Having little or no light",
+        "answer": "DARK"
+    },
+    {
+        "mode": "difficult",
+        "source": "AYZX",
+        "hint": "Information, especially numerical information used for analysis",
+        "answer": "DATA"
+    },
+    {
+        "mode": "difficult",
+        "source": "XEYZ",
+        "hint": "A particular day of the month or year",
+        "answer": "DATE"
+    },
+    {
+        "mode": "difficult",
+        "source": "NXYZ",
+        "hint": "The first light or beginning of a day",
+        "answer": "DAWN"
+    },
+    {
+        "mode": "difficult",
+        "source": "DECK",
+        "hint": "More than one day",
+        "answer": "DAYS"
+    },
+    {
+        "mode": "difficult",
+        "source": "ZDYX",
+        "hint": "No longer alive",
+        "answer": "DEAD"
+    },
+    {
+        "mode": "difficult",
+        "source": "LYXZ",
+        "hint": "To distribute or negotiate something",
+        "answer": "DEAL"
+    },
+    {
+        "mode": "difficult",
+        "source": "RXYZ",
+        "hint": "Loved or cherished",
+        "answer": "DEAR"
+    },
+    {
+        "mode": "difficult",
+        "source": "COST",
+        "hint": "Something owed to another person or organization",
+        "answer": "DEBT"
+    },
+    {
+        "mode": "difficult",
+        "source": "DAYS",
+        "hint": "A platform or floor, especially on a ship",
+        "answer": "DECK"
+    },
+    {
+        "mode": "difficult",
+        "source": "DIAL",
+        "hint": "Extending far downward or inward",
+        "answer": "DEEP"
+    },
+    {
+        "mode": "difficult",
+        "source": "XRYZ",
+        "hint": "A hoofed animal related to the antelope and elk",
+        "answer": "DEER"
+    },
+    {
+        "mode": "difficult",
+        "source": "YKXZ",
+        "hint": "A piece of furniture used for working or studying",
+        "answer": "DESK"
+    },
+    {
+        "mode": "difficult",
+        "source": "DEEP",
+        "hint": "A numbered face or control on a device used to select something",
+        "answer": "DIAL"
+    },
+    {
+        "mode": "difficult",
+        "source": "EZXY",
+        "hint": "Small cubes used in many games",
+        "answer": "DICE"
+    },
+    {
+        "mode": "difficult",
+        "source": "YZTX",
+        "hint": "The food and drink regularly consumed by a person",
+        "answer": "DIET"
+    },
+    {
+        "mode": "difficult",
+        "source": "DOSE",
+        "hint": "Soil or earth",
+        "answer": "DIRT"
+    },
+    {
+        "mode": "difficult",
+        "source": "DOWN",
+        "hint": "A shallow container used for cooking or washing",
+        "answer": "DISH"
+    },
+    {
+        "mode": "difficult",
+        "source": "DRAW",
+        "hint": "A storage device used for recording computer information",
+        "answer": "DISK"
+    },
+    {
+        "mode": "difficult",
+        "source": "COZY",
+        "hint": "A hinged structure used to enter or leave a building",
+        "answer": "DOOR"
+    },
+    {
+        "mode": "difficult",
+        "source": "DIRT",
+        "hint": "An amount of medicine taken at one time",
+        "answer": "DOSE"
+    },
+    {
+        "mode": "difficult",
+        "source": "DISH",
+        "hint": "Toward a lower position or place",
+        "answer": "DOWN"
+    },
+    {
+        "mode": "difficult",
+        "source": "DISK",
+        "hint": "To create a picture using a pencil, pen, or other tool",
+        "answer": "DRAW"
+    },
+    {
+        "mode": "difficult",
+        "source": "DUCK",
+        "hint": "A sleeping or resting period, or a short reduction in size",
+        "answer": "DROP"
+    },
+    {
+        "mode": "difficult",
+        "source": "ZXYM",
+        "hint": "A musical instrument commonly played by striking its stretched surface",
+        "answer": "DRUM"
+    },
+    {
+        "mode": "difficult",
+        "source": "KZXY",
+        "hint": "A bird that swims and has a broad bill",
+        "answer": "DUCK"
+    },
+    {
+        "mode": "difficult",
+        "source": "XZKY",
+        "hint": "A bird that swims and has a broad bill",
+        "answer": "DUCK"
+    },
+    {
+        "mode": "difficult",
+        "source": "DROP",
+        "hint": "Lacking sharpness or excitement",
+        "answer": "DULL"
+    },
+    {
+        "mode": "difficult",
+        "source": "YZXT",
+        "hint": "Very small particles of dirt or earth",
+        "answer": "DUST"
+    },
+    {
+        "mode": "difficult",
+        "source": "DUTY",
+        "hint": "Not difficult; requiring little effort",
+        "answer": "EASY"
+    },
+    {
+        "mode": "difficult",
+        "source": "EACH",
+        "hint": "The boundary or side of something",
+        "answer": "EDGE"
+    },
+    {
+        "mode": "difficult",
+        "source": "ELSE",
+        "hint": "To receive money or a living through work",
+        "answer": "EARN"
+    },
+    {
+        "mode": "difficult",
+        "source": "ZXYE",
+        "hint": "To make something less tense or more comfortable",
+        "answer": "EASE"
+    },
+    {
+        "mode": "difficult",
+        "source": "EVER",
+        "hint": "The direction where the sun rises",
+        "answer": "EAST"
+    },
+    {
+        "mode": "difficult",
+        "source": "EASY",
+        "hint": "Simple or requiring little effort",
+        "answer": "DUTY"
+    },
+    {
+        "mode": "difficult",
+        "source": "EDGE",
+        "hint": "Every one considered separately",
+        "answer": "EACH"
+    },
+    {
+        "mode": "difficult",
+        "source": "EARN",
+        "hint": "In addition to or instead of something already mentioned",
+        "answer": "ELSE"
+    },
+    {
+        "mode": "difficult",
+        "source": "NYXZ",
+        "hint": "An even number or something level and equal",
+        "answer": "EVEN"
+    },
+    {
+        "mode": "difficult",
+        "source": "EAST",
+        "hint": "At any time; at some point",
+        "answer": "EVER"
+    },
+    {
+        "mode": "difficult",
+        "source": "EXAM",
+        "hint": "Wrong or wicked",
+        "answer": "EVIL"
+    },
+    {
+        "mode": "difficult",
+        "source": "EVIL",
+        "hint": "A formal test of knowledge or ability",
+        "answer": "EXAM"
+    },
+    {
+        "mode": "difficult",
+        "source": "EXYZ",
+        "hint": "The front part of the head",
+        "answer": "FACE"
+    },
+    {
+        "mode": "difficult",
+        "source": "FEED",
+        "hint": "Information or evidence used to establish something",
+        "answer": "FACT"
+    },
+    {
+        "mode": "difficult",
+        "source": "YXZE",
+        "hint": "To change colour or appearance",
+        "answer": "FADE"
+    },
+    {
+        "mode": "difficult",
+        "source": "FEET",
+        "hint": "To not succeed at something",
+        "answer": "FAIL"
+    },
+    {
+        "mode": "difficult",
+        "source": "FELL",
+        "hint": "Without favouritism; treating people equally",
+        "answer": "FAIR"
+    },
+    {
+        "mode": "difficult",
+        "source": "EXYZ",
+        "hint": "A person's good reputation or public image",
+        "answer": "FAME"
+    },
+    {
+        "mode": "difficult",
+        "source": "FILE",
+        "hint": "Land used for growing crops or raising animals",
+        "answer": "FARM"
+    },
+    {
+        "mode": "difficult",
+        "source": "FILL",
+        "hint": "Moving or happening quickly",
+        "answer": "FAST"
+    },
+    {
+        "mode": "difficult",
+        "source": "FILM",
+        "hint": "The condition of being likely to happen or the intended outcome",
+        "answer": "FATE"
+    },
+    {
+        "mode": "difficult",
+        "source": "XRZY",
+        "hint": "A strong unpleasant feeling caused by danger or threat",
+        "answer": "FEAR"
+    },
+    {
+        "mode": "difficult",
+        "source": "FACT",
+        "hint": "To give someone food",
+        "answer": "FEED"
+    },
+    {
+        "mode": "difficult",
+        "source": "LYXZ",
+        "hint": "To experience or perceive something through the senses",
+        "answer": "FEEL"
+    },
+    {
+        "mode": "difficult",
+        "source": "FAIL",
+        "hint": "Plural of foot",
+        "answer": "FEET"
+    },
+    {
+        "mode": "difficult",
+        "source": "FAIR",
+        "hint": "Past tense of fall",
+        "answer": "FELL"
+    },
+    {
+        "mode": "difficult",
+        "source": "YXTZ",
+        "hint": "A type of fabric traditionally made by matting fibers",
+        "answer": "FELT"
+    },
+    {
+        "mode": "difficult",
+        "source": "FARM",
+        "hint": "A collection of papers or documents kept together",
+        "answer": "FILE"
+    },
+    {
+        "mode": "difficult",
+        "source": "FAST",
+        "hint": "To put something inside or make something full",
+        "answer": "FILL"
+    },
+    {
+        "mode": "difficult",
+        "source": "FATE",
+        "hint": "A motion picture",
+        "answer": "FILM"
+    },
+    {
+        "mode": "difficult",
+        "source": "FLAT",
+        "hint": "To discover or locate something",
+        "answer": "FIND"
+    },
+    {
+        "mode": "difficult",
+        "source": "YXZE",
+        "hint": "A precise or excellent example of something",
+        "answer": "FINE"
+    },
+    {
+        "mode": "difficult",
+        "source": "YEZX",
+        "hint": "A flame or the process of burning",
+        "answer": "FIRE"
+    },
+    {
+        "mode": "difficult",
+        "source": "FLOW",
+        "hint": "Having a strong or solid character; determined",
+        "answer": "FIRM"
+    },
+    {
+        "mode": "difficult",
+        "source": "FOOD",
+        "hint": "An animal that lives in water and has gills",
+        "answer": "FISH"
+    },
+    {
+        "mode": "difficult",
+        "source": "FOOT",
+        "hint": "The number represented by the Roman numeral V",
+        "answer": "FIVE"
+    },
+    {
+        "mode": "difficult",
+        "source": "FIND",
+        "hint": "Level, smooth and without bumps",
+        "answer": "FLAT"
+    },
+    {
+        "mode": "difficult",
+        "source": "WXYZ",
+        "hint": "Past tense of fly",
+        "answer": "FLEW"
+    },
+    {
+        "mode": "difficult",
+        "source": "PXZY",
+        "hint": "To turn or rotate quickly",
+        "answer": "FLIP"
+    },
+    {
+        "mode": "difficult",
+        "source": "FIRM",
+        "hint": "To move continuously in a particular direction",
+        "answer": "FLOW"
+    },
+    {
+        "mode": "difficult",
+        "source": "FISH",
+        "hint": "Something eaten to provide nourishment",
+        "answer": "FOOD"
+    },
+    {
+        "mode": "difficult",
+        "source": "FIVE",
+        "hint": "The lowest part of the leg below the ankle",
+        "answer": "FOOT"
+    },
+    {
+        "mode": "difficult",
+        "source": "ZYKX",
+        "hint": "An implement with two or more prongs used for eating",
+        "answer": "FORK"
+    },
+    {
+        "mode": "difficult",
+        "source": "FUEL",
+        "hint": "The shape or structure of something",
+        "answer": "FORM"
+    },
+    {
+        "mode": "difficult",
+        "source": "YRXZ",
+        "hint": "The number 4",
+        "answer": "FOUR"
+    },
+    {
+        "mode": "difficult",
+        "source": "ZEXY",
+        "hint": "Not under the control or ownership of another",
+        "answer": "FREE"
+    },
+    {
+        "mode": "difficult",
+        "source": "YZMX",
+        "hint": "Indicating the starting point or origin of something",
+        "answer": "FROM"
+    },
+    {
+        "mode": "difficult",
+        "source": "FORM",
+        "hint": "Material burned to produce energy",
+        "answer": "FUEL"
+    },
+    {
+        "mode": "difficult",
+        "source": "GIRL",
+        "hint": "Containing all of something; complete",
+        "answer": "FULL"
+    },
+    {
+        "mode": "difficult",
+        "source": "GENE",
+        "hint": "Money set aside for a particular purpose",
+        "answer": "FUND"
+    },
+    {
+        "mode": "difficult",
+        "source": "XYZN",
+        "hint": "To obtain or receive something",
+        "answer": "GAIN"
+    },
+    {
+        "mode": "difficult",
+        "source": "GIFT",
+        "hint": "An activity or contest played for entertainment",
+        "answer": "GAME"
+    }
+]
