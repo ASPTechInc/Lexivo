@@ -81,15 +81,25 @@ jobs:
           echo "Extracted Version: $VERSION"
 
       - name: Create and populate keystore.properties
+        env:
+          KEYSTORE_FILE_NAME: ${{ secrets.KEYSTORE_FILE_NAME }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
-          echo "storeFile=${{ secrets.KEYSTORE_FILE_NAME }}" > android/app/keystore.properties
-          echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" >> android/app/keystore.properties
-          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/app/keystore.properties
-          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/app/keystore.properties
+          if [ -z "$KEYSTORE_FILE_NAME" ]; then echo "Error: KEYSTORE_FILE_NAME secret is empty"; exit 1; fi
+          echo "storeFile=$KEYSTORE_FILE_NAME" > android/app/keystore.properties
+          echo "storePassword=$KEYSTORE_PASSWORD" >> android/app/keystore.properties
+          echo "keyAlias=$KEY_ALIAS" >> android/app/keystore.properties
+          echo "keyPassword=$KEY_PASSWORD" >> android/app/keystore.properties
 
       - name: Decode and write keystore file
+        env:
+          KEYSTORE_CONTENT: ${{ secrets.KEYSTORE_CONTENT }}
+          KEYSTORE_FILE_NAME: ${{ secrets.KEYSTORE_FILE_NAME }}
         run: |
-          echo "${{ secrets.KEYSTORE_CONTENT }}" | base64 --decode > android/app/${{ secrets.KEYSTORE_FILE_NAME }}
+          if [ -z "$KEYSTORE_CONTENT" ]; then echo "Error: KEYSTORE_CONTENT secret is empty"; exit 1; fi
+          echo "$KEYSTORE_CONTENT" | base64 --decode > android/app/$KEYSTORE_FILE_NAME
 
       - name: Build release APK and bundle
         run: |
