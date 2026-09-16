@@ -15,8 +15,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: Release
+    environment: release
     if: github.actor != 'dependabot[bot]' # Skip the entire workflow for Dependabot pull requests
+
     env:
       ANDROID_HOME: ${{ vars.ANDROID_HOME || '/usr/local/lib/android/sdk' }}
       GRADLE_USER_HOME: ${{ github.workspace }}/.gradle_home
@@ -46,7 +47,7 @@ jobs:
             exit 1
           fi
 
-      # Build/release steps go here
+      # Build/release steps
       - name: Set up JDK 17
         uses: actions/setup-java@v6
         with:
@@ -81,36 +82,82 @@ jobs:
           echo "$VERSION" > version.txt
           echo "Extracted Version: $VERSION"
 
-      - name: Create and populate keystore.properties
+      - name: Prepare Android signing
+        shell: bash
         env:
           KEYSTORE_FILE_NAME: ${{ secrets.KEYSTORE_FILE_NAME }}
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: |
-          if [ -z "$KEYSTORE_FILE_NAME" ]; then echo "Error: KEYSTORE_FILE_NAME secret is empty"; exit 1; fi
-          echo "storeFile=$KEYSTORE_FILE_NAME" > android/app/keystore.properties
-          echo "storePassword=$KEYSTORE_PASSWORD" >> android/app/keystore.properties
-          echo "keyAlias=$KEY_ALIAS" >> android/app/keystore.properties
-          echo "keyPassword=$KEY_PASSWORD" >> android/app/keystore.properties
-
-      - name: Decode and write keystore file
-        env:
           KEYSTORE_CONTENT: ${{ secrets.KEYSTORE_CONTENT }}
-          KEYSTORE_FILE_NAME: ${{ secrets.KEYSTORE_FILE_NAME }}
         run: |
-          if [ -z "$KEYSTORE_CONTENT" ]; then echo "Error: KEYSTORE_CONTENT secret is empty"; exit 1; fi
-          echo "$KEYSTORE_CONTENT" | base64 --decode > android/app/$KEYSTORE_FILE_NAME
+          set -euo pipefail
+          
+          # Validate that GitHub injected the secrets.
+          for name in \
+            KEYSTORE_FILE_NAME \
+            KEYSTORE_PASSWORD \
+            KEY_ALIAS \
+            KEY_PASSWORD \
+            KEYSTORE_CONTENT
+          do
+            if [[ -z "${!name:-}" ]]; then
+              echo "::error::$name was not provided by GitHub Actions"
+              exit 1
+            fi
+          done
+          
+          echo "Signing secrets are available."
+          
+          # Decode keystore
+          KEYSTORE_PATH="android/app/$KEYSTORE_FILE_NAME"
+          
+          printf '%s' "$KEYSTORE_CONTENT" \
+            | base64 --decode \
+            > "$KEYSTORE_PATH"
+          
+          if [[ ! -s "$KEYSTORE_PATH" ]]; then
+            echo "::error::Decoded keystore is empty"
+            exit 1
+          fi
+          
+          # Create signing configuration.
+          cat > android/app/keystore.properties <<EOF
+          storeFile=$KEYSTORE_FILE_NAME
+          storePassword=$KEYSTORE_PASSWORD
+          keyAlias=$KEY_ALIAS
+          keyPassword=$KEY_PASSWORD
+          EOF
+          
+          chmod 600 android/app/keystore.properties
+          
+          echo "Android signing configuration prepared."
 
       - name: Build release APK and bundle
         run: |
+          set -euo pipefail
+          
           ./gradlew :app:assembleRelease :app:bundleRelease -PsingleAbiDev=false --no-daemon
+          
+          APK="app/build/outputs/apk/release/app-release.apk"
+          AAB="app/build/outputs/bundle/release/app-release.aab"
+          
+          if [[ ! -f "$APK" ]]; then
+            echo "::error::Release APK was not created"
+            exit 1
+          fi
+          
+          if [[ ! -f "$AAB" ]]; then
+            echo "::error::Release AAB was not created"
+            exit 1
+          fi
+          
           # Rename outputs to match what the upload steps expect
-          cp app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/Lexivo.apk || cp app/build/outputs/apk/release/app-release-unsigned.apk app/build/outputs/apk/release/Lexivo.apk
-          cp app/build/outputs/bundle/release/app-release.aab app/build/outputs/bundle/release/Lexivo.aab || cp app/build/outputs/bundle/release/app-release-unsigned.aab app/build/outputs/bundle/release/Lexivo.aab
+          cp "$APK" app/build/outputs/apk/release/Lexivo.apk || cp app/build/outputs/apk/release/app-release-unsigned.apk app/build/outputs/apk/release/Lexivo.apk
+          cp "$AAB" app/build/outputs/bundle/release/Lexivo.aab || cp app/build/outputs/bundle/release/app-release-unsigned.aab app/build/outputs/bundle/release/Lexivo.aab
         working-directory: android
         env:
-          GITHUB_TOKEN: ${{ secrets.APP_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload APK artefact
         if: ${{ !env.ACT }} # Accounts for 'act' not having a ACTIONS_RUNTIME_TOKEN
@@ -134,11 +181,13 @@ jobs:
         with:
           name: version-file
           path: version.txt
+          retention-days: 1
 
   release:
     runs-on: ubuntu-latest
     if: github.actor != 'dependabot[bot]' && !github.event.act # Accounts for 'act' not having a ACTIONS_RUNTIME_TOKEN
     needs: build
+
     permissions:
       contents: write
 
@@ -168,6 +217,12 @@ jobs:
         id: get_version
         run: |
           VERSION=$(cat version.txt)
+          
+          if [[ -z "$VERSION" ]]; then 
+            echo "::error::version.txt is empty"
+            exit 1
+          fi
+          
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           mv Lexivo.apk Lexivo-v$VERSION.apk
           mv Lexivo.aab Lexivo-v$VERSION.aab
