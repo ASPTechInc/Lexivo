@@ -36,9 +36,7 @@
 
 Lexivo is a free open source (FOSS) cross-platform word puzzle game built with Rust and [egui/eframe](https://github.com/emilk/egui/). It challenges players to solve linguistic puzzles by transforming words through single-letter, double-letter or triple-letter changes and anagrams.
 
-<!-- [View app demo](https://drive.google.com/uc?export=view&id=1HQEoo5DwsR4VRLBrPJEGIopE5sz88mSM) -->
-
-![View app demo](https://lh3.googleusercontent.com/d/1HQEoo5DwsR4VRLBrPJEGIopE5sz88mSM)
+[View app demo](https://drive.google.com/uc?export=view&id=1HQEoo5DwsR4VRLBrPJEGIopE5sz88mSM)
 
 ---
 
