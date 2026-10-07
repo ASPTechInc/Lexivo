@@ -15,6 +15,8 @@
 - [Stop tracking files in Git](#stop-tracking-files-in-git)
 - [Enable GitHub pages](#enable-github-pages)
 - [Convert .mp4 to .gif](#convert-mp4-to-gif)
+- [Update or regenerate gradle-daemon-jvm properties](#update-or-regenerate-gradle-daemon-jvm-properties)
+-
 
 ---
 
@@ -1020,4 +1022,12 @@ gifsicle -O3 --lossy=80 output.gif -o optimised.gif
 <p align="center">
     <img src="optimised.gif" width="600" alt="App demo">
 </p>
+```
+
+---
+
+## Update or regenerate gradle-daemon-jvm properties
+
+```bash
+./gradlew updateDaemonJvm --jvm-version 17
 ```
