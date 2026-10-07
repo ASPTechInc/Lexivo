@@ -14,6 +14,7 @@
 - [Test GitHub workflows locally](#testing-github-workflows-locally)
 - [Stop tracking files in Git](#stop-tracking-files-in-git)
 - [Enable GitHub pages](#enable-github-pages)
+- [Convert .mp4 to .gif](#convert-mp4-to-gif)
 
 ---
 
@@ -935,13 +936,13 @@ ANDROID_HOME=/<path-to-directory>/Android/Sdk
    # act -j trunk -W .github/workflows/rust.yml --rm --network host
    
    # Run 'build' job from 'release.yml' workflow
-   act -j build -W .github/workflows/release.yml
+   act --secret-file .secrets --container-options "-v <path-to-android-sdk>/Android/Sdk:/opt/android-sdk" --env ANDROID_HOME=/opt/android-sdk -j build -W .github/workflows/release.yml
    
    # Run 'clippy' job from 'rust.yml' workflow
    act -j clippy -W .github/workflows/rust.yml
    
    # Run 'release.yml' workflow in dryrun mode
-   act -n -W .github/workflows/release.yml
+   act --secret-file .secrets --container-options "-v <path-to-android-sdk>/Android/Sdk:/opt/android-sdk" --env ANDROID_HOME=/opt/android-sdk -n -W .github/workflows/release.yml
    ```
    
 4. **Dry run (to see what steps would run without executing them):**
@@ -994,3 +995,29 @@ Follow these steps to enable GitHub Pages for the repository,
    
 
 After following these steps, go to the GitHub page, https://asptechinc.github.io/Lexivo. A 404 error message will be displayed if the repository is private or an issue occurred.
+
+---
+
+## Convert MP4 to GIF
+
+### Install ffmpeg & gificle
+
+- Linux (Ubuntu/Debian): `sudo apt update && sudo apt install ffmpeg gifsicle`
+- macOS: `brew install ffmpeg gifsicle`
+- Windows: Install via `winget install ffmpeg` or download from [ffmpeg.org](https://ffmpeg.org/).
+
+```bash
+
+ffmpeg -i input.mp4 -vf "fps=15,scale=720:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" output.gif
+
+# Lossy compression
+gifsicle -O3 --lossy=80 output.gif -o optimised.gif
+```
+
+### Insert GIF in README.md
+
+```html
+<p align="center">
+    <img src="optimised.gif" width="600" alt="App demo">
+</p>
+```
