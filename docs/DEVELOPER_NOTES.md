@@ -16,7 +16,7 @@
 - [Enable GitHub pages](#enable-github-pages)
 - [Convert .mp4 to .gif](#convert-mp4-to-gif)
 - [Update or regenerate gradle-daemon-jvm properties](#update-or-regenerate-gradle-daemon-jvm-properties)
--
+- [Rewriting commit history](#rewriting-commit-history)
 
 ---
 
@@ -243,11 +243,11 @@ git push origin v1.0.0
 
 #### Rebuild an existing tag
 
-> Replace v1.0 with the actual tag version. Ensure that all commits has been pushed to GitHub
+> Replace v1.0.0 with the actual tag version. Ensure that all commits has been pushed to GitHub
 > before running the command below so that the tag would include the latest changes
 
 ```bash
-git tag -f v1.0 && git push origin v1.0 --force
+git tag -f v1.0.0 && git push origin v1.0.0 --force
 ```
 
 ---
@@ -1031,3 +1031,33 @@ gifsicle -O3 --lossy=80 output.gif -o optimised.gif
 ```bash
 ./gradlew updateDaemonJvm --jvm-version 17
 ```
+
+---
+
+## Rewriting commit history
+
+```bash
+# Install git-filter-repo
+python -m venv .venv
+source .venv/bin/activate
+pip install git-filter-repo
+
+# Rewrite commit history
+# GitHub name: ASPTechnologies Incorporation
+# GitHub email: 318654411+ASPTechInc@users.noreply.github.com
+cat > /tmp/mailmap <<'EOF'
+ASPTechnologies Incorporation <318654411+ASPTechInc@users.noreply.github.com> <commit-hash+<other-github-username>@users.noreply.github.com>
+EOF
+git filter-repo --mailmap /tmp/mailmap --force
+git remote add origin https://github.com/ASPTechInc/ClearNet.git   # filter-repo removes the remote
+
+
+# Check it then, force-push:
+git log --format='%an <%ae>' | sort | uniq -c
+git fetch origin
+git push --force-with-lease origin main
+git push --set-upstream origin main
+git stash pop
+```
+
+---

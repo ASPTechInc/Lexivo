@@ -67,3 +67,16 @@ updates:
     labels:
       - "dependencies"
       - "rust"
+
+    groups:
+      egui:
+        patterns:
+          - "egui*"
+          - "eframe" # Must move in lockstep with egui and egui-phosphor
+
+    ignore:
+      # egui-phosphor 0.14 only supports egui 0.36. Remove once a release supports 0.37.
+      - dependency-name: "egui"
+        versions: [">=0.37"]
+      - dependency-name: "eframe"
+        versions: [">=0.37"]
