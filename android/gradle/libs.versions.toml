@@ -1,5 +1,5 @@
 [versions]
-agp = "9.5.0"
+agp = "9.5.3"
 ktlint = "14.2.0"
 compileSdk = "37"
 targetSdk = "37"
